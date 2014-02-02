@@ -56,3 +56,14 @@ blockquote {
   font-size: 80% !important;
   color: #505058;
 }
+
+ul#recent_posts {
+  font-size: 80%;
+
+  li {
+    margin-bottom: 0em;
+    margin-top: 0em;
+    padding: 0;
+    border: none;
+  }
+}
