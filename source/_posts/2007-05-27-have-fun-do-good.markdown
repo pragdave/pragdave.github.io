@@ -6,9 +6,7 @@ comments: true
 categories: []
 ---
 
-  
-
-<img src="http://31.media.tumblr.com/ea773b8bc483fda24954d0d4facdcf6a/tumblr_myyqzvWudt1s6q3fbo1_1280.jpg"/>
+{%img /img/have_fun_be_good059.jpg Have Fun. Do Good.%}
 
 
 

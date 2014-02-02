@@ -3,42 +3,38 @@ layout: post
 title: "Superators: neat Ruby hack"
 date: 2007-08-29 19:00:00 -0600
 comments: true
-categories: []
+categories: [ "ruby" ]
 ---
 
 
-<img src="https://31.media.tumblr.com/bd9ba8aa2c8d17abd75432cf7ebfb6f3/tumblr_inline_my122iKmqY1rgo2z9.gif"/>
+{%imgcap right /img/superators.gif Image stolen from <a href="http://jicksta.com/">jicksta.com</a>%}
 
-Image stolen from <a href="http://jicksta.com/">jicksta.com</a>
+So, I’m not sure if Jay Phillips (of <a
+href="http://adhearsion.com/">Adhearsion</a> fame) is trying to annoy
+the purists with a remarkably Perlish hack in Ruby. I just know that
+his <a
+href="http://jicksta.com/articles/2007/08/29/superators-add-new-operators-to-ruby">superators</a> gem
+is a clever bit of pure Ruby code that allows you to apparently define
+new infix operators in Ruby programs. Imagine the joy of being able to
+write
 
-So, I’m not sure if Jay Phillips (of <a href="http://adhearsion.com/">Adhearsion</a> fame) is trying to annoy the purists with a remarkably Perlish hack in Ruby. I just know that his <a href="http://jicksta.com/articles/2007/08/29/superators-add-new-operators-to-ruby">superators</a> gem is a clever bit of pure Ruby code that allows you to apparently define new infix operators in Ruby programs. Imagine the joy of being able to write
 
 
-
-```
+``` ruby
 a /~ b
 
 ```
 
-
-
-and
-
-
+and ruby
 
 ```
 rocket <=- fuel
 
 ```
 
-
-
 You can with superators:
 
-
-
-```
-
+``` ruby
 require 'rubygems'
 require 'superators'
 
@@ -49,10 +45,17 @@ class String
 end
 ```
 
+Is this a good idea? I don’t know. I can see that it would have been
+useful in some DSLs that I’ve written. But I do think that it’s a
+wonderfully clever implementation (it doesn’t do anything nasty to the
+interpreter–it simply intercepts built-in operators (such
+as `<<=` and `-`) in my example above. And that’s what makes it
+great. Every now and then, just when you think you know Ruby. someone
+comes up with something—such as symbol.to_proc or superators—that
+makes you go “oh!.”
 
 
-Is this a good idea? I don’t know. I can see that it would have been useful in some DSLs that I’ve written. But I do think that it’s a wonderfully clever implementation (it doesn’t do anything nasty to the interpreter–it simply intercepts built-in operators (such as `<<=` and `-`) in my example above. And that’s what makes it great. Every now and then, just when you think you know Ruby. someone comes up with something—such as symbol.to_proc or superators—that makes you go “oh!.”
-
-
-Every long-lasting relationship needs the occasional surprise to keep it interesting and fun. This kind of hack is one of the reasons I love Ruby.
+Every long-lasting relationship needs the occasional surprise to keep
+it interesting and fun. This kind of hack is one of the reasons I love
+Ruby.
 

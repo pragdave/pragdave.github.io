@@ -11,8 +11,5 @@ categories: []
 rake gerbils:deploy
 ```
 
-
-
-
 Cry “Havoc!” and let slip the rodents of PDF generation.
 

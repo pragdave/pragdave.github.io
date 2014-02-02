@@ -1,16 +1,21 @@
 ---
 layout: post
-title: "BabyDoc  "
+title: "BabyDoc"
 date: 2008-04-08 19:00:00 -0600
 comments: true
-categories: []
+categories: [ "ruby" ]
 ---
 
-One of the fun thigs about updating the PickAxe is getting to come up with examples to show the various APIs in action. Here’s a very silly example of using Ripper’s event-based API to extract comments that are associated with basic class definitions. It clearly has holes (it doesn’t handle `class A::B::C`, for instance) but it’s fairly easy to see how to add a proper state machine and produce something that might be interesting to play with…
+One of the fun thigs about updating the PickAxe is getting to come up
+with examples to show the various APIs in action. Here’s a very silly
+example of using Ripper’s event-based API to extract comments that are
+associated with basic class definitions. It clearly has holes (it
+doesn’t handle `class A::B::C`, for instance) but it’s fairly easy to
+see how to add a proper state machine and produce something that might
+be interesting to play with…
 
 
-
-```
+``` ruby
 require 'ripper'
 
 # This class handles parser events, extracting
@@ -60,11 +65,8 @@ BabyRDoc.new(File.read(__FILE__)).parse(STDOUT)
 
 ```
 
-
-
-Run this with Ruby 1.9 (or, I guess, 1.8 with Ripper installed), and you’ll see
-
-
+Run this with Ruby 1.9 (or, I guess, 1.8 with Ripper installed), and
+you’ll see
 
 ```
 BabyRDoc: 

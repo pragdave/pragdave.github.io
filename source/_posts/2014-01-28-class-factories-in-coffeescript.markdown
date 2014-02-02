@@ -3,7 +3,7 @@ layout: post
 title: "Class factories in Coffeescript"
 date: 2014-01-28 20:29:00 -0600
 comments: true
-categories: [ "coffeescript", "javascript" ]
+categories: [ "coffeescript", "javascript", "design" ]
 ---
 
 
@@ -42,7 +42,7 @@ The initialization code to create these objects will look something like
 
 
 ``` javascript
-$(".widget").map(function (_,el) {     return Widget.for_element($(el))})
+$(".widget").map(function (_,el) { return Widget.for_element($(el)) })
 ```
 
 Here’s what I came up with for the `for_element` factory method.

@@ -7,10 +7,10 @@ categories: [music]
 ---
 
 
-<audio controls="yes" src="https%3A%2F%2Fwww.tumblr.com%2Faudio_file%2Fpragdave%2F72411079283%2Ftumblr_myystcnez21s6q3fb"/>
-
-
-
+{%dtaudio 56%}
     
-I decided a while back to publish the music I’m writing, if nothing else as a way of keeping myself honest. So, here’s a little piece of fluff I wrote just to play with time signatures—alternating 5/8 and 6/8 has a nice drive to it. It’s played by my music teacher.
+I decided a while back to publish the music I’m writing, if nothing
+else as a way of keeping myself honest. So, here’s a little piece of
+fluff I wrote just to play with time signatures—alternating 5/8 and
+6/8 has a nice drive to it. It’s played by my music teacher.
 

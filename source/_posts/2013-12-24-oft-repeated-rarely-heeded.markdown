@@ -7,9 +7,7 @@ categories: []
 ---
 
   
-
-<img src="http://25.media.tumblr.com/732a3f8b634809d1f4e8dee3e2cd896f/tumblr_myytbysbAP1s6q3fbo1_1280.jpg"/>
-
+{%img /img/anecdote.jpg%}
 
 
 

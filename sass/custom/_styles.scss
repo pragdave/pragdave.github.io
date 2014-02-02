@@ -11,3 +11,48 @@
     margin-bottom: 0.4em;
   }
 }
+
+@mixin reset-shadow-box() {
+  @include shadow-box(0px, 0px, 0px);
+}
+
+article {
+  img, video, .flash-video, .caption-wrapper {
+    @extend .flex-content;
+    @extend .basic-alignment;
+    @include shadow-box;
+    &.caption {
+      @include reset-shadow-box;
+    }
+  }
+  .caption-wrapper {
+    display: inline-block;
+    margin-bottom: 0.2em;
+    .caption-text {
+      background: #fff;
+      text-align: center;
+      font-size: 60%;
+      color: #666;
+      display: block;
+    }
+  } 
+}
+
+.dt-audio {
+  float: right;
+  margin-left: 1em;
+  margin-bottom: .75em;  
+
+  .dt-cover {
+    @include shadow-box;
+    background: #dde;
+    text-align: center;
+    img {
+    }
+  }        
+}
+
+blockquote {
+  font-size: 80% !important;
+  color: #505058;
+}

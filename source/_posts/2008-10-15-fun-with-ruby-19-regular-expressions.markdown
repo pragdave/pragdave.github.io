@@ -3,21 +3,29 @@ layout: post
 title: "Fun with Ruby 1.9 Regular Expressions"
 date: 2008-10-15 19:00:00 -0600
 comments: true
-categories: []
+categories: [ "ruby" ]
 ---
 
-I’ve reorganized the regular expression content in the new Programming Ruby, and added some cool new advanced examples. This one’s fairly straightforward, but I love the fact that I can now start refactoring my more complex patterns, removing duplication.
+I’ve reorganized the regular expression content in the new Programming
+Ruby, and added some cool new advanced examples. This one’s fairly
+straightforward, but I love the fact that I can now start refactoring
+my more complex patterns, removing duplication.
 
 
-The stuff below is an extract from the unedited update. It’ll appear in the next beta. It follows a discussion of named groups, `\k` and related stuff.
+The stuff below is an extract from the unedited update. It’ll appear
+in the next beta. It follows a discussion of named groups, `\k` and
+related stuff.
+
+There’s a trick which allows us to write subroutines inside regular
+expressions. Recall that we can invoke a named group using `\g<name>`,
+and we deﬁne the group using `(?<name>...)`. Normally, the deﬁnition
+of the group is itself matched as part of executing the
+pattern. However, if you add the sufﬁx `{0}` to the group, it means
+“zero matches of this group,” so the group is not executed when ﬁrst
+encountered.
 
 
-
-There’s a trick which allows us to write subroutines inside regular expressions. Recall that we can invoke a named group using `\g<name>`, and we deﬁne the group using `(?<name>...)`. Normally, the deﬁnition of the group is itself matched as part of executing the pattern. However, if you add the sufﬁx `{0}` to the group, it means “zero matches of this group,” so the group is not executed when ﬁrst encountered.
-
-
-
-```
+``` ruby
 sentence = %r{ 
     (?<subject>   cat   | dog   | gerbil    ){0} 
     (?<verb>      eats  | drinks| generates ){0} 
@@ -40,11 +48,7 @@ puts "And the object in the last is #{$~[:object]}"
 
 ```
 
-
-
 _produces:_
-
-
 
 ```
 The subject is cat and the verb is drinks 
@@ -52,9 +56,5 @@ The adjective in the second sentence is smelly
 And the object in the last is PDFs 
 
 ```
-
-
-
-
 Cool, eh?
 
