@@ -10,6 +10,36 @@ h1.entry-title {
   color: rgb(51,51,51);
 }               
 
+header[role=banner] h2, 
+h1.entry-title, 
+.heading, 
+body>header h1, h1, h2, h3, h4, h5, h6  {
+    font-family: 'PT Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1.entry-title {
+  font-size: 2em !important;
+}             
+
+h1 {
+   font-size: 1.8em;
+   line-height: 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   margin-bottom: 0.4em;
+   color: rgb(51,51,51);
+   margin-top: 0.6em;
+}
+
+article header {
+  margin-bottom: 0.7em !important;
+}  
+
+p, article blockquote, ul, ol {
+    margin-bottom: 0.7em;
+}
+
 .footnotes {
   font-size: 70%;
   line-height: 1.2em;;

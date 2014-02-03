@@ -6,7 +6,7 @@ comments: true
 categories: [photos]
 ---
 
-{%img /img/water-tower.png%}
+{%img /img/water-tower.jpg%}
 
 
 
