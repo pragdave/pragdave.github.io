@@ -2,34 +2,48 @@
 // Add styles here to make changes without digging in too much
 
 
-header[role=banner] h2, h1.entry-title {
-    font-family: 'PT Sans', 'Helvetica Neue', Arial, sans-serif;
+header[role=banner] {
+    position: relative;
+    padding-bottom: 2em;
+    h1, h2 {
+        font-family: 'Merienda', cursive;
+    }
+    h1 { font-weight: 400; font-size: 340%; }
+    h2 { font-weight: 400; font-size: 80%; 
+         position: absolute;
+         z-index: 1;
+         bottom: -0.3em;
+         color: rgb(140,140,140);
+         text-shadow: rgb(51,51,51) 1px 1px 2px;
+       }
+
 }
 
-h1.entry-title {
-  color: rgb(51,51,51);
-}               
 
-header[role=banner] h2, 
-h1.entry-title, 
-.heading, 
-body>header h1, h1, h2, h3, h4, h5, h6  {
-    font-family: 'PT Sans', 'Helvetica Neue', Arial, sans-serif;
-}
-
-h1.entry-title {
-  font-size: 2em !important;
-}             
-
-h1 {
-   font-size: 1.8em;
-   line-height: 1em;
+h1.entry-title,
+.heading,
+h1, h2, h3, h4, h5, h6  {
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 600;
 }
 
 h1, h2, h3, h4, h5, h6 {
    margin-bottom: 0.4em;
    color: rgb(51,51,51);
    margin-top: 0.6em;
+}
+
+
+h1.entry-title {
+  font-size: 2em !important;
+  color: rgb(51,51,51);
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}             
+
+h1 {
+   font-size: 1.6em;
+   line-height: 1em;
 }
 
 article header {
@@ -40,6 +54,7 @@ p, article blockquote, ul, ol {
     margin-bottom: 0.7em;
 }
 
+
 .footnotes {
   font-size: 70%;
   line-height: 1.2em;;
@@ -49,6 +64,11 @@ p, article blockquote, ul, ol {
     margin-bottom: 0.4em;
   }
 }
+
+p {
+    line-height: 1.7em;
+}
+
 
 @mixin reset-shadow-box() {
   @include shadow-box(0px, 0px, 0px);
