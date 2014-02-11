@@ -174,7 +174,8 @@ become blurred, and the concepts would become less valuable.
 I was also nervous about the introduction of the word "Functional" in
 the article. Here's the context:
 
-### Learning From Functional Languages
+<blockquote>
+<h3> Learning From Functional Languages</h3>
 
 In my opinion this code is better than what I showed earlier. Why?
 They both work equally well. What’s the difference? Let’s take a look
@@ -211,6 +212,9 @@ end
 </td>
 </tr>
 </table>
+
+</blockquote>
+
 
 I think I'd argue that both pieces of code were equally
 functional. Perhaps the "functional" one is closer to nirvana as it
