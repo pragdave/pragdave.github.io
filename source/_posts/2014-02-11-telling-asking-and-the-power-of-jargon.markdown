@@ -248,12 +248,12 @@ experience, and by using jargon words, we root our conversation at a
 deeper level.
 
 But jargon has to be protected. Consistently misuse a jargon word, and
-it loses it's deeper meaning. It it no longer evocative—it's just a
+it loses its deeper meaning. It it no longer evocative—it's just a
 noise. And if our jargon becomes diluted, then we as an industry
 become less efficient at communicating—we have to make explicit what
 was once tacit. Our talk becomes pedestrian and pedantic, mechanical
 rather than allusive. We lose the superpower of description. We become
-a community which, like the 1990's military, doesn't ask and doesn't tell.
+a community which, like the 1990s military, doesn't ask and doesn't tell.
 
 And where's the fun in that?
 

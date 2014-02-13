@@ -93,8 +93,12 @@ article {
       background: #fff;
       text-align: center;
       font-size: 60%;
-      color: #666;
+      line-height: 160%;
+      color: #aaa;
       display: block;
+      a {
+        color: #88b;
+      }
     }
   } 
 }
