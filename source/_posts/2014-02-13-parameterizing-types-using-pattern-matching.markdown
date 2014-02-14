@@ -174,8 +174,8 @@ and went back to the simpler form with two separate functions.
 
 ### Streams and Filters
 
-One of the reasons I'm enjoying this coding exercise so much is this
-style of using streams and functions that parse them reminds me of two
+One of the reasons I'm enjoying this coding exercise so much is that this
+style of using streams and functions reminds me of two
 very elegant techniques from our past.
 
 First, we're processing streams of stuff using a succession of
