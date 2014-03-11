@@ -67,7 +67,7 @@ end
 Eerily similar to the function that handles code lines, eh? Can we
 remove the duplication? Sure thing—we can make the type (`:code` or
 `:blockquote`) a variable in the pattern. The fact we use the same
-variable for both tokens means it has to be the same for each, s we'll
+variable for both tokens means it has to be the same for each, so we'll
 match two code lines, or two blockquotes lines, but not a code line
 followed by a blockquote.
 
