@@ -125,7 +125,7 @@ us what to do and how to do it.
 
 And that leads me to my suggestion.
 
-So let's abandon the word agile to the people who don't do things.
+Let's abandon the word agile to the people who don't do things.
 
 Instead, let's use a word that describes what we do.
 
@@ -157,12 +157,11 @@ of our ideas in order to sell it back to us.
 
 
 
+<section style="margin-top: 2em 0em; border-top: 1px solid silver; font-size: 70%">
 
-----
-
-Updated 3/11: Thanks to numerous folks who pointed out I'd mislabeled
-"agility" as an adverb. Also fixed the hyperlink to the Agile Manifesto.
-
+Updated 3/11: _Thanks to numerous folks who pointed out I'd mislabeled
+"agility" as an adverb. Also fixed the hyperlink to the Agile Manifesto._
+</section>
 
 
 [^1]: I started thinking about this blog post while I was visiting Agile India 2014, my one and only conference on agility. I went to that not because of the topic, but because of my respect for the organizer, [Naresh Jain](http://nareshjain.com/).
