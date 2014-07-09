@@ -36,7 +36,7 @@ clustered around the board). I think we sat down after lunch with five
 bullets on the board. By the end of the afternoon, it was down to
 four, plus an introduction. I copied the whiteboard into my notes too:
 
-{%img /img/am1.jpg %}
+{%img /img/am2.jpg %}
 
 You can argue the implementation (I see some teams that use the word
 “agile” when they really mean “chaotic”) , but the values still ring
