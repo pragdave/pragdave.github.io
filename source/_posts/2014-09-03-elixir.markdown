@@ -193,7 +193,7 @@ span`
 
 ### Parsing the spec
 
-{% img right img/spec-state.png %}
+{% img right /img/spec-state.png %}
 
 Parsing the spec file uses two of my favorite programming tools: state
 machines and pattern matching.
