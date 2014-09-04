@@ -3,7 +3,7 @@ layout: post
 title: "Elixir: state machines, metaprogramming, and generating tests"
 date: 2014-09-03 21:44:08 -0500
 comments: true
-categories: elixir, programming
+categories: elixir programming
 ---
 
 I just had one of those "programming made me happy" moments I thought I'd share.
