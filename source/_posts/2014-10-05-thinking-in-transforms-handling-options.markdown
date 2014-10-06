@@ -13,7 +13,7 @@ I've been thinking a lot about the way I program recently. I even
 One thing I'm discovering is that transforming data is easier to think
 about than maintaining state. I bumped into an interesting case of
 this idea when adding option handling to
-a library I was writting.
+a library I was writing.
 
 ## DirWalker—Some Background
 
