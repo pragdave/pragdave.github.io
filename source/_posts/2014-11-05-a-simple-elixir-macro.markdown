@@ -6,7 +6,7 @@ comments: true
 categories: programming elixir
 ---
 
-# An Elixir Version of Rails' `returning`
+### An Elixir Version of Rails' `returning`
 
 A few days ago I was writing some code where just about every function ended
 
