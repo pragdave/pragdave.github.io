@@ -109,7 +109,7 @@ What to do:
 
 How to do it:
 
-> When faced with two of more alternatives that deliver roughly the
+> When faced with two or more alternatives that deliver roughly the
 > same value, take the path that makes future change easier.
 
 And that's it. Those four lines and one practice encompass everything

@@ -12,7 +12,7 @@ Almost 10 years ago, Ze Frank gave a Ted talk that contained a
 I've been getting a couple of "let us write for you" emails a day.
 Most are just a little sad. But, when you consider that they are
 actually asking to add content to my site, I think the following
-deserves a special mention. Try reading it along. With feeling.
+deserves a special mention. Try reading it aloud. With feeling.
 
 > Hi Mr. Thomas,
 > 
