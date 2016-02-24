@@ -55,7 +55,7 @@ DEPENDENCIES
   haml (~> 3.1.7)
   jekyll (~> 0.12)
   liquid (~> 2.3.0)
-  pygments.rb (~> 0.3.4)
+  pygments.rb
   rake (~> 10.3)
   rb-fsevent (~> 0.9)
   rdiscount (~> 2.0.7)
@@ -64,3 +64,6 @@ DEPENDENCIES
   sass-globbing (~> 1.0.0)
   sinatra (~> 1.4.2)
   stringex (~> 1.4.0)
+
+BUNDLED WITH
+   1.11.2
