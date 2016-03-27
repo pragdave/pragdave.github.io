@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<article role="article">
+  {% if page.title %}
+  <header>
+    <div class="jumbotron">
+      {% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}
+    </div>
+  </header>
+  {% endif %}
+  {{ content }}
+</article>
+
