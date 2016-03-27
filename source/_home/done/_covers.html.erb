@@ -1,0 +1,9 @@
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner book-cover" role="listbox">
+    <% names.each.with_index do |name, index| %>
+      <div class="item<%= if index.zero? then ' active' end %>">
+        <img src="/images/home/covers/<%= name %>">
+      </div>
+    <% end %>
+  </div>
+</div>

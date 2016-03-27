@@ -1,0 +1,8 @@
+<heading>
+  <h2><%= title %></h2>
+  <% if img_name.respond_to?(:each) %>
+    <%= partial("_home/done/covers", locals: { names: img_name }) %>
+  <% else %>
+    <img src="/images/home/<%= img_name %>" >
+  <% end %>
+</heading>

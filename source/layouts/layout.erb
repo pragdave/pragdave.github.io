@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+
+  <%= partial("shared/default_head") %>
+
+  <body class="<%= page_class %> nav-closed">
+
+    <div id="site-wrapper">
+
+      <%= yield %>
+
+      <%= partial("shared/default_foot") %>
+
+    </div>
+
+  </body>
+</html>
+
+

@@ -1,0 +1,74 @@
+<% site = config[:casper][:blog] %>
+  <head>
+    <meta charset="utf-8">
+
+    <title><%= page_title%></title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta http-equiv=""X-UA-Compatible"
+          content="IE=edge">
+
+    <meta name="HandheldFriendly" content="True">
+
+    <meta name="description" content="<%= page_description %>">
+
+    <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700'
+          rel='stylesheet'
+          type='text/css'>
+
+    <link rel='stylesheet'
+          href='https://fonts.googleapis.com/css?family=Open+Sans|Marcellus+SC'>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
+          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd"
+          crossorigin="anonymous">
+<!--     <link rel="stylesheet"
+          href="/stylesheets/vendor/bootstrap.min.css"> -->
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/<%= config[:syntax_highlight_theme] || 'solarized_dark.min.css' %>">
+
+
+    <link rel="stylesheet"
+          href="/stylesheets/application.css">
+    <link rel="stylesheet"
+          href="/stylesheets/styles.css">
+    <link rel="stylesheet"
+          href="/stylesheets/custom.css">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/index.xml">
+
+    <meta property="og:description"
+          content="<%= page_description %>">
+    <meta property="og:site_name"
+          content="<%= blog_settings.name %>">
+    <meta property="og:type"
+          content="website">
+    <meta property="og:url"
+          content="<%=URI.join(blog_settings.url, current_page.url) %>">
+    <meta property="og:url"
+          content="<%= site[:url] %>">
+    <meta property='og:title'
+          content="<%= site[:name] %>">
+
+
+    <meta name="twitter:card"
+          content="summary">
+    <meta name="twitter:description"
+          content="<%= page_description %>">
+    <meta name="twitter:url"
+          content="<%= URI.join(blog_settings.url, current_page.url) %>">
+    <% if blog_author.twitter.present? %>
+      <meta name="twitter:site"
+            content="<%= blog_author.twitter %>">
+    <% end %>
+
+    <link href="/images/favicon.ico" rel="icon" type="image/ico">
+
+  </head>
+

@@ -1,0 +1,28 @@
+
+
+<header class="site">
+  <h1><%= current_page.data[:title] || "PragDave" %></h1>
+  <div class="logo">
+    &nbsp;
+  </div>
+</header>
+
+<div class="topbar-nav" >
+  <ul>
+    <% [
+      [ "Home",    "/" ],
+      [ "Blog",    "/blog" ],
+      [ "Contact", "/contact" ],
+       ].each do |label, href|
+       css_class = "nav-#{label}"
+       if current_page.url == href
+         css_class << " nav-current"
+       end
+    %>
+
+    <li class="<%= css_class %>" role="presentation">
+      <a href="<%= href %>"><%= label %></a>
+    </li>
+      <% end %>
+  </ul>
+</div>

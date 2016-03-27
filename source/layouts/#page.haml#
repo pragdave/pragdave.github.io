@@ -1,0 +1,8 @@
+= wrap_layout :layout do
+  - if blog_settings.navigation
+    %a.menu-button.icon-menu{href: '#'}
+      %span.word More…
+
+  %main.content{role: :main}
+    =
+    yield

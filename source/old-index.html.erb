@@ -1,0 +1,43 @@
+---
+pageable: false
+layout:   page
+title:    ""
+---
+
+<%= partial('shared/topbar') %>
+
+
+<section class="home row ">
+  <% for panel in %w{teach speak consult}  %>
+    <article class="hire-me col-sm-4">
+      <%= partial "_home/paybills/#{panel}.html.md" %>
+      <nav class="hidden-sm-up">
+        <%= partial "_home/paybills/#{panel}-links.html.md" %>
+      </nav>
+    </article>
+  <% end  %>
+</section>
+
+<section class="home row hidden-xs-down links">
+  <% for panel in %w{teach speak consult}  %>
+    <nav class="hire-me col-sm-4">
+      <%= partial "_home/paybills/#{panel}-links.html.md" %>
+    </nav>
+  <% end  %>
+</section>
+
+<section class="home row title what-ive-done">
+  <div class="col-sm-12">
+    <h1>— What I’ve Done —</h1>
+  </div>
+</section>
+
+<section class="home row">
+  <% for panel in %w{ open_source teach  develop }  %>
+    <article class="hire-me col-sm-4">
+      <%= partial "_home/done/#{panel}.html.md" %>
+    </article>
+  <% end %>
+</section>
+
+

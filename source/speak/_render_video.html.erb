@@ -1,0 +1,24 @@
+<figure class="card media-summary media-#{type}">
+
+<figcaption class="card-block header">
+  <h1><%= title %></h1>
+  <% if defined?(sub) %>
+    <h2><%= sub %></h2>
+  <% end %>
+</figcaption>
+
+<div class="embed-responsive embed-responsive-16by9">
+  <%= html %>
+</div>
+
+<figcaption class="card-block footer">
+  <% if defined?(desc) %>
+  <div class="fig-desc">
+    <%= desc %>
+  </div>
+<% end %>
+</figcaption>
+</figure>
+
+
+
