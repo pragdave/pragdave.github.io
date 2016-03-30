@@ -806,28 +806,38 @@ address.vcard {
 
 
 
-.hometext {
-    position: fixed;
-    top: 10%;
-    left: 10%;
-    color: #cec;
+.home-template {
 
-    h4 {
-        font-size: 4vw;
-        color: #bdb;
-        margin-bottom: 13vh;
-    }
+    background: #fafafa;
+    background: -moz-linear-gradient(top,  #fafafa 0%, #e6e6e6 100%);
+    background: -webkit-linear-gradient(top,  #fafafa 0%,#e6e6e6 100%);
+    background: linear-gradient(to bottom,  #fafafa 0%,#e6e6e6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#e6e6e6',GradientType=0 );
 
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style-position: inside;
+    .hometext {
+        position: fixed;
+        top: 10%;
+        left: 10%;
+        color: #cec;
 
-    }
+        h4 {
+            font-size: 5vw;
+            color: #cec;
+            margin-bottom: 13vh;
+            text-shadow: 0px 0px 1px #9b9;
+        }
 
-    a {
-        font-size: 3vw;
-        line-height: 6vw;
-        color: #ccc;
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-position: inside;
+
+        }
+
+        a {
+            font-size: 3vw;
+            line-height: 6vw;
+            color: #aba;
+        }
     }
 }
