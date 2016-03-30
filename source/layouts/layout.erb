@@ -4,7 +4,7 @@
 
   <%= partial("shared/default_head") %>
 
-  <body class="<%= page_class %> nav-closed">
+  <body class="<%= current_page.data.override_class || page_classes %> nav-closed">
 
     <div id="site-wrapper">
 

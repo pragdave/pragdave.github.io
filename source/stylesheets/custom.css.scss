@@ -806,13 +806,14 @@ address.vcard {
 
 
 
-.home-template {
+.home-page {
 
     background: #fafafa;
     background: -moz-linear-gradient(top,  #fafafa 0%, #e6e6e6 100%);
     background: -webkit-linear-gradient(top,  #fafafa 0%,#e6e6e6 100%);
     background: linear-gradient(to bottom,  #fafafa 0%,#e6e6e6 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#e6e6e6',GradientType=0 );
+    background-attachment: fixed;
 
     .hometext {
         position: fixed;
