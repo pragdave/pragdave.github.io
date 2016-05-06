@@ -4,7 +4,7 @@
 
 config[:casper] = {
   blog: {
-    url: 'http://www.example.com',
+    url: 'https://pragdave.me',
     name: 'PragDave',
     description: 'Consulting • Teaching • Speaking • Elixir • Ruby',
     date_format: '%d %B %Y',
