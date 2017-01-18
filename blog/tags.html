@@ -7,7 +7,7 @@ title: Tags
   <ul class="tags-expo-list">
     {% for tag in sorted_tags %}
     <li>
-      <a href="#{{ tag[0] | slugify }}" class="post-tag">
+      <a href="{{ site.tag_page}}#{{ tag[0] | slugify }}" class="post-tag">
         {{ tag[0] }} <small>({{ tag[1] | size}})</small>
       </a>
     </li>

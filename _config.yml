@@ -1,5 +1,3 @@
-
-
 name: pragdave_me
 title: pragdave—the coding gnome
 email: dave@pragdave.me
@@ -41,7 +39,9 @@ exclude:
   - README.md
   - vendor
 
-ga_analytics: # Add Google Analytics tracking code
+ga_analytics: 'UA-46932612-1'
+disqus:
+  shortname: pragdave
 
 gems:
   - jekyll-assets

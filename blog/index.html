@@ -10,7 +10,7 @@ title: All Articles
       <ul class="tags-expo-list">
         {% for tag in sorted_tags %}
         <li>
-          <a href="#{{ tag[0] | slugify }}" class="post-tag">
+          <a href="{{ site.tag_page }}#{{ tag[0] | slugify }}" class="post-tag">
             {{ tag[0] }} <small>({{ tag[1] | size}})</small>
           </a>
         </li>
@@ -20,15 +20,19 @@ title: All Articles
   </div>
 
   <div class="col-md-8" >
+    {% assign count = 10 %}
     <dl>
       {% for post in site.posts %}
       <dt>
         <small class="post-date">{{ post.date | date_to_string }}</small>
         <a href="{{ post.url }}">{{ post.title }}</a>
       </dt>
+      {% if count !=  0 %}
+      {% assign count = count | minus: 1 %}
       <dd>
         {{ post.excerpt | strip_html }}
       </dd>
+      {% endif %}
       {% endfor %}
     </dl>
   </div>
