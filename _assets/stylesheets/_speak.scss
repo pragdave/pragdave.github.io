@@ -1,0 +1,31 @@
+.media-summary {
+
+    margin-top: 3rem;
+
+    i.fa {
+        display: block;
+        position: absolute;
+        top: 0.25rem;
+        right: 0.5rem;
+        font-size: 2.5rem;
+        color: rgba(0,0,0, .1);
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        color: $primary-color;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        color: lighten($primary-color, 10%);
+    }
+
+    &.media-video .card-header {
+        background: lighten($primary-color, 50%);
+    }
+
+    &.media-audio .card-header {
+        background: adjust-hue(lighten($primary-color, 50%), 120%);
+    }
+}

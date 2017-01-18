@@ -1,0 +1,16 @@
+---
+layout: page
+title: All Articles
+---
+
+<dl class="post-index">
+  {% for post in site.posts %}
+  <dt>
+    <small class="post-date">{{ post.date | date_to_string }}</small>
+    <a href="{{ post.url }}">{{ post.title }}</a>
+  </dt>
+  <dd>
+    {{ post.excerpt | strip_html }}
+  </dd>
+  {% endfor %}
+</dl>

@@ -1,0 +1,6 @@
+{
+  "name": "pragdave_me",
+  "dependencies": {
+    "jquery": "~3.1.1"
+  }
+}

@@ -1,7 +1,7 @@
-.bundle
-.DS_Store
-.sass-cache
-.gist-cache
-.pygments-cache
-build
-
+!.keep
+*.DS_Store
+*.sass-cache
+/.asset-cache/*
+/_assets/bower/*
+/_site/*
+/_vendor/*

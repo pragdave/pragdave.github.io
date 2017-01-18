@@ -1,0 +1,146 @@
+$background-green: #417663;
+$primary-color: $background-green;
+
+/* Sticky footer */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+    margin-bottom: 80px;
+    line-height: 1.8rem;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+
+.main-header {
+    margin-top: 1rem;
+
+    .bar {
+        background: url(image_path("banner-background-bar.png")) repeat-x;
+        height: 109px;
+
+        .logo {
+            width: 139px;
+            height: 109px;
+            background: url(image_path("gnome-in-circle.png")) no-repeat;
+            position: absolute;
+
+            &:hover {
+                background: url(image_path("gnome-in-circle-hover.png")) no-repeat;
+            }
+
+        }
+
+        h1 {
+            margin-left: 145px;
+            padding-top:  1.5rem;
+            //        font-family: 'Gloria Hallelujah', cursive;
+            color: #dfd;
+            font-size: 55px;
+            text-align: center;
+            font-weight: normal;
+
+            @media (max-width: 600px) {
+                font-size: 50px;
+                padding-top: 20px;
+            }
+            @media (max-width: 540px) {
+                font-size: 30px;
+                padding-top: 25px;
+            }
+        }
+    }
+
+    .mh-slug h3 {
+        color: $background-green;
+        font-size: 0.9rem;
+        text-align: right;
+        margin: 0;
+        line-height: 90%;
+        width: 100%;
+    }
+}
+
+.fp-leader {
+    color:      #888;
+
+    h3 {
+        font-size: 1rem;
+        margin-top: 0;
+        text-align: right;
+    }
+}
+
+.main-navbar {
+    font-size: 60%;
+    line-height: 60%;
+    position: relative;
+    top: -3px;
+    padding: 0;
+    .navbar-nav .nav-item {
+        color: lighten($background-green, 50%);
+        background: $background-green;
+        padding-left: 1rem;
+        margin: 0;
+        transition: color 0.2s;
+
+        &:hover {
+            color: lighten($background-green, 100%);
+        }
+
+        &.first {
+            padding-right: 0.5rem;
+        }
+        &.last {
+            padding-left: 0.5rem;
+        }
+    }
+}
+
+.main-cards {
+
+    margin-top: 3rem;
+
+    .card-deck .card .card-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+    }
+
+    .card-deck > .card > .card-block {
+        padding-bottom: 75px;
+    }
+
+    h4.card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+
+
+
+
+p.alert {
+    display: none;
+}
+
+
+@import "code";
+@import "info-pages";
+@import "posts";
+@import "speak";
+@import "tags";
