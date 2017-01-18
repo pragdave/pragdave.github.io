@@ -1,3 +1,15 @@
+.article-index {
+    margin-top: 3rem;
+
+    .taglist {
+        text-align: right;
+        font-size: 90%;
+        ul {
+            border-right: 1px solid rgba(106,159,181,0.15);
+        }
+    }
+}
+
 .post-tag {
     display: inline-block;
     background: rgba(106,159,181,0.15);
