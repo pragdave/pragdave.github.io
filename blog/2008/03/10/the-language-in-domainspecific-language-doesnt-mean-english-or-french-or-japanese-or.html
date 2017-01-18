@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     The &#39;Language&#39; in Domain-Specific Language Doesn&#39;t Mean English (or French, or Japanese, or ...)
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I’m a really big fan of Domain-Specific Languages. Andy and I plugged them back in ‘98 when writing The Pragmatic Programmer. I’ve written my share of them o...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I’m a really big fan of Domain-Specific Languages. Andy and I plugged them back in ‘98 when writing The Pragmatic Programmer. I’ve written my share of them o...
+">
+  <meta property="og:site_name"
+        content="
+  
+     The &#39;Language&#39; in Domain-Specific Language Doesn&#39;t Mean English (or French, or Japanese, or ...)
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2008/03/10/the-language-in-domainspecific-language-doesnt-mean-english-or-french-or-japanese-or.html
+">
+  <meta property="og:title"
+        content="
+  
+     The &#39;Language&#39; in Domain-Specific Language Doesn&#39;t Mean English (or French, or Japanese, or ...)
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I’m a really big fan of Domain-Specific Languages. Andy and I plugged them back in ‘98 when writing The Pragmatic Programmer. I’ve written my share of them o...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2008/03/10/the-language-in-domainspecific-language-doesnt-mean-english-or-french-or-japanese-or.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2008/03/10/the-language-in-domainspecific-language-doesnt-mean-english-or-french-or-japanese-or.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>The 'Language' in Domain-Specific Language Doesn't Mean English (or French, or Japanese, or ...)</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2008-03-10T00:00:00-05:00" itemprop="datePublished">Mar 10, 2008
+        </time>
+         | 
+        
+        <a href="/blog/tags#design" class="post-tag">design</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I’m a really big fan of Domain-Specific Languages. Andy and I plugged
+them back in ‘98 when writing <a href="http://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1204863620&amp;sr=8-1">The Pragmatic Programmer</a>. I’ve written my share of them over the
+years, and I’ve used even more. Which is why it is distressing to see
+that a whole group of developers are writing DSLs (and discussing
+DSLs) without seeming to get one of the fundamental principles behind
+good DSL design.</p>
+
+<h3 id="domain-experts-dont-speak-a-natural-language">Domain experts don’t speak a natural language</h3>
+
+<p>Let’s say that another way. Whenever domain experts communicate, they
+may seem to be speaking in English (or French, or whatever). But they
+are not. They are speaking <em>jargon</em>, a specialized language that
+they’ve invented as a shorthand for communicating effectively with
+their peers. Jargon may use English words, but these words have been
+warped into having very different meanings—meanings that you only
+learn through experience in the field.</p>
+
+<p>Let’s look at some successful domain specific languages before turning
+our attention on the way that some DSLs are trying just a little too
+hard.</p>
+
+<h3 id="success-story-1-dependency-management-in-make">Success Story 1: Dependency Management in Make</h3>
+
+<p>The Make utility has been a mainstay of Unix software development for
+over 30 years. You can complain about some strange syntax rules (some
+of which involve the invisible difference between tabs and spaces),
+but it would be hard to argue that Make hasn’t had a major impact in
+the open source world.</p>
+
+<p>At its heart, Make addresses the building of systems from components
+in the presence of dependencies. Make lets me express the dependencies
+between header files, source files, object files, libraries, and
+executable images. It also lets me specify the commands to execute to
+resolve those dependencies when certain items are missing. For
+example, I could say</p>
+
+<div class="language-makefile highlighter-rouge"><pre class="highlight"><code><span class="nl">my_prog.o</span><span class="o">:</span> <span class="nf">my_prog_.c common.h</span>
+
+<span class="nl">extras.o</span><span class="o">:</span>   <span class="nf">extras.c common.h</span>
+
+<span class="nl">my_prog</span><span class="o">:</span>    <span class="nf">my_prog.o extras.o</span>
+            <span class="err">cc</span> <span class="err">-o</span> <span class="err">my_prog</span> <span class="err">-lc</span> <span class="err">my_prog.o</span> <span class="err">extras.o</span>
+</code></pre>
+</div>
+
+<p>This example of the Make DSL says that <code class="highlighter-rouge">my_prog.o</code> depends
+on <code class="highlighter-rouge">my_prog.c</code> and <code class="highlighter-rouge">common.h</code>, and that<code class="highlighter-rouge">extras.o</code> depends
+on <code class="highlighter-rouge">extras.c</code> and also depends on <code class="highlighter-rouge">common.h</code>. The final
+program, <code class="highlighter-rouge">my_prog</code>, depends on the two object files. To build the
+program, we have to execute the <code class="highlighter-rouge">cc</code> command on the line that follows
+the dependency line. No build command is needed for the object files:
+in this case Make knows what to do implicitly.</p>
+
+<p>People who build software from source are domain experts in the area
+of dependencies and build commands. They need concise ways of
+expressing that expertise, of saying things like “if I ask you to
+ensure my program is up-to-date, and the common header file has been
+changed, then I want you to rebuild all the dependent object files
+before then rebuilding the main program”. Make is by no means perfect,
+but its longevity shows that it goes a long way as a DSL to meeting
+its expert’s needs.</p>
+
+<h3 id="success-story-2-active-record-declarations">Success Story 2: Active Record Declarations</h3>
+
+<p>Love it or loathe it, you have to admit that Rails has changed the
+game. And one reason is its extensive use of DSLs. For example, when
+you are writing model classes, you are claiming to be an expert on
+your application’s domain, and in the relationships between objects in
+that domain. And Rails has a nifty DSL to let you express those
+relationships.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_many</span> <span class="ss">:comments</span>
+  <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">end</span>
+
+<span class="k">class</span> <span class="nc">Comment</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">belongs_to</span> <span class="ss">:post</span>
+  <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">end</span>
+</code></pre>
+</div>
+
+<p>The two lines containing <code class="highlighter-rouge">has_many</code> and <code class="highlighter-rouge">belongs_to</code> are part of a
+data modeling DSL provided by Rails. Behind the scenes, this
+simple-looking code creates a whole heap of supporting infrastructure
+in the application, infrastructure that allows the programmer to
+easily navigate and manage the relationships between (in this case)
+posts and comments.</p>
+
+<p>At first blush, this might seem like an English-language DSL. But,
+despite appearances, <code class="highlighter-rouge">has_many</code> and<code class="highlighter-rouge">belongs_to</code> are not English
+phrases. They are jargon from the world of modeling. They have a
+specific meaning in that context, a meaning that is clear to
+developers using Rails (because those developers take on the role of
+domain modeler when they start writing the application).</p>
+
+<h3 id="success-story-3-groovy-builders">Success Story 3: Groovy Builders</h3>
+
+<p>The Groovy language has a wonderful way of expressing data in
+code. The builder concept lets you construct a set of nodes as a side
+effect of code execution. You can then express those nodes as (for
+example) XML, or JSON, or Swing user interfaces. Here’s a trivial
+example that constructs some nodes describing a person which we can
+then output as XML.</p>
+
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringWriter</span>
+<span class="n">xml</span> <span class="o">=</span> <span class="k">new</span> <span class="n">groovy</span><span class="o">.</span><span class="na">xml</span><span class="o">.</span><span class="na">MarkupBuilder</span><span class="o">(</span><span class="n">result</span><span class="o">)</span>
+<span class="n">xml</span><span class="o">.</span><span class="na">person</span><span class="o">(</span><span class="nl">category:</span> <span class="s1">'employee'</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">name</span><span class="o">(</span><span class="s1">'dave'</span><span class="o">)</span>
+  <span class="n">likes</span><span class="o">(</span><span class="s1">'programming'</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="n">println</span> <span class="n">result</span>
+</code></pre>
+</div>
+
+<p>This would generate something like</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;person</span> <span class="na">category=</span><span class="s">"employee"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;name&gt;</span>dave<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;likes&gt;</span>programming<span class="nt">&lt;/likes&gt;</span>
+<span class="nt">&lt;/person&gt;</span>
+</code></pre>
+</div>
+
+<p>(Jim Wierich took this idea and created the wonderful Ruby Builder
+library, the basis of Rails’ XML-generating templates.)</p>
+
+<p>Again, we have a DSL aimed squaring at someone who knows what they are
+doing. If you’re creating XML, then you know that the elements can be
+nested, that they can have textual content, and that elements have
+optional attributes. The Builder DSL takes care of all the details for
+you—the angle brackets, any quoting, and so on—but you still have to
+know the underlying concepts. Again, the language of the DSL is the
+language of the domain.</p>
+
+<h3 id="seduced-by-language">Seduced by Language</h3>
+
+<p>Over the years, people have looked at DSLs and wondered just how far
+they can be taken. Would it be possible to create a DSL that could be
+used by somewhat who wasn’t a domain expert? So far, the answer is
+“no.” The problem is that abstractions leak—to do things in a domain,
+you need to know the domain. The folks who brought us Startrek TNG
+pretended otherwise. Jean Luc Picard used an English language DSL to
+talk to his food dispenser. It worked every time. But, in the real
+world, you know that the first time someone said “Earl Gray, hot” to
+this magic box, they’d be surprised when a naked English peer covered
+in baby oil popped out.</p>
+
+<p>The reality is that languages such as English, French, and so on, are
+imprecise. That ambiguity makes them powerful. Because of this,
+whenever we try to create a DSL that looks like a natural language, we
+fall short. Take AppleScript as an example. On the face of it, it
+looks nice and expressive—we’re writing something that looks very
+natural. Here’s an example from the Apple example scripts.</p>
+
+<div class="language-applescript highlighter-rouge"><pre class="highlight"><code><span class="k">set</span><span class="w"> </span><span class="nv">this_file</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">choose file</span><span class="w"> </span><span class="nv">without</span><span class="w"> </span><span class="nv">invisibles</span><span class="w">
+</span><span class="k">try</span><span class="w">
+  </span><span class="k">tell</span><span class="w"> </span><span class="nb">application</span><span class="w"> </span><span class="s2">"Image Events"</span><span class="w">
+      </span><span class="nb">launch</span><span class="w">
+      </span><span class="k">set</span><span class="w"> </span><span class="nv">this_image</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nb">open</span><span class="w"> </span><span class="nv">this_file</span><span class="w">
+      </span><span class="nv">scale</span><span class="w"> </span><span class="nv">this_image</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="na">size</span><span class="w"> </span><span class="mi">640</span><span class="w">
+      </span><span class="nv">save</span><span class="w"> </span><span class="nv">this_image</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">icon</span><span class="w">
+      </span><span class="nb">close</span><span class="w"> </span><span class="nv">this_image</span><span class="w">
+  </span><span class="k">end</span><span class="w"> </span><span class="k">tell</span><span class="w">
+</span><span class="k">on</span> <span class="k">error</span><span class="w"> </span><span class="nv">error_message</span><span class="w">
+  </span><span class="nb">display dialog</span><span class="w"> </span><span class="nv">error_message</span><span class="w">
+</span><span class="k">end</span><span class="w"> </span><span class="k">try</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Kind of makes sense, doesn’t it? I thought so too. So, for years, I’ve
+been trying to get into AppleScript. I keep trying, and I keep
+failing. Because the language is deceptive. They try to make it
+English-like. But it isn’t English. It’s a programming language. And
+it has rules and a syntax that are very unEnglish like. There’s a
+major cognitive dissonance—I have to take ideas expressed in a natural
+language (the problem), then map them into an artificial language (the
+AppleScript programming model), but then write something that is a
+kind of faux natural language. (Piers Cawley calls these kinds of
+DSLs <a href="http://www.bofh.org.uk/articles/2007/08/08/domain-specific-pidgin">domain-specific pidgin</a>, but my understanding is that pidgins are full languages,
+and our code hasn’t got that far.)</p>
+
+<p>What’s the point? When you’re writing logic like this, with exception
+handling, command sequencing, and (in more advanced examples)
+conditionals and loops, then what you’re doing is <strong>programming</strong>. The
+domain is the world of code. If you’re not up to programming, then you
+shouldn’t be writing AppleScript. And if you are up to programming,
+then AppleScript just gets in your way.</p>
+
+<p>But this isn’t a discussion of AppleScript. That’s just an example of
+the kind of trouble you get into when you forget what the domain is
+and try to create natural language DSLs.</p>
+
+<h3 id="testing-times">Testing Times</h3>
+
+<p>Here’s a little code from a test written using the <a href="http://chneukirchen.org/blog/archive/2007/01/announcing-test-spec-0-3-a-bdd-interface-for-test-unit.html">test/spec</a> framework.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">specify</span> <span class="s2">"should be a string"</span> <span class="k">do</span>
+  <span class="vi">@result</span><span class="p">.</span><span class="nf">should</span><span class="p">.</span><span class="nf">be</span><span class="p">.</span><span class="nf">a</span><span class="p">.</span><span class="nf">kind_of</span> <span class="no">String</span>
+<span class="k">end</span>
+<span class="n">specify</span> <span class="s2">"value should be 'cat'"</span> <span class="k">do</span>
+  <span class="vi">@result</span><span class="p">.</span><span class="nf">should</span><span class="p">.</span><span class="nf">equal</span> <span class="s2">"cat"</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>It’s an elegant example of what can be done with Ruby. And, don’t get
+me wrong. I’m not picking on Chris here. I think he’s created a clever
+framework, and one that is likely to become quite popular.</p>
+
+<p>But let’s look at it from a DSL point of view. What is the domain? I’m
+thinking it is the specification of the correct behavior of
+programs. And who are the domain experts? That’s a trickier question
+to answer. In an ideal world, it would be the business users. But, the
+reality is that if the business users had the time, patience, an
+inclination to write things at this level, they wouldn’t need
+programmers. Don’t kid yourselves—writing these specs
+is <em>programming</em>, and the domain experts are programmers.</p>
+
+<p>As a programmer, a couple of things leap out at me from these
+tests. First, there’s the duplication. The<code class="highlighter-rouge">specify</code> lines are a form
+of grouping, and each contains a string documenting what that group
+tests. But the whole point of the DSL part of the exercise is to make
+that blindingly obvious anyway. Now the BDD folks say that you write
+the specifications first, without any content, and then gradually add
+the tests in the blocks as you add supporting application code. I’d
+suggest that you might want to look at ways of removing the eventual
+duplication by transforming the specification into the test.</p>
+
+<p>But for me the really worrying thing is the
+syntax. <code class="highlighter-rouge">@result.should.be.a.kind.of String</code>. It reads like
+English. But it isn’t. The words are separated by periods, except the
+last two, where we have a space. As a programmer, I know why. But as a
+user, I worry about it. In the first example, we
+write<code class="highlighter-rouge">@result.should.be.a.kind_of</code>. Why not <code class="highlighter-rouge">kind.of</code>? If I want to
+test that floats are roughly equal, I’d have
+said <code class="highlighter-rouge">@result.should.be.close value</code>. Why not <code class="highlighter-rouge">close.to value</code>?</p>
+
+<p>Trivial details, but it means that I can’t just write tests using my
+knowledge of English—I have to look things up. ANd if I have to do
+that, why not just use a language/API that is closers to the domain of
+specifications and testing? Chris’s work is great, but it illustrates
+how a DSL that pretends to be English can never really get there. The
+domain of his language is software development—it would be perfectly
+OK to produce a DSL that makes sense in that domain.</p>
+
+<p><a href="">RSpec</a> is another behavior-driven testing
+framework. Here’s part of a specification (or should it be test?).</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">describe</span> <span class="s2">"(empty)"</span> <span class="k">do</span>
+
+  <span class="n">it</span> <span class="p">{</span> <span class="vi">@stack</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_empty</span> <span class="p">}</span>
+
+  <span class="n">it_should_behave_like</span> <span class="s2">"non-full Stack"</span>
+
+  <span class="n">it</span> <span class="s2">"should complain when sent #peek"</span> <span class="k">do</span>
+    <span class="nb">lambda</span> <span class="p">{</span> <span class="vi">@stack</span><span class="p">.</span><span class="nf">peek</span> <span class="p">}.</span><span class="nf">should</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">StackUnderflowError</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"should complain when sent #pop"</span> <span class="k">do</span>
+    <span class="nb">lambda</span> <span class="p">{</span> <span class="vi">@stack</span><span class="p">.</span><span class="nf">pop</span> <span class="p">}.</span><span class="nf">should</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">StackUnderflowError</span><span class="p">)</span>
+  <span class="k">end</span>
+
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Another nice, readable piece of code, full of clever Ruby tricks. But,
+again, the attempt to create a natural language feel in the DSL leads
+to all sorts of leaks in the abstraction. Look at the use
+of <code class="highlighter-rouge">should</code>. We have <code class="highlighter-rouge">should be_empty</code>. Here, the actual assertion is
+(somewhat surprisingly) “should be_”. That’s right—the <code class="highlighter-rouge">be_</code> part is
+really part of the <code class="highlighter-rouge">should</code>, indicating that what follows the
+underscore is a predicate method to be called (after adding a question
+mark, so we’d call <code class="highlighter-rouge">@result.empty?</code> in this case). Then we have
+another way of using <em>should</em> in the
+phrase <code class="highlighter-rouge">it_should_behave_like</code>—all one word. Then there’s a third way
+of using <em>should</em> when we reach <code class="highlighter-rouge">should raise_error</code>. And, of course,
+all these uses of <em>should</em> differ from the use in test/spec, even
+though both strive for an English-like interface. The same kinds of
+dissonance occur with the use of <code class="highlighter-rouge">it</code> in the first three lines (<code class="highlighter-rouge">it
+{...}</code> vs.<code class="highlighter-rouge">it_should_...</code> vs. <code class="highlighter-rouge">it "..."</code>).</p>
+
+<h3 id="its-a-domain-language">It’s a Domain Language</h3>
+
+<p>Just to reiterate, I’m not bashing either of these testing frameworks—they are popular and I’m in favor of anything that brings folks to the practices of testing.</p>
+
+<p>However, I am concerned that the popularity of these frameworks, and
+other similar uses of English-as-a-DSL, may lead developers
+astray. Martin Fowler writes about <a href="http://martinfowler.com/bliki/FluentInterface.html">fluent interfaces</a>. I think his work might have been misunderstood—the
+fluency here is programmer fluency, not English fluency. It’s writing
+succinct, expressive code (and, in particular, using method chaining
+where appropriate).</p>
+
+<p>The language in a DSL should be the language of the domain, not the
+natural language of the developer. Resist the temptation to use cute
+tricks to make the DSL more like a natural, human language. By doing
+so you might add to its readability, but I can guarantee that you’ll
+be taking away from its writability, and you’ll be adding uncertainty
+and ambiguity (the strengths of natural languages). The second you
+find yourself writing</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">a</span>
+  <span class="nb">self</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>so that you can use “a” as a connector in</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>add.a.diary.entry.for("Lunch").for(August.10.at(3.pm))
+</code></pre>
+</div>
+
+<p>you know you’ve crossed a line. This is not longer a DSL. It’s broken
+English.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2008/03/10/the-language-in-domainspecific-language-doesnt-mean-english-or-french-or-japanese-or.html';
+      this.page.identifier = 'https://pragdave.me/blog/2008/03/10/the-language-in-domainspecific-language-doesnt-mean-english-or-french-or-japanese-or.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

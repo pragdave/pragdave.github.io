@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Reasons to Like Scripting Languages, #134
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  Being able to read the source of the executing program enables a neat ‘usage’ trick.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  Being able to read the source of the executing program enables a neat ‘usage’ trick.
+">
+  <meta property="og:site_name"
+        content="
+  
+     Reasons to Like Scripting Languages, #134
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2004/06/28/reasons-to-like-scripting-languages-134.html
+">
+  <meta property="og:title"
+        content="
+  
+     Reasons to Like Scripting Languages, #134
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  Being able to read the source of the executing program enables a neat ‘usage’ trick.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2004/06/28/reasons-to-like-scripting-languages-134.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2004/06/28/reasons-to-like-scripting-languages-134.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Reasons to Like Scripting Languages, #134</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2004-06-28T00:00:00-05:00" itemprop="datePublished">Jun 28, 2004
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Being able to read the source of the executing program enables a neat
+‘usage’ trick.</p>
+
+<p>Well-behaved command line programs (remember the command line?)
+display a nice usage message when given invalid arguments. The message
+describes what they do and how they should be invoked. Well-documented
+command line programs also start with some kind of comment block. The
+comment describes what they do and how they should be invoked.</p>
+
+<p>Hmmm, seems like a violation of the DRY principle, having all that
+information duplicated…</p>
+
+<p>In Ruby (and most scripting languages, I suspect) it needn’t be. Let’s
+assume that the top-level source file in your application starts with
+a comment describing how it is used. We can then use the
+built-incaller method, which returns call stack. The last element in
+this array is the top level program. The entry is in the
+form <em>filename:linenumber</em>, so we can use a simple regexp to extract
+just the file name portion. We then open that source file and read in
+the comment block, writing it out as a help message after stripping
+the leading comment characters.</p>
+
+<p>The show_usage method is pretty simple:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>   <span class="k">def</span> <span class="nf">show_usage</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="kp">nil</span><span class="p">)</span>
+     <span class="nb">name</span> <span class="o">=</span> <span class="nb">caller</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="nf">sub</span><span class="p">(</span><span class="sr">/:\d+$/</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+     <span class="vg">$stderr</span><span class="p">.</span><span class="nf">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Error: </span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">msg</span>
+     <span class="vg">$stderr</span><span class="p">.</span><span class="nf">puts</span>
+     <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+       <span class="k">while</span> <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">readline</span> <span class="n">and</span> <span class="n">line</span><span class="p">.</span><span class="nf">sub!</span><span class="p">(</span><span class="sr">/^# ?/</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+         <span class="vg">$stderr</span><span class="p">.</span><span class="nf">puts</span> <span class="n">line</span>
+       <span class="k">end</span>
+     <span class="k">end</span>
+     <span class="nb">exit</span> <span class="mi">1</span>
+   <span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>An example of this method in use is the start of a simple utility I
+wrote to record ad-hoc royalty payments to authors.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>   <span class="c1"># Pay an author a sum of money. We simply record the payment</span>
+   <span class="c1"># in the author_royalty_payment table: the statement code</span>
+   <span class="c1"># sorts it all out</span>
+   <span class="c1">#</span>
+   <span class="c1"># usage:</span>
+   <span class="c1">#    ruby pay.rb   "Author Name"   1234.56   &lt;checkno&gt;</span>
+   <span class="c1">#</span>
+
+   <span class="nb">require</span> <span class="s2">"common"</span>
+
+   <span class="n">author</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">shift</span>    <span class="o">||</span>     <span class="n">show_usage</span><span class="p">(</span><span class="s2">"Missing author name"</span><span class="p">)</span>
+   <span class="n">amount</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">shift</span>    <span class="o">||</span>     <span class="n">show_usage</span><span class="p">(</span><span class="s2">"Missing amount"</span><span class="p">)</span>
+   <span class="n">amount</span> <span class="o">=</span> <span class="no">Money</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="k">rescue</span> <span class="n">show_usage</span><span class="p">(</span><span class="s2">"Invalid amount"</span><span class="p">)</span>
+   <span class="n">check</span>  <span class="o">=</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">shift</span>    <span class="o">||</span>     <span class="n">show_usage</span><span class="p">(</span><span class="s2">"Missing check"</span><span class="p">)</span>
+
+</code></pre>
+</div>
+
+<p>Trivial, I know, but I like the simplicity.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2004/06/28/reasons-to-like-scripting-languages-134.html';
+      this.page.identifier = 'https://pragdave.me/blog/2004/06/28/reasons-to-like-scripting-languages-134.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Elixir: state machines, metaprogramming, and generating tests
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I just had one of those “programming made me happy” moments I thought I’d share.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I just had one of those “programming made me happy” moments I thought I’d share.
+">
+  <meta property="og:site_name"
+        content="
+  
+     Elixir: state machines, metaprogramming, and generating tests
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2014/09/03/elixir.html
+">
+  <meta property="og:title"
+        content="
+  
+     Elixir: state machines, metaprogramming, and generating tests
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I just had one of those “programming made me happy” moments I thought I’d share.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2014/09/03/elixir.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2014/09/03/elixir.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Elixir: state machines, metaprogramming, and generating tests</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2014/11/05/a-simple-elixir-macro.html">
+        <small>05 Nov 2014</small>
+        A Simple Elixir Macro
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2014/10/05/thinking-in-transforms-handling-options.html">
+        <small>05 Oct 2014</small>
+        Thinking in Transforms—Handling Options
+      </a>
+  </li>
+  
+  
+  
+  
+  
+
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2014-09-03T00:00:00-05:00" itemprop="datePublished">Sep 3, 2014
+        </time>
+         | 
+        
+        <a href="/blog/tags#elixir" class="post-tag">elixir</a>
+        
+        <a href="/blog/tags#programming" class="post-tag">programming</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I just had one of those “programming made me happy” moments I thought I’d share.</p>
+
+<h3 id="background">Background</h3>
+
+<p>I’m working on a pure-Elixir markdown parser called
+<a href="https://github.com/pragdave/earmark">earmark</a>. As you probably know,
+markdown is very poorly specified, which means that each
+implementation wings it when it comes to edge cases.</p>
+
+<p>Into this void comes <a href="http://standardmarkdown.com">Standard Markdown</a>,
+a valiant attempt to create a specification for this most organic of
+syntaxes.</p>
+
+<p>As part of their effort, they have a test suite. It’s written as a
+pseudo-markdown document. The tests are stanzas that look like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Here is a simple example of a blockquote:
+
+.
+&gt; # Foo
+&gt; bar
+&gt; baz
+.
+&lt;blockquote&gt;
+&lt;h1&gt;Foo&lt;/h1&gt;
+&lt;p&gt;bar
+baz&lt;/p&gt;
+&lt;/blockquote&gt;
+.
+
+The spaces after the `&gt;` characters can be omitted:
+
+.
+&gt;# Foo
+&gt;bar
+&gt; baz
+.
+&lt;blockquote&gt;
+&lt;h1&gt;Foo&lt;/h1&gt;
+&lt;p&gt;bar
+baz&lt;/p&gt;
+&lt;/blockquote&gt;
+.
+</code></pre>
+</div>
+
+<p>The lines containing just dots delimit the tests. The first block is
+the markdown input, and the second block is the expected HTML output.</p>
+
+<p>They thoughtfully provide a Perl script that runs these tests against
+your markdown implementation.</p>
+
+<p>I wanted instead to integrate their tests into my overall test
+suite. This means I wanted to run their tests inside Elixir’s ExUnit.</p>
+
+<p>It turns out to be fairly easy. But, along the way, I learned a
+little, and I smiled a lot. Here’s a brain dump of what was involved.</p>
+
+<h3 id="what-i-wanted-to-do">What I wanted to do</h3>
+
+<p>A normal ExUnit test looks something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">HtmlRendererTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+  <span class="n">test</span> <span class="sd">"</span><span class="s2">something"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">my_code</span><span class="p">(</span><span class="m">123</span><span class="p">)</span> <span class="o">==</span> <span class="m">999</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="sd">"</span><span class="s2">something else"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">my_code</span><span class="p">(</span><span class="m">234</span><span class="p">)</span> <span class="o">&gt;</span> <span class="m">42</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>I wanted to take the stanzas from the spec and create a new ExUnit
+test for each. The name of the test would be the original markdown, so
+I could easily identify failures.</p>
+
+<h3 id="top-levelchecking-for-the-spec-file">Top level—Checking for the spec file</h3>
+
+<p>I only want to create the ExUnit tests if the spec file is
+available. To do this, I use the fact that module definitions are
+executable code. My overall structure looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">StmdTest</span> <span class="k">do</span>
+  <span class="k">defmodule</span> <span class="no">Spec</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="n">file</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="sd">"</span><span class="s2">test/spec.txt"</span>
+  <span class="k">end</span>
+
+  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exists?</span><span class="p">(</span><span class="no">Spec</span><span class="o">.</span><span class="n">file</span><span class="p">)</span> <span class="k">do</span>
+
+    <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span>
+
+    <span class="c1">#&lt;&lt;&lt;</span>
+    <span class="c1">#  generate tests</span>
+    <span class="c1">#&gt;&gt;&gt;</span>
+    
+  <span class="k">else</span>
+
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="sd">"</span><span class="s2">Skipping spec tests—spec.txt not found"</span>
+    <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="sd">"</span><span class="s2">(hint: ln -s stmd/spec.txt to spec.txt)"</span>
+
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>The nested module <code class="highlighter-rouge">Spec</code> is there because I’m going to need the spec
+file name in a couple of places later, and I didn’t want to duplicate
+it.</p>
+
+<p>The main flow here is fairly straightfoward—if the spec file exists,
+we register ourselves as a test module by calling <code class="highlighter-rouge">use ExUnit.Case</code>
+and then we create the tests. If not, we write a friendly message to
+the console to tell people what to do.</p>
+
+<h3 id="generating-the-tests">Generating the tests</h3>
+
+<p>My next problem was to generate the tests—one test for each stanza in
+the spec file. I assumed that I’d be able to write code to parse the
+specs, returning a list of maps, one map per test. Each map would have
+two keys—<code class="highlighter-rouge">md</code> for the markdown and <code class="highlighter-rouge">html</code> for the HTML. Given this,
+generating the tests looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="n">for</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="n">md</span><span class="p">,</span> <span class="ss">html:</span> <span class="n">html</span> <span class="p">}</span> <span class="o">&lt;-</span> <span class="no">StmdTest</span><span class="o">.</span><span class="no">Reader</span><span class="o">.</span><span class="n">tests</span> <span class="k">do</span>
+  <span class="nv">@md</span>   <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">Enum</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">md</span><span class="p">))</span>
+  <span class="nv">@html</span> <span class="no">Enum</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">Enum</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+  <span class="n">test</span> <span class="sd">"</span><span class="s2">\n--- === ---\n"</span> <span class="o">&lt;&gt;</span> <span class="nv">@md</span> <span class="o">&lt;&gt;</span> <span class="sd">"</span><span class="s2">--- === ---\n"</span> <span class="k">do</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="no">Earmark</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="nv">@md</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="nv">@html</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>The loop calls <code class="highlighter-rouge">StmdTest.Reader.tests</code> (which I haven’t written yet)
+to return a list of tests. Each entry in the list is a map containing
+the markdown and the HTML. The loop uses pattern
+matching to extract the fields.</p>
+
+<p>The second and third lines of the loop are a little tricky.</p>
+
+<p>First, the parser returns both the markdown and HTML as a list of
+strings, and each list is reversed. That’s why we call 
+<code class="highlighter-rouge">reverse</code> and <code class="highlighter-rouge">join</code> on each.</p>
+
+<p>The interesting thing is why we assign the result to module
+attributes, <code class="highlighter-rouge">@md</code> and <code class="highlighter-rouge">@html</code>.</p>
+
+<p>The reason is that <code class="highlighter-rouge">test</code> creates a new scope. I needed to be able to
+inject both the markdown and the HTML into that scope, but couldn’t
+use regular variables to do it. However, module attributes have an
+interesting property—the value that is used when you reference them is
+the value last assigned to them at the point of reference. Each time
+around the loop, <code class="highlighter-rouge">@md</code> anf <code class="highlighter-rouge">@html</code> get new values, and those values
+are used when generating the test.</p>
+
+<p>You might complain that this means Elixir has mutable variables, and
+you’d be right. However, they’re only changable at compile time, which
+I believe is allowed under standard Mornington Crescent rules.</p>
+
+<p>Finally, the name of the test is simplly the original markdown with a
+little decorative line before and after it. This makes our test
+failures look something like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  3) test 
+--- === ---
+`code  
+span`
+--- === ---
+ (StmdTest)
+     test/stmd_test.exs:59
+     Assertion with == failed
+     code: result == @html
+     lhs:  "&lt;p&gt;`code  \nspan`&lt;/p&gt;\n"
+     rhs:  "&lt;p&gt;&lt;code&gt;code span&lt;/code&gt;&lt;/p&gt;\n"
+     stacktrace:
+       test/stmd_test.exs:61
+</code></pre>
+</div>
+
+<h3 id="parsing-the-spec">Parsing the spec</h3>
+
+<p><img class="right" src="./spec-state.png" /></p>
+
+<p>Parsing the spec file uses two of my favorite programming tools: state
+machines and pattern matching.</p>
+
+<p>The state machine is trivial.</p>
+
+<p>We start scanning the file. When we find a line containing a single
+dot, we collect markdown. When we then find a dot, we switch to
+collecting HTML. When we find one more dot, we’re back to scanning for
+the next test.</p>
+
+<p>How do we write a state machine in Elixir? We don’t, because Elixir
+already comes with the function <code class="highlighter-rouge">Enum.reduce</code>. We pass it the
+list of lines to process and an accumulator. The accumulator is a
+tuple containing the current state and the result. All the state
+transitions are then handled by pattern matching. Each pattern
+matching function returns a new accumulator—the (potentially updated)
+state and result.</p>
+
+<p>Here’s the code:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">StmdTest</span><span class="o">.</span><span class="no">Reader</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">tests</span> <span class="k">do</span>
+    <span class="no">File</span><span class="o">.</span><span class="n">open!</span><span class="p">(</span><span class="no">Spec</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="ss">:line</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">({</span><span class="ss">:scanning</span><span class="p">,</span> <span class="p">[]},</span> <span class="o">&amp;</span><span class="n">split_into_tests</span><span class="o">/</span><span class="m">2</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="k">case</span><span class="p">(</span><span class="k">do</span><span class="p">:</span> <span class="p">({</span><span class="ss">:scanning</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">result</span><span class="p">))</span>
+  <span class="k">end</span>
+
+  <span class="c1">############</span>
+  <span class="c1"># Scanning #</span>
+  <span class="c1">############</span>
+
+  <span class="k">defp</span> <span class="n">split_into_tests</span><span class="p">(</span><span class="sd">"</span><span class="s2">.\n"</span><span class="p">,</span> <span class="p">{</span><span class="ss">:scanning</span><span class="p">,</span> <span class="n">result</span><span class="p">})</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:collecting_markdown</span><span class="p">,</span> <span class="p">[</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="p">[]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">result</span> <span class="p">]</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">split_into_tests</span><span class="p">(</span><span class="n">_other</span><span class="p">,</span> <span class="p">{</span><span class="ss">:scanning</span><span class="p">,</span> <span class="n">result</span><span class="p">})</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:scanning</span><span class="p">,</span> <span class="n">result</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="c1">#######################</span>
+  <span class="c1"># Collecting Markdown #</span>
+  <span class="c1">#######################</span>
+
+  <span class="k">defp</span> <span class="n">split_into_tests</span><span class="p">(</span><span class="sd">"</span><span class="s2">.\n"</span><span class="p">,</span> <span class="p">{</span><span class="ss">:collecting_markdown</span><span class="p">,</span> <span class="p">[</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="n">md</span> <span class="p">}</span> <span class="o">|</span> <span class="n">result</span><span class="p">]})</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:collecting_html</span><span class="p">,</span> <span class="p">[</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="n">md</span><span class="p">,</span> <span class="ss">html:</span> <span class="p">[]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">result</span> <span class="p">]</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">split_into_tests</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="p">{</span><span class="ss">:collecting_markdown</span><span class="p">,</span> <span class="p">[</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="n">md</span> <span class="p">}</span> <span class="o">|</span> <span class="n">result</span> <span class="p">]})</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:collecting_markdown</span><span class="p">,</span> <span class="p">[</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="p">[</span><span class="n">line</span><span class="o">|</span><span class="n">md</span><span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">result</span> <span class="p">]</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="c1">###################</span>
+  <span class="c1"># Collecting HTML #</span>
+  <span class="c1">###################</span>
+
+  <span class="k">defp</span> <span class="n">split_into_tests</span><span class="p">(</span><span class="sd">"</span><span class="s2">.\n"</span><span class="p">,</span> <span class="p">{</span><span class="ss">:collecting_html</span><span class="p">,</span> <span class="n">result</span><span class="p">})</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:scanning</span><span class="p">,</span> <span class="n">result</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">split_into_tests</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="p">{</span><span class="ss">:collecting_html</span><span class="p">,</span> <span class="p">[</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="n">md</span><span class="p">,</span> <span class="ss">html:</span> <span class="n">html</span><span class="p">}</span> <span class="o">|</span> <span class="n">result</span><span class="p">]})</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:collecting_html</span><span class="p">,</span> <span class="p">[</span> <span class="p">%{</span> <span class="ss">md:</span> <span class="n">md</span><span class="p">,</span> <span class="ss">html:</span> <span class="p">[</span><span class="n">line</span><span class="o">|</span><span class="n">html</span><span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">result</span><span class="p">]</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>There are a couple of things I really like in this code.</p>
+
+<p>First, see how we build the new entry in the result list as we need
+it. When we first find a dot in the input, we switch to collecting
+markdown, so we add a new map to the result list. That map is
+initialized with one key/value pair: <code class="highlighter-rouge">md: []</code>. As we collect lines in
+the <code class="highlighter-rouge">:collecting_markdown</code> state, we add them to the head of that
+list.</p>
+
+<p>Similarly, when we detect a dot when collecting markdown, we add an
+<code class="highlighter-rouge">html: []</code> entry to our result, and move over to start filling it.</p>
+
+<p>The second cool thing is something that makes me love languages such
+as Ruby and Elixir.</p>
+
+<p>We normally use <code class="highlighter-rouge">case</code> as a control structure:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">case</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sd">"</span><span class="s2">xxx"</span><span class="p">)</span> <span class="k">do</span>
+<span class="p">{</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">device</span> <span class="p">}</span> <span class="o">-&gt;</span>
+    <span class="n">read</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="p">{</span> <span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span> <span class="p">}</span> <span class="o">-&gt;</span>
+    <span class="n">complain</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>But <code class="highlighter-rouge">case</code> is really just another function. It takes two parameters:
+the value to test against and the keyword list
+containing the <code class="highlighter-rouge">do</code>…<code class="highlighter-rouge">end</code> block. So it seems like I should be able to
+use <code class="highlighter-rouge">case</code> in a pipeline—it would receive the pipeline value as its
+first parameter.</p>
+
+<p>In this case, I want to do two things. When my state machine
+finishes parsing the file, it should be in the <code class="highlighter-rouge">:scanning</code> state. If
+it isn’t, then something went wrong with the parse. Second, the call
+to <code class="highlighter-rouge">Enum.reduce</code> returns the tuple <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">state,</span><span class="w"> </span><span class="err">test_list</span><span class="w"> </span><span class="p">}</span></code>, and I
+really just want the list part. I can do both of these by appending
+<code class="highlighter-rouge">case</code> to my pipeline:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="no">File</span><span class="o">.</span><span class="n">open!</span><span class="p">(</span><span class="no">Spec</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="ss">:line</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">({</span><span class="ss">:scanning</span><span class="p">,</span> <span class="p">[]},</span> <span class="o">&amp;</span><span class="n">split_into_tests</span><span class="o">/</span><span class="m">2</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="k">case</span><span class="p">(</span><span class="k">do</span><span class="p">:</span> <span class="p">({</span><span class="ss">:scanning</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">result</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<p>If the tuple returned by the <code class="highlighter-rouge">reduce</code> call doesn’t have a state of
+<code class="highlighter-rouge">:scanning</code>, I’ll get a runtime error (and the error message will show
+me what the invalid state was). And, assuming the state is correct,
+the body of the <code class="highlighter-rouge">case</code> will extract the second element of the tuple
+and return it.</p>
+
+<h3 id="whats-the-point">What’s the point?</h3>
+
+<p>Is this fantastic code? Of course not. It’s a quick hack to get
+something I needed working.</p>
+
+<p>But it is <em>enjoyable</em> code. The combination of cool techniques made me
+smile, and the unexpected use of <code class="highlighter-rouge">case</code> in a pipeline made me really
+happy.</p>
+
+<p>And that’s why I still code.</p>
+
+<p>(The full source listing is <a href="https://github.com/pragdave/earmark/blob/master/test/stmd_test.exs">on github</a>.)</p>
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2014/09/03/elixir.html';
+      this.page.identifier = 'https://pragdave.me/blog/2014/09/03/elixir.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

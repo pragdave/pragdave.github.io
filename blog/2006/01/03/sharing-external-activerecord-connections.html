@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Sharing External ActiveRecord Connections
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I had a problem with a deployed Rails application today that Mike Clark helped me track down.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I had a problem with a deployed Rails application today that Mike Clark helped me track down.
+">
+  <meta property="og:site_name"
+        content="
+  
+     Sharing External ActiveRecord Connections
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2006/01/03/sharing-external-activerecord-connections.html
+">
+  <meta property="og:title"
+        content="
+  
+     Sharing External ActiveRecord Connections
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I had a problem with a deployed Rails application today that Mike Clark helped me track down.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2006/01/03/sharing-external-activerecord-connections.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2006/01/03/sharing-external-activerecord-connections.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Sharing External ActiveRecord Connections</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2006-01-03T00:00:00-06:00" itemprop="datePublished">Jan 3, 2006
+        </time>
+         | 
+        
+        <a href="/blog/tags#deploy" class="post-tag">deploy</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I had a problem with a deployed Rails application today that Mike
+Clark helped me track down.</p>
+
+<p>It started after Mike and I migrated a Rails app to a new, zippier
+server. Everything looked great (and the app ran a lot
+faster). However, after a while, I started getting problems with a
+database. To explain what went wrong, I need to chat a little about
+the application.</p>
+
+<p>This piece of code is an attempt to migrate functionality away from a
+particularly nasty set of old CGIs, web applications, bailing wire,
+chewing gum, and other historical crud. There’s a lot of existing
+functionality, and I decided not to try to port it all across to Rails
+on day one. Instead, I gave the Rails application its own database to
+play with, and gave it access to the old legacy database for when it
+needed to look up stuff in the existing system. To do that, I created
+a set of ActiveRecord classes for the legacy tables, and explicitly
+connected them to the legacy database, rather than the default Rails
+application database. A typical legacy model class looked smething
+like this:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">LegacyOrder</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+    <span class="n">set_table_name</span>  <span class="s2">"orders"</span>
+    <span class="n">set_primary_key</span> <span class="s2">"o_id"</span>
+
+    <span class="n">establish_connection</span> <span class="s2">"legacy_</span><span class="si">#{</span><span class="no">RAILS_ENV</span><span class="si">}</span><span class="s2">"</span>
+    <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+  <span class="nf">end</span>
+
+</code></pre>
+</div>
+
+<p>(The ”legacy_#{RAILS_ENV}” stuff lets me have development, test, and
+production versions of the legacy database in my database.yml file.)</p>
+
+<p>So far, so good. I had four different legacy tables I mapped this way,
+and everything worked fine.</p>
+
+<p>However, after a while, other applications accessing the legacy
+database started failing, claiming they couldn’t connect. Sure enough,
+it turned out that there were hundreds of active connections to that
+database: the database wasn’t going to accept any more.</p>
+
+<p>The problem was that I was creating way too many connections to the
+legacy database. Each spawned Rails fcgi process established a
+separate connection to the legacy database for each legacy
+ActiveRecord class. That factor of four killed us.</p>
+
+<p>But fixing it also raised an interesting question: in my original
+code, I established a separate connection for each legacy table in
+each running Rails process. This was clearly dumb. But what’s the best
+way of sharing a single connection between all of the legacy model
+objects in a Rails instance?</p>
+
+<p>Some chatting on #rails-core came up wih three suggestions:</p>
+
+<p>Create the connection once (perhaps in one of the environment files),
+and then assign it to each of the legacy AR classes:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="n">legacy_connection</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">mysql_connection</span><span class="p">(.</span><span class="nf">.</span><span class="o">.</span><span class="p">)</span>
+
+  <span class="no">LegacyOrder</span><span class="p">.</span><span class="nf">connection</span> <span class="o">=</span> <span class="n">legacy_connection</span>
+  <span class="no">LegacyLineItem</span><span class="p">.</span><span class="nf">connection</span> <span class="o">=</span> <span class="n">legacy_connection</span>
+  <span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+
+</code></pre>
+</div>
+
+<p>Establish the connection in one model, then use it in the others</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code> <span class="k">class</span> <span class="nc">LegacyOrder</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+   <span class="n">establish_connection</span> <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+ <span class="nf">end</span>
+
+ <span class="k">class</span> <span class="nc">LegacyLineItem</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+   <span class="n">connection</span> <span class="o">=</span> <span class="no">LegacyOrder</span><span class="p">.</span><span class="nf">connection</span>
+ <span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>Somehow make all the legacy models share a common parent, and have
+that parent own the connection.</p>
+
+<p>Options (1) and (2) seemed messy: they added a bunch of coupling to
+the code where it wasn’t really justified. Option (3) seemed like the
+way to go. The only problem was that no one on #rails-core was sure it
+would work…</p>
+
+<p>It turns out it does.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">LegacyBase</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+    <span class="n">establish_connection</span> <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+  <span class="nf">end</span>
+
+  <span class="k">class</span> <span class="nc">LegacyOrder</span> <span class="o">&lt;</span> <span class="no">LegacyBase</span>
+     <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+  <span class="nf">end</span>
+
+  <span class="k">class</span> <span class="nc">LegacyLineItem</span> <span class="o">&lt;</span> <span class="no">LegacyBase</span>
+    <span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+  <span class="nf">end</span>
+
+</code></pre>
+</div>
+
+<p>The parent class creates a single connection to the legacy database,
+and all the child classes share it. The <em>reason</em> it works is some
+smarts in Rails.</p>
+
+<p>It turns out that Rails does just about everything lazily. That
+includes connecting to databases and reflecting on tables to extract
+the schema (needed to build the internals of the models). This
+improves performance, but it also makes this hack possible. In
+general, you’d expect the LegacyBase class to map to a database table
+called legacy_base. It would, if we ever tried to use it to access
+data. But because we don’t, and because Rails only reflects on the
+table the first time a data access occurs, we can safely create an
+ActiveRecord class with no underlying database table.</p>
+
+<p>This scheme lets me specify the legacy connection once, and share that
+connection between all my legacy models. It’s tidy, expressive, and
+saves resources.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2006/01/03/sharing-external-activerecord-connections.html';
+      this.page.identifier = 'https://pragdave.me/blog/2006/01/03/sharing-external-activerecord-connections.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

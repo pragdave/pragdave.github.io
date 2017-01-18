@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Fun with Ruby 1.9 Regular Expressions
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I’ve reorganized the regular expression content in the new Programming Ruby, and added some cool new advanced examples. This one’s fairly straightforward, bu...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I’ve reorganized the regular expression content in the new Programming Ruby, and added some cool new advanced examples. This one’s fairly straightforward, bu...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Fun with Ruby 1.9 Regular Expressions
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2008/10/15/fun-with-ruby-19-regular-expressions.html
+">
+  <meta property="og:title"
+        content="
+  
+     Fun with Ruby 1.9 Regular Expressions
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I’ve reorganized the regular expression content in the new Programming Ruby, and added some cool new advanced examples. This one’s fairly straightforward, bu...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2008/10/15/fun-with-ruby-19-regular-expressions.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2008/10/15/fun-with-ruby-19-regular-expressions.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Fun with Ruby 1.9 Regular Expressions</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2008-10-15T00:00:00-05:00" itemprop="datePublished">Oct 15, 2008
+        </time>
+         | 
+        
+        <a href="/blog/tags#ruby" class="post-tag">ruby</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I’ve reorganized the regular expression content in the new Programming
+Ruby, and added some cool new advanced examples. This one’s fairly
+straightforward, but I love the fact that I can now start refactoring
+my more complex patterns, removing duplication.</p>
+
+<p>The stuff below is an extract from the unedited update. It’ll appear
+in the next beta. It follows a discussion of named groups, <code class="highlighter-rouge">\k</code> and
+related stuff.</p>
+
+<p>There’s a trick which allows us to write subroutines inside regular
+expressions. Recall that we can invoke a named group using <code class="highlighter-rouge">\g&lt;name&gt;</code>,
+and we deﬁne the group using <code class="highlighter-rouge">(?&lt;name&gt;...)</code>. Normally, the deﬁnition
+of the group is itself matched as part of executing the
+pattern. However, if you add the sufﬁx <code class="highlighter-rouge"><span class="p">{</span><span class="err">0</span><span class="p">}</span></code> to the group, it means
+“zero matches of this group,” so the group is not executed when ﬁrst
+encountered.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">sentence</span> <span class="o">=</span> <span class="sr">%r{ 
+    (?&lt;subject&gt;   cat   | dog   | gerbil    ){0} 
+    (?&lt;verb&gt;      eats  | drinks| generates ){0} 
+    (?&lt;object&gt;    water | bones | PDFs      ){0} 
+    (?&lt;adjective&gt; big   | small | smelly    ){0} 
+
+    (?&lt;opt_adj&gt;   (</span><span class="se">\g</span><span class="sr">&lt;adjective&gt;</span><span class="se">\s</span><span class="sr">)?     ){0} 
+
+    The</span><span class="se">\s\g</span><span class="sr">&lt;opt_adj&gt;</span><span class="se">\g</span><span class="sr">&lt;subject&gt;</span><span class="se">\s\g</span><span class="sr">&lt;verb&gt;</span><span class="se">\s\g</span><span class="sr">&lt;opt_adj&gt;</span><span class="se">\g</span><span class="sr">&lt;object&gt; 
+}x</span>
+
+<span class="n">md</span> <span class="o">=</span> <span class="n">sentence</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s2">"The cat drinks water"</span><span class="p">)</span> 
+<span class="nb">puts</span> <span class="s2">"The subject is </span><span class="si">#{</span><span class="n">md</span><span class="p">[</span><span class="ss">:subject</span><span class="p">]</span><span class="si">}</span><span class="s2"> and the verb is </span><span class="si">#{</span><span class="n">md</span><span class="p">[</span><span class="ss">:verb</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+ 
+<span class="n">md</span> <span class="o">=</span> <span class="n">sentence</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="s2">"The big dog eats smelly bones"</span><span class="p">)</span> 
+<span class="nb">puts</span> <span class="s2">"The adjective in the second sentence is </span><span class="si">#{</span><span class="n">md</span><span class="p">[</span><span class="ss">:adjective</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span> 
+
+<span class="n">sentence</span> <span class="o">=~</span> <span class="s2">"The gerbil generates big PDFs"</span> 
+<span class="nb">puts</span> <span class="s2">"And the object in the last is </span><span class="si">#{</span><span class="vg">$~</span><span class="p">[</span><span class="ss">:object</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span> 
+
+</code></pre>
+</div>
+
+<p><em>produces:</em></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>The subject is cat and the verb is drinks 
+The adjective in the second sentence is smelly 
+And the object in the last is PDFs 
+
+</code></pre>
+</div>
+<p>Cool, eh?</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2008/10/15/fun-with-ruby-19-regular-expressions.html';
+      this.page.identifier = 'https://pragdave.me/blog/2008/10/15/fun-with-ruby-19-regular-expressions.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

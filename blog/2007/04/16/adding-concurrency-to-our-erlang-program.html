@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Adding Concurrency to Our Erlang Program
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  
+">
+  <meta property="og:site_name"
+        content="
+  
+     Adding Concurrency to Our Erlang Program
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2007/04/16/adding-concurrency-to-our-erlang-program.html
+">
+  <meta property="og:title"
+        content="
+  
+     Adding Concurrency to Our Erlang Program
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2007/04/16/adding-concurrency-to-our-erlang-program.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2007/04/16/adding-concurrency-to-our-erlang-program.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Adding Concurrency to Our Erlang Program</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2007-04-16T00:00:00-05:00" itemprop="datePublished">Apr 16, 2007
+        </time>
+         | 
+        
+        <a href="/blog/tags#erlang" class="post-tag">erlang</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p><img class="right" src="/img/crosswalk.jpg" /></p>
+
+<p>In our last thrilling installment, we used Erlang to fetch a book’s
+title and sales rank from Amazon. Now let’s extend this to fetch the
+data for multiple books, first one-at-a-time, and then in parallel.</p>
+
+<blockquote>
+  <p>A word from our lawyers:</p>
+
+  <p>Read your Amazon Terms of Service before trying this code. You may
+have limitations on the number of requests you can send per second or
+somesuch. This code is just to illustrate some Erlang constructs.</p>
+</blockquote>
+
+<p>Let’s start with the function that fetches sales ranks in
+series. We’ll pass it a list of ISBNs, and it will return a
+corresponding list of {title, rank} tuples. For convenience, let’s
+define a function that returns a list of ISBNS to check. (Later, we
+can change this function to read from a database or a file). We’re
+editing our file <code class="highlighter-rouge">ranks.erl</code>.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">isbns</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="p">[</span> <span class="s">"020161622X"</span><span class="p">,</span> <span class="s">"0974514004"</span><span class="p">,</span> <span class="s">"0974514012"</span><span class="p">,</span> <span class="s">"0974514020"</span><span class="p">,</span> <span class="s">"0974514039"</span><span class="p">,</span>
+    <span class="s">"0974514055"</span><span class="p">,</span> <span class="s">"0974514063"</span><span class="p">,</span> <span class="s">"0974514071"</span><span class="p">,</span> <span class="s">"097669400X"</span><span class="p">,</span> <span class="s">"0974514047"</span><span class="p">,</span>
+    <span class="s">"0976694018"</span><span class="p">,</span> <span class="s">"0976694026"</span><span class="p">,</span> <span class="s">"0976694042"</span><span class="p">,</span> <span class="s">"0976694085"</span><span class="p">,</span> <span class="s">"097451408X"</span><span class="p">,</span>
+    <span class="s">"0976694077"</span><span class="p">,</span> <span class="s">"0977616606"</span><span class="p">,</span> <span class="s">"0976694093"</span><span class="p">,</span> <span class="s">"0977616665"</span><span class="p">,</span> <span class="s">"0976694069"</span><span class="p">,</span>
+    <span class="s">"0976694050"</span><span class="p">,</span> <span class="s">"0977616649"</span><span class="p">,</span> <span class="s">"0977616657"</span>
+   <span class="p">].</span>
+
+</code></pre>
+</div>
+
+<p>Users of our code call the <code class="highlighter-rouge">fetch_in_series</code> function. It uses the
+built-in <code class="highlighter-rouge">lists:map</code> function to convert our ISBN list into the result
+list.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">fetch_in_series</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span> <span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="nf">isbns</span><span class="p">()).</span>
+
+</code></pre>
+</div>
+
+<p>The first parameter to <code class="highlighter-rouge">lists:map</code> is the function to be applied to
+each element in the ISBN list. Here we’re telling Erlang to call
+the <code class="highlighter-rouge">fetch_title_and_rank</code> function that we defined in the first
+article. The<code class="highlighter-rouge">/1</code> says to use the version of the function that takes a
+single argument.</p>
+
+<p>We need to export this function from the module before we can call it.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">fetch_in_series</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+
+</code></pre>
+</div>
+
+<p>Let’s fire up the Erlang shell and try it.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(ranks).
+{ok,ranks}
+2&gt; ranks:fetch_in_series().
+[{"The Pragmatic Programmer: From Journeyman to Master","4864"},
+ {"Pragmatic Version Control Using CVS","288118"},
+ {"Pragmatic Unit Testing in Java with JUnit","116011"},
+ . . .
+ 
+</code></pre>
+</div>
+
+<p>“But wait!” I hear you cry. “Isn’t Erlang supposed to be good at
+parallel programming. What’s with all this
+fetch-the-results-in-series” business?”</p>
+
+<p>OK, let’s create a parallel version. We have lots of options here, but
+for now let’s do it the hard way. We’ll spawn a separate (Erlang)
+process to handle each request, and we’ll write all our own process
+management code to coordinate harvesting the results as these
+processes complete.</p>
+
+<p>Erlang processes are lightweight abstractions; they are not the same
+as the processes your operating system provides. Unlike your operating
+system, Erlang is happy dealing with thousands of concurrent
+processes. What’s more, you can distribute these processes across
+servers, processors, and cores within a processor. All this is
+achieved with a handful of basic operations. To send a tuple to a
+process whose process ID is in the variable Fred, you can use:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nv">Fred</span>  <span class="o">!</span> <span class="p">{</span><span class="n">status</span><span class="p">,</span> <span class="n">ok</span><span class="p">}</span>
+
+</code></pre>
+</div>
+
+<p>To receive a message from another process, use a <code class="highlighter-rouge">receive</code> stanza:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="k">receive</span> 
+  <span class="p">{</span> <span class="n">status</span><span class="p">,</span> <span class="nv">StatusCode</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="nv">StatusCode</span>
+<span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>There’s something cool about the <code class="highlighter-rouge">receive</code> code. See the line</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">{</span> <span class="n">status</span><span class="p">,</span> <span class="nv">StatusCode</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="nv">StatusCode</span>
+
+</code></pre>
+</div>
+
+<p>The stuff on the left hand side of the arrow is a pattern match. It
+means that this receive code will only accept messages which are a two
+element tuple where the first element is the atom <code class="highlighter-rouge">status</code>. This
+particular receive stanza then strips out just the actual code part of
+this tuple and returns it. In general a receive stanza can contain
+multiple patterns, each with its own specialized processing. This is
+remarkably powerful.</p>
+
+<p>There’s one last primitive we need. The function <code class="highlighter-rouge">spawn</code> takes a
+function and a set of parameters and invokes that function in a new
+Erlang process. It returns the process ID for that subprocess.</p>
+
+<p>Let’s write a simple, and stupid, example. This module
+exports <code class="highlighter-rouge">test/1</code>. This function spawns a new process that simply
+doubles a value. Here’s the code—we’ll dig into it in a second.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">parallel</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">test</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">test</span><span class="p">(</span><span class="nv">Number</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">MyPID</span> <span class="o">=</span> <span class="nf">self</span><span class="p">(),</span>
+  <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nf">double</span><span class="p">(</span><span class="nv">MyPID</span><span class="p">,</span> <span class="nv">Number</span><span class="p">)</span> <span class="k">end</span><span class="p">),</span>
+  <span class="k">receive</span>
+      <span class="p">{</span> <span class="n">answer</span><span class="p">,</span> <span class="nv">Val</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="s">"Child process said"</span><span class="p">,</span> <span class="nv">Val</span> <span class="p">}</span>
+  <span class="k">end</span><span class="p">.</span>
+
+<span class="nf">double</span><span class="p">(</span><span class="nv">Parent</span><span class="p">,</span> <span class="nv">Number</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">Result</span> <span class="o">=</span> <span class="nv">Number</span> <span class="o">+</span> <span class="nv">Number</span><span class="p">,</span>
+  <span class="nv">Parent</span> <span class="o">!</span> <span class="p">{</span> <span class="n">answer</span><span class="p">,</span> <span class="nv">Result</span> <span class="p">}.</span>
+
+</code></pre>
+</div>
+
+<p>Because we’re handling all the details ourselves, we have to tell the
+process running the <code class="highlighter-rouge">double</code> function where to send its result. To do
+that, we pass it two parameters: the first is the process ID of the
+process to receive the result, and the second is the value to
+double. The second line of the <code class="highlighter-rouge">double</code> function uses the <code class="highlighter-rouge">!</code> operator
+to send the result back to the original process.</p>
+
+<p>The original process has to pass its own process ID to
+the <code class="highlighter-rouge">double</code> method. It uses the built-in <code class="highlighter-rouge">self()</code>function to get this
+PID. Then, on the second line of the function, it invokes spawn,
+passing it an anonymous function which in turn invokes double. There’s
+a wee catch here: it’s tempting to write:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">test</span><span class="p">(</span><span class="nv">Number</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nf">double</span><span class="p">(</span><span class="nf">self</span><span class="p">(),</span> <span class="nv">Number</span><span class="p">)</span> <span class="k">end</span><span class="p">),</span>
+  <span class="p">...</span>
+
+</code></pre>
+</div>
+
+<p>This won’t work: because the anonymous function only gets executed
+once the new process is started, the value returned by <code class="highlighter-rouge">self()</code> will
+be that process’s ID, and not that of the parent.</p>
+
+<p>Anyway, we can invoke this code using the Erlang shell:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(parallel).
+{ok,parallel}
+2&gt; parallel:test(22).
+{"Child process said",44}
+
+</code></pre>
+</div>
+
+<p>Back to Amazon. We want to fetch all the sales ranks in
+parallel. We’ll start with the top-level function. It starts all the
+fetcher processes running in parallel, then gathers up their results.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">fetch_in_parallel</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="nn">inets</span><span class="p">:</span><span class="nf">start</span><span class="p">(),</span>
+  <span class="nf">set_queries_running</span><span class="p">(</span><span class="nf">isbns</span><span class="p">()),</span>
+  <span class="nf">gather_results</span><span class="p">(</span><span class="nf">isbns</span><span class="p">()).</span>
+
+</code></pre>
+</div>
+
+<p>The first line of this method is a slight optimization. The HTTP
+client code that we use to fetch the results actually runs behind the
+scenes in its own process. By calling the <code class="highlighter-rouge">inets:start</code> method, we
+precreate this server process.</p>
+
+<p>Here’s the code that creates the processes to fetch the sales data:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">set_queries_running</span><span class="p">(</span><span class="nv">ISBNS</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nn">lists</span><span class="p">:</span><span class="nf">foreach</span><span class="p">(</span><span class="k">fun</span> <span class="n">background_fetch</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="nv">ISBNS</span><span class="p">).</span>
+
+<span class="nf">background_fetch</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">ParentPID</span> <span class="o">=</span> <span class="nf">self</span><span class="p">(),</span> 
+  <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span>
+              <span class="nv">ParentPID</span> <span class="o">!</span> <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="nf">fetch_title_and_rank</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="p">}</span>
+        <span class="k">end</span><span class="p">).</span>
+
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">lists:foreach</code> function invokes its first argument on each
+element of its second argument. In this case, it invokes
+the <code class="highlighter-rouge">background_fetch</code> function that in term calls <code class="highlighter-rouge">spawn</code> to start
+the subprocess. Perhaps surprising is the fact that the anonymous
+function acts as a closure: the values of <code class="highlighter-rouge">ParentID</code> and<code class="highlighter-rouge">ISBN</code> in its
+calling scope are available inside the fun’s body, even though it is
+running is a separate process. Cool stuff, eh?</p>
+
+<p>There’s an implicit decision in the design of this code: I decided
+that I don’t care what order the results are listed in the returned
+list—I simply want a list that contains one title/rank tuple for each
+ISBN. I can make use of this fact in the function that gathers the
+results. It again uses <code class="highlighter-rouge">lists:map</code>, but bends its meaning
+somewhat. Normally the map function maps an value onto some other
+corresponding value. Here we’re simply using it to populate a list
+with the same number of entries as the original ISBN list. Each entry
+contains a result from Amazon, but it won’t be the result that
+corresponds to the ISBN that is in the corresponding position in the
+ISBN list. For my purposes, this is fine.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">gather_results</span><span class="p">(</span><span class="nv">ISBNS</span><span class="p">)</span> <span class="o">-&gt;</span>      
+  <span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span> <span class="n">gather_a_result</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="nv">ISBNS</span><span class="p">).</span>
+
+<span class="nf">gather_a_result</span><span class="p">(_)</span> <span class="o">-&gt;</span>
+  <span class="k">receive</span> 
+    <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="nv">Anything</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="nv">Anything</span>
+  <span class="k">end</span><span class="p">.</span>
+
+</code></pre>
+</div>
+
+<p>Let’s run this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(ranks).
+{ok,ranks}
+2&gt; ranks:fetch_in_parallel().
+[{"The Pragmatic Programmer: From Journeyman to Master","6359"},
+ {"Pragmatic Version Control Using CVS","299260"},
+ {"Pragmatic Unit Testing in Java with JUnit","131616"},
+ . . .
+
+</code></pre>
+</div>
+
+<p>What kind of speedup does this give us? We can use the
+built-in <code class="highlighter-rouge">timer:tc</code> function to call our two methods.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nn">timer</span><span class="p">:</span><span class="nf">tc</span><span class="p">(</span><span class="n">ranks</span><span class="p">,</span> <span class="n">fetch_in_parallel</span><span class="p">,</span> <span class="p">[]).</span>
+   <span class="p">{</span><span class="mi">1163694</span><span class="p">,</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+<span class="nn">timer</span><span class="p">:</span><span class="nf">tc</span><span class="p">(</span><span class="n">ranks</span><span class="p">,</span> <span class="n">fetch_in_series</span><span class="p">,</span> <span class="p">[]).</span>  
+   <span class="p">{</span><span class="mi">3070261</span><span class="p">,</span> <span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+
+</code></pre>
+</div>
+
+<p>The first element of the result in the wallclock time taken to run the
+function (in microseconds). The parallel version is roughly 3 times
+faster than the serial function.</p>
+
+<p>So, do you have to go to all this trouble to make your Erlang code run
+in parallel? Not really. I just wanted to show some of the nuts and
+bolts. In reality, you’d probably use a library method, such as
+the<code class="highlighter-rouge">pmap</code> function that Joe wrote for the <a href="http://pragmaticprogrammer.com/titles/jaerlang/index.html">Programming
+Erlang</a> book. Armed with this, you could turn the serial fetch
+program to a parallel fetch program by changing</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span> <span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="o">?</span><span class="nv">ISBNS</span><span class="p">).</span>
+
+</code></pre>
+</div>
+
+<p>to</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code> <span class="nn">lib_misc</span><span class="p">:</span><span class="nf">pmap</span><span class="p">(</span><span class="k">fun</span> <span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="o">?</span><span class="nv">ISBNS</span><span class="p">).</span>
+
+</code></pre>
+</div>
+
+<p>Now that’s an abstraction!</p>
+
+<p>Anyway, here’s the current version of the <code class="highlighter-rouge">ranks.erl</code> program,
+containing both the serial and parallel fetch functions.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">ranks</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">fetch_in_series</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">fetch_in_parallel</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+<span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">"xmerl/include/xmerl.hrl"</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">BASE_URL</span><span class="p">,</span>
+        <span class="s">"http://webservices.amazon.com/onca/xml?Service=AWSECommerceService"</span> 
+        <span class="s">"&amp;SubscriptionId=&lt;your ID goes here&gt;"</span> 
+        <span class="s">"&amp;Operation=ItemLookup"</span> 
+        <span class="s">"&amp;ResponseGroup=SalesRank,Small"</span> 
+        <span class="s">"&amp;ItemId="</span><span class="p">).</span>
+
+<span class="nf">isbns</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="p">[</span> <span class="s">"020161622X"</span><span class="p">,</span> <span class="s">"0974514004"</span><span class="p">,</span> <span class="s">"0974514012"</span><span class="p">,</span> <span class="s">"0974514020"</span><span class="p">,</span> <span class="s">"0974514039"</span><span class="p">,</span>
+    <span class="s">"0974514055"</span><span class="p">,</span> <span class="s">"0974514063"</span><span class="p">,</span> <span class="s">"0974514071"</span><span class="p">,</span> <span class="s">"097669400X"</span><span class="p">,</span> <span class="s">"0974514047"</span><span class="p">,</span>
+    <span class="s">"0976694018"</span><span class="p">,</span> <span class="s">"0976694026"</span><span class="p">,</span> <span class="s">"0976694042"</span><span class="p">,</span> <span class="s">"0976694085"</span><span class="p">,</span> <span class="s">"097451408X"</span><span class="p">,</span>
+    <span class="s">"0976694077"</span><span class="p">,</span> <span class="s">"0977616606"</span><span class="p">,</span> <span class="s">"0976694093"</span><span class="p">,</span> <span class="s">"0977616665"</span><span class="p">,</span> <span class="s">"0976694069"</span><span class="p">,</span>
+    <span class="s">"0976694050"</span><span class="p">,</span> <span class="s">"0977616649"</span><span class="p">,</span> <span class="s">"0977616657"</span>
+   <span class="p">].</span>
+
+<span class="nf">fetch_title_and_rank</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">URL</span> <span class="o">=</span> <span class="nf">amazon_url_for</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">),</span>
+  <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="p">{_</span><span class="nv">Status</span><span class="p">,</span> <span class="p">_</span><span class="nv">Headers</span><span class="p">,</span> <span class="nv">Body</span> <span class="p">}}</span> <span class="o">=</span> <span class="nn">http</span><span class="p">:</span><span class="nf">request</span><span class="p">(</span><span class="nv">URL</span><span class="p">),</span>
+  <span class="p">{</span> <span class="nv">Xml</span><span class="p">,</span> <span class="p">_</span><span class="nv">Rest</span> <span class="p">}</span> <span class="o">=</span> <span class="nn">xmerl_scan</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="nv">Body</span><span class="p">),</span>
+  <span class="p">[</span> <span class="nl">#xmlText</span><span class="p">{</span><span class="n">value</span><span class="o">=</span><span class="nv">Rank</span><span class="p">}</span> <span class="p">]</span>  <span class="o">=</span> <span class="nn">xmerl_xpath</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="s">"//SalesRank/text()"</span><span class="p">,</span> <span class="nv">Xml</span><span class="p">),</span>
+  <span class="p">[</span> <span class="nl">#xmlText</span><span class="p">{</span><span class="n">value</span><span class="o">=</span><span class="nv">Title</span><span class="p">}</span> <span class="p">]</span> <span class="o">=</span> <span class="nn">xmerl_xpath</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="s">"//Title/text()"</span><span class="p">,</span> <span class="nv">Xml</span><span class="p">),</span>
+  <span class="p">{</span> <span class="nv">Title</span><span class="p">,</span> <span class="nv">Rank</span> <span class="p">}.</span>
+
+<span class="nf">amazon_url_for</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="o">?</span><span class="nv">BASE_URL</span> <span class="o">++</span> <span class="nv">ISBN</span><span class="p">.</span>
+
+
+<span class="nf">fetch_in_series</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span> <span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="nf">isbns</span><span class="p">()).</span>
+
+
+<span class="nf">fetch_in_parallel</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="nn">inets</span><span class="p">:</span><span class="nf">start</span><span class="p">(),</span>
+  <span class="nf">set_queries_running</span><span class="p">(</span><span class="nf">isbns</span><span class="p">()),</span>
+  <span class="nf">gather_results</span><span class="p">(</span><span class="nf">isbns</span><span class="p">()).</span>
+
+<span class="nf">set_queries_running</span><span class="p">(</span><span class="nv">ISBNS</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nn">lists</span><span class="p">:</span><span class="nf">foreach</span><span class="p">(</span><span class="k">fun</span> <span class="n">background_fetch</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="nv">ISBNS</span><span class="p">).</span>
+
+<span class="nf">background_fetch</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">ParentPID</span> <span class="o">=</span> <span class="nf">self</span><span class="p">(),</span> 
+  <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span>
+            <span class="nv">ParentPID</span> <span class="o">!</span> <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="nf">fetch_title_and_rank</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="p">}</span>
+        <span class="k">end</span><span class="p">).</span>
+
+<span class="nf">gather_results</span><span class="p">(</span><span class="nv">ISBNS</span><span class="p">)</span> <span class="o">-&gt;</span>      
+  <span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span><span class="p">(_)</span> <span class="o">-&gt;</span>
+          <span class="k">receive</span> 
+              <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="nv">Anything</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="nv">Anything</span>
+          <span class="k">end</span>
+        <span class="k">end</span><span class="p">,</span> <span class="nv">ISBNS</span><span class="p">).</span>
+</code></pre>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2007/04/16/adding-concurrency-to-our-erlang-program.html';
+      this.page.identifier = 'https://pragdave.me/blog/2007/04/16/adding-concurrency-to-our-erlang-program.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

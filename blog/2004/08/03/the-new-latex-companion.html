@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     The New LaTeX Companion
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I love the output produced by TeX, and I love the flexibility I get typesetting from plain text input. However, TeX isn’t trivial. The new edition of The Lat...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I love the output produced by TeX, and I love the flexibility I get typesetting from plain text input. However, TeX isn’t trivial. The new edition of The Lat...
+">
+  <meta property="og:site_name"
+        content="
+  
+     The New LaTeX Companion
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2004/08/03/the-new-latex-companion.html
+">
+  <meta property="og:title"
+        content="
+  
+     The New LaTeX Companion
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I love the output produced by TeX, and I love the flexibility I get typesetting from plain text input. However, TeX isn’t trivial. The new edition of The Lat...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2004/08/03/the-new-latex-companion.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2004/08/03/the-new-latex-companion.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>The New LaTeX Companion</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2004-08-03T00:00:00-05:00" itemprop="datePublished">Aug 3, 2004
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I love the output produced by TeX, and I love the flexibility I get
+typesetting from plain text input. However, TeX isn’t trivial. The new
+edition of <em>The Latex Companion</em> is a godsend.</p>
+
+<p>I love type. Ever since I got into computers, back when high
+resolution was a 132 column printer, I’ve tried to find ways to play
+with typesetting and fonts. I wrote a basic layout system in OMSI
+Pascal that drove daisywheel printers. I got to be quite an expert at
+nroff and troff. I used to hunt (without success) for a free copy of
+Scribe. I played with Lout, and a dozen other packages. But nothing,
+ever, helds a candle to TeX when it comes to the quality of the output
+it produces.</p>
+
+<p>Ignore for the moment some of the uglier fonts than some TeX users
+employ, and look instead at the pages. Hold them up at a distance and
+admire the uniformity of the gray: no rivers of white to be seen. Look
+at the bottoms of the page: if the typesetter didn’t totally goof off,
+they’ll be vertically balanced: an open spread is the same height on
+both pages (TeX’ll add tiny amounts of leading to make it happen). Dig
+into the line-breaking, and you’ll find optimization algorithms, which
+shuffle words back and forth trying to minimize the <em>badness</em> of the
+appearance.</p>
+
+<p>The output of TeX gives me a lot of pleasure.</p>
+
+<p>Unfortunately, the same cannot be said for its input. Don Knuth is
+clearly a genius, but as with all wizards, his creations can be
+tricky. In the case of TeX, we have a typesetting engine driven by a
+macro processor whose interpretation of syntax can be changed while it
+is in the middle of processing individual commands. Raw TeX is scary
+to deal with, so people don’t deal with it. Instead, they use its
+power to write macro packages, abstracting the low level commands into
+something more palatable (and tractable). The most widely used of
+these is Leslie Lamport’s LaTeX. LaTeX is at its heart a logical mark
+up system, documented in an admirably short and lucid book, <a href="http://www.amazon.com/exec/obidos/tg/detail/-/0201529831/ref=pd_sim_books_2/002-0998484-3621639?v=glance&amp;s=books">LaTeX:
+A Document Preparation System</a>.</p>
+
+<p>But when you want to use LaTeX to do serious work, you need more than
+this small book. When you want to set complex tables, or handle
+floating material a certain way, or get your index looking just right,
+you need the real scoop. And you turn to just one book.</p>
+
+<p>The original <em>LaTeX Companion</em> was one of those books that never got
+returned to my bookshelf. I used it almost every day for 4 years
+during the typesetting of five books. Thanks to its wealth of detail,
+I was able to create press-ready files straight from my computer to
+the exacting specification of the production departments of three
+separate printers.</p>
+
+<p>But now, the bible has been retired. Mittlebach and Goossens have
+produced a second edition of <a href="http://www.amazon.com/exec/obidos/tg/detail/-/0201362996/ref=pd_sim_books_5/002-0998484-3621639?v=glance&amp;s=books">The
+LaTeX Companion</a>, and it’s better in every possible way. In the ten
+years since the first was published, a lot has changed, and the book
+captures it all. New packages, improvements in encodings, font
+handling, xindy: the book describes it all. My copy arrived a couple
+of weeks before Mike Clark’s <a href="http://www.pragmaticprogrammer.com/starter_kit/au/index.html">Automation</a> book
+was due to go to the printers. I devoured it, and immediately used its
+advice to improve the appearance of ragged-right text, fix up some
+font issues in the code listings, and improve the handling of included
+graphics. Since then, it’s been a true companion as I’ve worked with
+the typesetting of the new edition of <em>Programming Ruby</em>.</p>
+
+<p>I don’t often gush, but if you use LaTeX, or if you’d just like to
+produce great looking typeset output, you owe it to yourself to get
+this book.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2004/08/03/the-new-latex-companion.html';
+      this.page.identifier = 'https://pragdave.me/blog/2004/08/03/the-new-latex-companion.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

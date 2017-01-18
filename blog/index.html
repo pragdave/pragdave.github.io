@@ -1,39 +1,1376 @@
----
-layout: page
-title: All Articles
----
-{% assign sorted_tags = site.tags | sort_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     All Articles
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  The Code Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so you...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  The Code Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so you...
+">
+  <meta property="og:site_name"
+        content="
+  
+     All Articles
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/
+">
+  <meta property="og:title"
+        content="
+  
+     All Articles
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  The Code Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so you...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>All Articles</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+          
 
 <div class="row article-index" >
   <div class="col-md-4 taglist" >
     <div class="tags-expo">
       <ul class="tags-expo-list">
-        {% for tag in sorted_tags %}
+        
         <li>
-          <a href="{{ site.tag_page }}#{{ tag[0] | slugify }}" class="post-tag">
-            {{ tag[0] }} <small>({{ tag[1] | size}})</small>
+          <a href="/blog/tags#agility" class="post-tag">
+            agility <small>(1)</small>
           </a>
         </li>
-        {% endfor %}
+        
+        <li>
+          <a href="/blog/tags#deploy" class="post-tag">
+            deploy <small>(4)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#design" class="post-tag">
+            design <small>(4)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#elixir" class="post-tag">
+            elixir <small>(5)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#erlang" class="post-tag">
+            erlang <small>(3)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#improving" class="post-tag">
+            improving <small>(2)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#javascript" class="post-tag">
+            javascript <small>(2)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#music" class="post-tag">
+            music <small>(6)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#osx" class="post-tag">
+            osx <small>(1)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#photos" class="post-tag">
+            photos <small>(3)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#process" class="post-tag">
+            process <small>(3)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#programming" class="post-tag">
+            programming <small>(5)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#publishing" class="post-tag">
+            publishing <small>(9)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#rails" class="post-tag">
+            rails <small>(6)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#recruiting" class="post-tag">
+            recruiting <small>(1)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#ruby" class="post-tag">
+            ruby <small>(18)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#training" class="post-tag">
+            training <small>(4)</small>
+          </a>
+        </li>
+        
+        <li>
+          <a href="/blog/tags#writing-a-book" class="post-tag">
+            writing-a-book <small>(7)</small>
+          </a>
+        </li>
+        
       </ul>
     </div>
   </div>
 
   <div class="col-md-8" >
-    {% assign count = 10 %}
+    
     <dl>
-      {% for post in site.posts %}
+      
       <dt>
-        <small class="post-date">{{ post.date | date_to_string }}</small>
-        <a href="{{ post.url }}">{{ post.title }}</a>
+        <small class="post-date">03 May 2016</small>
+        <a href="/blog/2016/05/03/pragdave-2.0.html">Pragdave 2.0</a>
       </dt>
-      {% if count !=  0 %}
-      {% assign count = count | minus: 1 %}
+      
+      
       <dd>
-        {{ post.excerpt | strip_html }}
+        
+For the past 33 years, I have looked in the mirror every morning and
+asked myself: “If today were the last day of my life, would I want to
+do what I am about to do today?” And whenever the answer has been 'No'
+for too many days in a row, I know I need to change something.
+— Steve Jobs
+
+
+
       </dd>
-      {% endif %}
-      {% endfor %}
+      
+      
+      <dt>
+        <small class="post-date">23 Feb 2016</small>
+        <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">(Over)using <code>with</code> in Elixir 1.2</a>
+      </dt>
+      
+      
+      <dd>
+        Elixir 1.2 introduced a new expression type, with.
+It’s so new that the syntax highlighter I use in this
+blog doesn’t know about it.
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">13 Nov 2015</small>
+        <a href="/blog/2015/11/13/immutability.html">Immutability, State, and Functions</a>
+      </dt>
+      
+      
+      <dd>
+        Let’s start with the obligatory call to authority:
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">06 Aug 2015</small>
+        <a href="/blog/2015/08/06/personal-area-stereo.html">Personal Area Stereo</a>
+      </dt>
+      
+      
+      <dd>
+        I like listening to music while working. But I don’t like wearing
+headphones—after a while they start feeling claustrophobic.
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">09 Jun 2015</small>
+        <a href="/blog/2015/06/09/how-do-you-use-a-catalog.html.html">How Do You Use a Catalog?</a>
+      </dt>
+      
+      
+      <dd>
+        I’m in the middle of updating the Pragmatic Bookshelf site to be
+mobile-friendly and accessible.
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">25 Nov 2014</small>
+        <a href="/blog/2014/11/25/proud-to-be-an-american.html">Proud to be an American</a>
+      </dt>
+      
+      
+      <dd>
+        Twenty five years ago, I was an English software developer working on
+a project for a large US company. I’d traveled down to Atlanta with
+the project leader. We had a Sunday night
+free, so we went up to Stone Mountain to see the show.
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">12 Nov 2014</small>
+        <a href="/blog/2014/11/12/peroxide-us-an-opportunity.html">Peroxide us an opportunity</a>
+      </dt>
+      
+      
+      <dd>
+        Almost 10 years ago, Ze Frank gave a Ted talk that contained a
+reading of 419 scam email.
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">05 Nov 2014</small>
+        <a href="/blog/2014/11/05/a-simple-elixir-macro.html">A Simple Elixir Macro</a>
+      </dt>
+      
+      
+      <dd>
+        An Elixir Version of Rails’ returning
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">05 Oct 2014</small>
+        <a href="/blog/2014/10/05/thinking-in-transforms-handling-options.html">Thinking in Transforms—Handling Options</a>
+      </dt>
+      
+      
+      <dd>
+        I’ve been thinking a lot about the way I program recently. I even
+gave a talk about it at the first
+ElixirConf.
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">03 Sep 2014</small>
+        <a href="/blog/2014/09/03/elixir.html">Elixir: state machines, metaprogramming, and generating tests</a>
+      </dt>
+      
+      
+      <dd>
+        I just had one of those “programming made me happy” moments I thought I’d share.
+
+
+      </dd>
+      
+      
+      <dt>
+        <small class="post-date">14 Mar 2014</small>
+        <a href="/blog/2014/03/14/tony-benns-questions-for-those-in-power.html">Tony Benn's Five Questions for the Powerful</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">04 Mar 2014</small>
+        <a href="/blog/2014/03/04/time-to-kill-agile.html">Agile is Dead (Long Live Agility)</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">13 Feb 2014</small>
+        <a href="/blog/2014/02/13/parameterizing-types-using-pattern-matching.html">Parameterizing types using pattern matching</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Feb 2014</small>
+        <a href="/blog/2014/02/12/pattern-matching-and-parsing.html">Pattern Matching and Parsing</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">11 Feb 2014</small>
+        <a href="/blog/2014/02/11/telling-asking-and-the-power-of-jargon.html.md.html">Telling, Asking, and the Power of Jargon</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">03 Feb 2014</small>
+        <a href="/blog/2014/02/03/ive-finally-rationalized-my-blogs.html">I've finally rationalized my blogs</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">28 Jan 2014</small>
+        <a href="/blog/2014/01/28/class-factories-in-coffeescript.html">Class factories in Coffeescript</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Jan 2014</small>
+        <a href="/blog/2014/01/12/room-for-one-more.html">Room for one more</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">09 Jan 2014</small>
+        <a href="/blog/2014/01/09/moon-over-midway.html">Moon over Midway</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">09 Jan 2014</small>
+        <a href="/blog/2014/01/09/just-used-a-cool-regexp-trick-in-ruby.html">Just used a cool regexp trick in Ruby</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Jan 2014</small>
+        <a href="/blog/2014/01/06/im-sick-of-site-spam.html">I'm sick of site spam</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">04 Jan 2014</small>
+        <a href="/blog/2014/01/04/reactive-systems-have-no-top.html">Reactive systems have no top</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Jan 2014</small>
+        <a href="/blog/2014/01/01/water-tower.html">Water tower</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">30 Dec 2013</small>
+        <a href="/blog/2013/12/30/elixir-wordl-fromganesan-janarthanam.html">Elixir Wordl from Ganesan Janarthanam</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">24 Dec 2013</small>
+        <a href="/blog/2013/12/24/oft-repeated-rarely-heeded.html">Oft repeated, rarely heeded…</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">20 Dec 2013</small>
+        <a href="/blog/2013/12/20/deploying-elixir.html">Deploying Elixir</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Nov 2013</small>
+        <a href="/blog/2013/11/01/pragmatic-royalties2013-edition.html">Pragmatic Royalties—2013 Edition</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Feb 2012</small>
+        <a href="/blog/2012/02/01/smart-constants.html.html">Smart Constants</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Nov 2011</small>
+        <a href="/blog/2011/11/12/followup-to-my-email-experiment.html">Followup to my EMail experiment</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">14 Apr 2011</small>
+        <a href="/blog/2011/04/14/so-im-trying-an-email-experiment.html">So I'm trying an email experiment</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">19 Oct 2009</small>
+        <a href="/blog/2009/10/19/pragmatic-bookshelf-royalty-rates.html">Pragmatic Bookshelf Royalty Rates</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">11 Jun 2009</small>
+        <a href="/blog/2009/06/11/some-music.html">Final Piece of Music</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">11 May 2009</small>
+        <a href="/blog/2009/05/11/some-music-seventy-eight.html">Some music: Seventy Eight</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">03 May 2009</small>
+        <a href="/blog/2009/05/03/the-passionate-programmer.html">The Passionate Programmer</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Apr 2009</small>
+        <a href="/blog/2009/04/08/twitter-should-move-away-from-ruby.html">Twitter Should Move Away from Ruby</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">25 Dec 2008</small>
+        <a href="/blog/2008/12/25/some-music-fives-and-sixes.html">Some music: Fives and Sixes</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">20 Dec 2008</small>
+        <a href="/blog/2008/12/20/epic-cover.html">Epic Cover</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Dec 2008</small>
+        <a href="/blog/2008/12/16/ruby-19-can-check-your-indentation.html">Ruby 1.9 can check your indentation</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Dec 2008</small>
+        <a href="/blog/2008/12/01/forking-rubymy-rubyconf-keynote-is-now-up.html">Forking Ruby—my RubyConf Keynote is now up</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">29 Nov 2008</small>
+        <a href="/blog/2008/11/29/see-rails-request-paths-in-top.html">See Rails request paths in 'top'</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 Oct 2008</small>
+        <a href="/blog/2008/10/15/fun-with-ruby-19-regular-expressions.html">Fun with Ruby 1.9 Regular Expressions</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Sep 2008</small>
+        <a href="/blog/2008/09/08/fun-with-procs-in-ruby-19.html">Fun with Procs in Ruby 1.9</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Sep 2008</small>
+        <a href="/blog/2008/09/06/clearing-the-logjam.html">Clearing the logjam</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 Jun 2008</small>
+        <a href="/blog/2008/06/15/silly-ruby-19-trivia.html">Silly Ruby 1.9 trivia</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">09 Jun 2008</small>
+        <a href="/blog/2008/06/09/screencasting-ruby-metaprogramming.html">Screencasting Ruby Metaprogramming</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 May 2008</small>
+        <a href="/blog/2008/05/27/my-first-music-composition.html">My first music composition</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">22 May 2008</small>
+        <a href="/blog/2008/05/22/new-lambda-syntax-in-ruby-19.html">New lambda syntax in Ruby 1.9</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">19 May 2008</small>
+        <a href="/blog/2008/05/19/two-new-books.html">Two new books</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">18 May 2008</small>
+        <a href="/blog/2008/05/18/code-in-presentations-part-ii.html">Code in Presentations, Part II  </a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 May 2008</small>
+        <a href="/blog/2008/05/16/zacharys-a-black-belt.html">Zachary's a Black Belt</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 May 2008</small>
+        <a href="/blog/2008/05/15/our-take-on-presenting-code.html">Our take on presenting code</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 Apr 2008</small>
+        <a href="/blog/2008/04/27/shoulda-used-this-earlier.html">Shoulda used this earlier</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Apr 2008</small>
+        <a href="/blog/2008/04/08/babydoc.html">BabyDoc</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">07 Apr 2008</small>
+        <a href="/blog/2008/04/07/fun-with-ruby-19-file-encodings.html">Fun with Ruby 1.9 File Encodings</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">23 Mar 2008</small>
+        <a href="/blog/2008/03/23/id-like-to-apologize.html">I'd like to apologize</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">13 Mar 2008</small>
+        <a href="/blog/2008/03/13/source-code-for-that-testing-library.html">Source Code for that Testing Library</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Mar 2008</small>
+        <a href="/blog/2008/03/12/playing-with-a-testing-library.html">Playing with a Testing Library</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">10 Mar 2008</small>
+        <a href="/blog/2008/03/10/the-language-in-domainspecific-language-doesnt-mean-english-or-french-or-japanese-or.html">The 'Language' in Domain-Specific Language Doesn't Mean English (or French, or Japanese, or ...)</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 Jan 2008</small>
+        <a href="/blog/2008/01/27/pragmatic-dave-on-passion-skill-and-having-a-blast.html">Pragmatic Dave on Passion, Skill and 'Having A Blast'</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">07 Jan 2008</small>
+        <a href="/blog/2008/01/07/a-loud-huzzah-was-heard-throughout-the-land.html">A loud "Huzzah!" was heard throughout the land</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Jan 2008</small>
+        <a href="/blog/2008/01/01/pipelines-using-fibers-in-ruby-19part-ii.html">Pipelines Using Fibers in Ruby 1.9—Part II</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">30 Dec 2007</small>
+        <a href="/blog/2007/12/30/pipelines-using-fibers-in-ruby-19.html">Pipelines Using Fibers in Ruby 1.9</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Dec 2007</small>
+        <a href="/blog/2007/12/12/third-edition-of-the-pickaxe.html">Third Edition of the Pickaxe</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Nov 2007</small>
+        <a href="/blog/2007/11/08/michael-swaine-on-computer-book-publishing.html">Michael Swaine on Computer Book Publishing</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Oct 2007</small>
+        <a href="/blog/2007/10/16/art-in-programming.html">Art in Programming</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">29 Aug 2007</small>
+        <a href="/blog/2007/08/29/superators-neat-ruby-hack.html">Superators: neat Ruby hack</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Aug 2007</small>
+        <a href="/blog/2007/08/12/possibly-my-favorite-rake-target.html">Possibly my favorite Rake target</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">23 Jun 2007</small>
+        <a href="/blog/2007/06/23/dhhrock-star.html">DHH—Rock Star!</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 May 2007</small>
+        <a href="/blog/2007/05/27/have-fun-do-good.html">Have Fun. Do Good.</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">21 May 2007</small>
+        <a href="/blog/2007/05/21/paying-back.html">Paying Back</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">20 May 2007</small>
+        <a href="/blog/2007/05/20/rails-is-love.html">Rails is Love</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">19 Apr 2007</small>
+        <a href="/blog/2007/04/19/testfirst-word-wrap-in-erlang.html">Test-First Word Wrap in Erlang</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Apr 2007</small>
+        <a href="/blog/2007/04/16/adding-concurrency-to-our-erlang-program.html">Adding Concurrency to Our Erlang Program</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 Apr 2007</small>
+        <a href="/blog/2007/04/15/a-first-erlang-program.html">A First Erlang Program</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">28 Mar 2007</small>
+        <a href="/blog/2007/03/28/the-radar-architecture-restful-application-dumbass-recipient.html">The RADAR Architecture: RESTful Application, Dumb-Ass Recipient</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">28 Mar 2007</small>
+        <a href="/blog/2007/03/28/grapher-the-coolest-app-you-never-knew-you-had.html">Grapher: The Coolest App You Never Knew You Had</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">21 Mar 2007</small>
+        <a href="/blog/2007/03/21/sywtwab-7-reviewers-and-how-not-to-kill-them.html">SYWTWAB 7: Reviewers, And How Not to Kill Them</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">18 Mar 2007</small>
+        <a href="/blog/2007/03/18/agile-mastery.html">Agile Mastery</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Mar 2007</small>
+        <a href="/blog/2007/03/12/sywtwab-6-wrandom-writing-wrules.html">SYWTWAB 6: Wrandom Writing Wrules</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">11 Mar 2007</small>
+        <a href="/blog/2007/03/11/sywtwab-5-finding-your-voice.html">SYWTWAB 5: Finding Your Voice</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Mar 2007</small>
+        <a href="/blog/2007/03/08/sywtwab-4-readers-on-your-shoulders.html">SYWTWAB 4: Readers on Your Shoulders</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">07 Mar 2007</small>
+        <a href="/blog/2007/03/07/sywtwab-3-the-heros-journey-are-you-experienced.html">SYWTWAB 3: The Hero's Journey: Are You Experienced?</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">07 Mar 2007</small>
+        <a href="/blog/2007/03/07/quick-ruby-quiz.html">Quick Ruby Quiz</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">05 Mar 2007</small>
+        <a href="/blog/2007/03/05/sywtwab-2-the-heros-journey.html">SYWTWAB 2: The Hero's Journey</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">04 Mar 2007</small>
+        <a href="/blog/2007/03/04/sywtwab-1-so-you-want-to-write-a-book.html">SYWTWAB 1: So You Want to Write a Book?</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Mar 2007</small>
+        <a href="/blog/2007/03/01/bob-paynes-interview-with-me.html">Bob Payne's Interview with me</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">24 Feb 2007</small>
+        <a href="/blog/2007/02/24/some-agile-history.html">Some Agile History</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 Feb 2007</small>
+        <a href="/blog/2007/02/15/agile-retail.html">Agile Retail</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Feb 2007</small>
+        <a href="/blog/2007/02/06/cheese-on-toast.html">Cheese on Toast</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">04 Feb 2007</small>
+        <a href="/blog/2007/02/04/two-hands-bad-the-frustrations-of-dreyfus-level-one.html">Two Hands Bad: The Frustrations of Dreyfus Level One</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">13 Jan 2007</small>
+        <a href="/blog/2007/01/13/the-canary-benefit.html">The Canary Benefit</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">22 Jul 2006</small>
+        <a href="/blog/2006/07/22/rails-and-the-legacy-world.html">Rails and the Legacy World</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">17 Jul 2006</small>
+        <a href="/blog/2006/07/17/migrations-outside-rails.html">Migrations Outside Rails</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">24 Jun 2006</small>
+        <a href="/blog/2006/06/24/rails-guidebook.html">Rails Guidebook</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">23 Jun 2006</small>
+        <a href="/blog/2006/06/23/glue-that-doesnt-set.html">Glue That Doesn't Set</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">22 Jun 2006</small>
+        <a href="/blog/2006/06/22/rails-deployment.html">Rails Deployment</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 May 2006</small>
+        <a href="/blog/2006/05/16/direct-shipping-record.html">Direct Shipping Record</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">14 May 2006</small>
+        <a href="/blog/2006/05/14/agile-toolkit-podcast-railsedge-2007-dave-thomas-monoculture-music-and-erlang-oh-my.html">Agile Toolkit Podcast : RailsEdge 2007 - Dave Thomas - Monoculture, Music and Erlang…</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Apr 2006</small>
+        <a href="/blog/2006/04/16/rails-is-more.html">Rails is More...</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Apr 2006</small>
+        <a href="/blog/2006/04/06/e-pluribus-anum.html">E Pluribus Anum</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">14 Mar 2006</small>
+        <a href="/blog/2006/03/14/rrails-gets-rrecognized.html">R-Rails Gets R-Recognized</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">26 Feb 2006</small>
+        <a href="/blog/2006/02/26/annotate-models-plugin.html">Annotate Models Plugin</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Feb 2006</small>
+        <a href="/blog/2006/02/06/rails-guidebook-is-full.html">Rails Guidebook is Full</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">05 Feb 2006</small>
+        <a href="/blog/2006/02/05/railsconf-and-the-rails-guidebook.html">RailsConf and the Rails Guidebook</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 Jan 2006</small>
+        <a href="/blog/2006/01/27/our-latest-conference.html">Our latest conference</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">03 Jan 2006</small>
+        <a href="/blog/2006/01/03/sharing-external-activerecord-connections.html">Sharing External ActiveRecord Connections</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">02 Jan 2006</small>
+        <a href="/blog/2006/01/02/the-water-fountain-methodology.html">The Water Fountain Methodology</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 Dec 2005</small>
+        <a href="/blog/2005/12/15/chad-fowlers-speaks.html">Chad Fowlers Speaks!</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">05 Dec 2005</small>
+        <a href="/blog/2005/12/05/great-advice-from-chris-pine.html">Great advice from Chris Pine…</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Dec 2005</small>
+        <a href="/blog/2005/12/01/magical-thinking.html">Magical Thinking</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">22 Nov 2005</small>
+        <a href="/blog/2005/11/22/weighty-matters.html">Weighty Matters</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">20 Nov 2005</small>
+        <a href="/blog/2005/11/20/the-first-rails-studio.html">The First Rails Studio</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">04 Nov 2005</small>
+        <a href="/blog/2005/11/04/symboltoproc.html">Symbol#to_proc</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">19 Oct 2005</small>
+        <a href="/blog/2005/10/19/onetwo-on-amazon.html">One-Two on Amazon</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 Sep 2005</small>
+        <a href="/blog/2005/09/15/is-ruby-better-than.html">Is Ruby Better Than…?</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Sep 2005</small>
+        <a href="/blog/2005/09/08/is-rails-ready-for-prime-time.html">Is Rails Ready for Prime Time?</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Sep 2005</small>
+        <a href="/blog/2005/09/01/mining-build-statistics.html">Mining Build Statistics</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">31 Aug 2005</small>
+        <a href="/blog/2005/08/31/spam-volume.html">Spam Volume</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">28 Aug 2005</small>
+        <a href="/blog/2005/08/28/ongoing-by-tim-bray-shiny-red-rock.html">ongoing by Tim Bray · Shiny Red Rock</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Jul 2005</small>
+        <a href="/blog/2005/07/12/we-reached-the-station.html">We Reached the Station</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">15 Jun 2005</small>
+        <a href="/blog/2005/06/15/knee-testing.html">Knee Testing</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">19 Apr 2005</small>
+        <a href="/blog/2005/04/19/shared-find-clipboard-on-osx.html">Shared Find Clipboard on OSX</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Apr 2005</small>
+        <a href="/blog/2005/04/06/putting-code-in-python-documentation.html">Putting Code in Python Documentation</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Apr 2005</small>
+        <a href="/blog/2005/04/01/putting-code-in-books.html">Putting Code in Books</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">24 Mar 2005</small>
+        <a href="/blog/2005/03/24/the-pragmatic-studio.html">The Pragmatic Studio</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Mar 2005</small>
+        <a href="/blog/2005/03/16/the-wiki-way-of-writing.html">The Wiki Way of Writing</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 Feb 2005</small>
+        <a href="/blog/2005/02/27/failure-and-surgeons.html">Failure and Surgeons</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 Jan 2005</small>
+        <a href="/blog/2005/01/27/thanks-to-all-my-fans.html">Thanks to all my Fans</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">11 Aug 2004</small>
+        <a href="/blog/2004/08/11/weeding-out-bugs.html">Weeding out Bugs</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Aug 2004</small>
+        <a href="/blog/2004/08/06/fueling-development.html">Fueling Development</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">03 Aug 2004</small>
+        <a href="/blog/2004/08/03/the-new-latex-companion.html">The New LaTeX Companion</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">13 Jul 2004</small>
+        <a href="/blog/2004/07/13/why-i-like-scripting-languages-reason-259.html">Why I Like Scripting Languages, Reason #259</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">28 Jun 2004</small>
+        <a href="/blog/2004/06/28/reasons-to-like-scripting-languages-134.html">Reasons to Like Scripting Languages, #134</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Jun 2004</small>
+        <a href="/blog/2004/06/08/were-in-borders.html">We're in Borders!</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">27 May 2004</small>
+        <a href="/blog/2004/05/27/a-milestone-reached.html">A Milestone Reached</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">26 May 2004</small>
+        <a href="/blog/2004/05/26/test-driven-or-test-first.html">Test Driven or Test First?</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">17 May 2004</small>
+        <a href="/blog/2004/05/17/outsourcing-article.html">Outsourcing article</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">26 Apr 2004</small>
+        <a href="/blog/2004/04/26/end-of-the-knowledge-worker.html">End of the Knowledge Worker?</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Apr 2004</small>
+        <a href="/blog/2004/04/12/broken-raspberries.html">Broken Raspberries</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Mar 2004</small>
+        <a href="/blog/2004/03/16/we-got-a-jolt-award.html">We Got a Jolt Award!</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Mar 2004</small>
+        <a href="/blog/2004/03/16/tim-bray-on-dynamic-languages.html">Tim Bray on Dynamic Languages</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">11 Mar 2004</small>
+        <a href="/blog/2004/03/11/nice-interface-in-a-storm.html">Nice Interface in a Storm</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Mar 2004</small>
+        <a href="/blog/2004/03/06/our-third-title.html">Our Third Title!</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">25 Nov 2003</small>
+        <a href="/blog/2003/11/25/mechanism-and-policy.html">Mechanism and Policy</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">14 Oct 2003</small>
+        <a href="/blog/2003/10/14/my-kind-of-warranty.html">My Kind of Warranty</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">13 Oct 2003</small>
+        <a href="/blog/2003/10/13/tangled-up-in-packing-tape.html">Tangled Up In Packing Tape</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">12 Aug 2003</small>
+        <a href="/blog/2003/08/12/want-to-work-for-amazon.html">Want to Work for Amazon?</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">29 Jul 2003</small>
+        <a href="/blog/2003/07/29/prowling-the-ruins-of-ancient-software.html">Prowling the ruins of ancient software</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">04 Jul 2003</small>
+        <a href="/blog/2003/07/04/truths-from-the-declaration-of-independence.html">Truths from the Declaration of Independence</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">17 Jun 2003</small>
+        <a href="/blog/2003/06/17/debating-with-knives.html">Debating with Knives</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">11 Jun 2003</small>
+        <a href="/blog/2003/06/11/construction-methods.html">Construction Methods</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">05 Jun 2003</small>
+        <a href="/blog/2003/06/05/change-control-is-location-independence.html">Change Control is Location Independence</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">03 Jun 2003</small>
+        <a href="/blog/2003/06/03/dynamically-scoped-variables.html">Dynamically Scoped Variables</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">01 Jun 2003</small>
+        <a href="/blog/2003/06/01/the-joy-of-lego.html">The Joy of Lego</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 May 2003</small>
+        <a href="/blog/2003/05/08/vicarious-seat-backs.html">Vicarious Seat Backs</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 May 2003</small>
+        <a href="/blog/2003/05/06/first-kill-the-architects.html">First Kill the Architects</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Apr 2003</small>
+        <a href="/blog/2003/04/16/tom-lehrers-the-elements-a-flash-animation-by-mike-stanfill-private-hand.html">Tom Lehrer's "The Elements". A Flash animation by Mike Stanfill, Private Hand</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">16 Apr 2003</small>
+        <a href="/blog/2003/04/16/on-getting-involved.html">On Getting Involved</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">23 Mar 2003</small>
+        <a href="/blog/2003/03/23/artifacting.html">Artifacting</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Mar 2003</small>
+        <a href="/blog/2003/03/06/topless-systems-naked-objects.html">Topless Systems, Naked Objects</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">02 Mar 2003</small>
+        <a href="/blog/2003/03/02/bill-venners-interview.html">Bill Venners' Interview</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">28 Feb 2003</small>
+        <a href="/blog/2003/02/28/io-io-its-off-to-play-i-go.html">Io, Io, it's Off to Play I Go</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">22 Feb 2003</small>
+        <a href="/blog/2003/02/22/the-absence-of-grace.html">The Absence of Grace</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">08 Feb 2003</small>
+        <a href="/blog/2003/02/08/every-day-in-every-way.html">Every day in every way…</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">06 Feb 2003</small>
+        <a href="/blog/2003/02/06/passing-information-to-our-childrens-childrens-children.html">Passing Information to Our Children's Children's ... Children</a>
+      </dt>
+      
+      
+      <dt>
+        <small class="post-date">02 Feb 2003</small>
+        <a href="/blog/2003/02/02/learning-from-mistakes.html">Learning from Mistakes</a>
+      </dt>
+      
+      
     </dl>
   </div>
 </div>
+
+
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

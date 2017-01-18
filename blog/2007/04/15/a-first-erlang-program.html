@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     A First Erlang Program
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  
+">
+  <meta property="og:site_name"
+        content="
+  
+     A First Erlang Program
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2007/04/15/a-first-erlang-program.html
+">
+  <meta property="og:title"
+        content="
+  
+     A First Erlang Program
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2007/04/15/a-first-erlang-program.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2007/04/15/a-first-erlang-program.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>A First Erlang Program</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2007-04-15T00:00:00-05:00" itemprop="datePublished">Apr 15, 2007
+        </time>
+         | 
+        
+        <a href="/blog/tags#erlang" class="post-tag">erlang</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p><img class="right" src="/img/erlang.jpg" /></p>
+
+<p>One of the joys of playing at being a publisher is that I get to mess
+around with the technology in books as those books are getting
+written. Lately I’ve been having a blast with <a href="http://armstrongonsoftware.blogspot.com/">Joe Armstrong</a>’s
+new <a href="http://pragmaticprogrammer.com/titles/jaerlang2/index.html">Erlang
+Book</a>. At some point I’ll blog about the really neat way the Erlang
+database unifies the set-based SQL query language and list
+comprehensions (it’s obvious when you think about it, but it blew me
+away when I first read it). But I just wanted to start off with some
+simple stuff.</p>
+
+<p>One of my standard Ruby examples is a program that fetches our book
+sales ranks from Amazon using their REST interface. I thought I’d try
+the exercise again in Erlang. In this first part we’ll write a simple
+Erlang function that uses the Amazon <a href="http://www.amazon.com/gp/browse.html?node=3435361">Web Services
+API</a> to fetch the data on a book (identified by its ISBN). This
+data is returned in XML, so we’ll then use some simple XPath to
+extract the title and the sales rank.</p>
+
+<p>My Erlang module is called <code class="highlighter-rouge">ranks</code>, and I store it in the
+file<code class="highlighter-rouge">ranks.erl</code>. Because I’m just playing for now, the interface to
+this module is simple: I’ll define a function
+called<code class="highlighter-rouge">fetch_title_and_rank</code>. This returns a {<em>title, rank</em>}
+tuple. So, I started off with something like this:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">ranks</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">fetch_title_and_rank</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="p">{</span> <span class="s">"Agile Web Development with Rails"</span><span class="p">,</span> <span class="mi">1234</span> <span class="p">}.</span>
+
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">-module</code> directive simply names the module. The next line tells
+Erlang that this module exports a function
+called <code class="highlighter-rouge">fetch_title_and_rank</code>. This method takes one parameter. (This
+idea of specifying the number of parameters seems strange until you
+realize that in Erlang the function signature is the function
+name <em>and</em> the parameter count. It is valid to export two functions
+with the same name if they take a different number of arguments—as far
+as Erlang is concerned they are different functions.)</p>
+
+<p>Next we define the <code class="highlighter-rouge">fetch_title_and_rank</code> function. It takes a single
+parameter, the book’s ISBN. In Erlang, variable names (including
+parameters) start with uppercase letters. This takes a little getting
+used to. Just to make sure thinks are wired up correctly, let’s try
+running this code. In a command shell, I navigate to the directory
+containing <code class="highlighter-rouge">ranks.erl</code> and started the interactive Erlang shell. Once
+inside it, I compiled my module (using <code class="highlighter-rouge">c(ranks).</code>) and then invoke
+the <code class="highlighter-rouge">fetch_title_and_rank</code> method.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>dave[~/tmp 11:51:09] erl
+Erlang (BEAM) emulator version 5.5.4 [source] ...
+
+Eshell V5.5.4  (abort with ^G)
+1&gt; c(ranks).
+./ranks.erl:11: Warning: variable 'ISBN' is unused
+{ok,ranks}
+2&gt; ranks:fetch_title_and_rank("0977616630").
+{"Agile Web Development with Rails",1234}
+
+</code></pre>
+</div>
+
+<p>Let’s start wiring this up to Amazon.</p>
+
+<p>To fetch information from Amazon using REST, you need to issue
+an <code class="highlighter-rouge">ItemLookup</code> operation, specifying what you want Amazon to
+return. In our case, we want the sales rank information, plus
+something called the <em>small</em> response group. The latter includes the
+book’s title. The URL you use to get this looks like this (except all
+on one line, and with no spaces):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;a href="http://webservices.amazon.com/onca/xml?"&gt;http://webservices.amazon.com/onca/xml?&lt;/a&gt;
+Service=AWSECommerceService
+&amp;SubscriptionId=&lt;your ID goes here&gt;
+&amp;Operation=ItemLookup
+&amp;ResponseGroup=SalesRank,Small
+&amp;ItemId=0977616630
+
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">ItemID</code> parameter is the ISBN of our book. Let’s write an Erlang
+function that returns the URL to fetch the information for an ISBN.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>-define(BASE_URL,
+      "http://webservices.amazon.com/onca/xml?" ++
+      "Service=AWSECommerceService" ++
+      "&amp;SubscriptionId=&lt;" ++
+          "&amp;Operation=ItemLookup" ++
+          "&amp;ResponseGroup=SalesRank,Small" ++
+          "&amp;ItemId=").
+
+amazon_url_for(ISBN) -&gt;
+  ?BASE_URL ++ ISBN.
+
+</code></pre>
+</div>
+
+<p>This code defines an Erlang macro called <code class="highlighter-rouge">BASE_URL</code> which holds the
+static part of the URL. The function<code class="highlighter-rouge">amazon_url_for</code> builds the full
+URL by appending the ISBN to this. Note that both the macro and the
+function use <code class="highlighter-rouge">++</code>, the operator that concatenates strings.</p>
+
+<p>We now need to find a way of sending this request to Amazon and
+fetching back the XML response. Here we bump into one of Erlang’s
+current problems—it can be hard to browse the library
+documentation. My solution is to <a href="http://www.erlang.org/download.html">download the
+documentation</a> onto my local box and search it there. I tend to use
+both the HTML and the man pages. Figuring I wanted something HTTP
+related, I tried the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>dave[Downloads/lib 12:04:07] ls **/*http*
+inets-4.7.11/doc/html/http.html        
+inets-4.7.11/doc/html/http_base_64.html 
+inets-4.7.11/doc/html/http_client.html  
+inets-4.7.11/doc/html/http_server.html 
+inets-4.7.11/doc/html/httpd.html
+inets-4.7.11/doc/html/httpd_conf.html
+inets-4.7.11/doc/html/httpd_socket.html
+inets-4.7.11/doc/html/httpd_util.html
+
+</code></pre>
+</div>
+
+<p>Opening up <a href="http://pragdave.pragprog.com/pragdave/page/6/..."><code class="highlighter-rouge">http.html</code></a> revealed
+the <code class="highlighter-rouge">http:request</code> method.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">request</span><span class="p">(</span><span class="nv">Url</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Result</span><span class="p">}</span> <span class="p">|</span> <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="nv">Reason</span><span class="p">}</span>
+</code></pre>
+</div>
+
+<p>This says that we give the <code class="highlighter-rouge">request</code> method a URL string. It returns a
+tuple. If the first element of the tuple is the atom <code class="highlighter-rouge">ok</code>, then the
+second element is the result for the request. If the first element
+is <code class="highlighter-rouge">error</code>, the second element is the reason it failed. This technique
+of returning both status and data as a tuple is idiomatic in Erlang,
+and the language makes it easy to handle the different cases.</p>
+
+<p>Let’s look a little deeper into the successful
+case. The <code class="highlighter-rouge">Result</code> element is actually itself a tuple containing a
+status, the response headers, and the response body.</p>
+
+<p>So let’s take all this and develop our <code class="highlighter-rouge">fetch_title_and_rank</code> method a
+little more.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">fetch_title_and_rank</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">URL</span> <span class="o">=</span> <span class="nf">amazon_url_for</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">),</span>
+  <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="p">{</span><span class="nv">Status</span><span class="p">,</span> <span class="nv">Headers</span><span class="p">,</span> <span class="nv">Body</span> <span class="p">}}</span> <span class="o">=</span> <span class="nn">http</span><span class="p">:</span><span class="nf">request</span><span class="p">(</span><span class="nv">URL</span><span class="p">),</span>
+  <span class="nv">Body</span><span class="p">.</span>
+
+</code></pre>
+</div>
+
+<p>We call our <code class="highlighter-rouge">amazon_url_for</code> method to create the URL to fetch the
+data, then invoke the <code class="highlighter-rouge">http:request</code>library method to fetch the
+result. Let’s look at that second line in more detail.</p>
+
+<p>The equals sign in Erlang looks like an assignment statement, but
+looks are deceptive. In Erlang, the equals sign is actually a pattern
+matching operation—an assertion that two things are equal. For
+example, it is perfectly valid in Erlang to say</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>6&gt; 1 = 1.
+1
+7&gt; 9 * 7 = 60 + 3.
+63
+
+</code></pre>
+</div>
+
+<p>So what happens when variables get involved? This is where it gets
+interesting. When I say</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nv">A</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span>
+
+</code></pre>
+</div>
+
+<p>I’m not assigning 1 to the variable A. Instead, I’m matching A against
+1 (just like 9*7 = 60+3 asserts that the results of the two
+expressions are the same). So, does A match 1? That depends. If this
+is the first appearance of A on the left hand side of an equals sign,
+then A is said to be unbound. In this condition, Erlang says to itself
+“I can make this statement true if I give A the value 1,” which is
+does. From this point forward, A has the value 1 (in the current
+scope). If we say <code class="highlighter-rouge">A = 1.</code> again in the same scope in our Erlang
+program, A is no longer unbound, but this pattern match succeeds,
+because <code class="highlighter-rouge">A = 1.</code>is a simple assertion of truth. But what happens if we
+say <code class="highlighter-rouge">A=2.</code>?</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>10&gt; A = 1.
+1
+11&gt; A = 1.
+1
+12&gt; A = 2.
+
+=ERROR REPORT==== 16-Apr-2007::12:32:36 ===
+Error in process &lt;0.55.0&gt; with exit value: {{badmatch,2},[{erl_eval,expr,3}]}
+
+** exited: {{badmatch,2},[{erl_eval,expr,3}]} **
+
+</code></pre>
+</div>
+
+<p>We get an error: Erlang was unable to match the values on the left and
+right hand sides of the equals, so it raised
+a <code class="highlighter-rouge">badmatch</code> error. (Erlang error reporting is, at best, obscure.)</p>
+
+<p>So, back to our HTTP request. I wrote</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="p">{</span><span class="nv">Status</span><span class="p">,</span> <span class="nv">Headers</span><span class="p">,</span> <span class="nv">Body</span> <span class="p">}}</span> <span class="o">=</span> <span class="nn">http</span><span class="p">:</span><span class="nf">request</span><span class="p">(</span><span class="nv">URL</span><span class="p">)</span>
+
+</code></pre>
+</div>
+
+<p>The left hand side matches a tuple. The first element of the tuple is
+the atom <code class="highlighter-rouge">ok</code>. The second element is another tuple. Thus the entire
+expression only succeeds if <code class="highlighter-rouge">http:request</code> returns a two element tuple
+with <code class="highlighter-rouge">ok</code> as the first element and a three element tuple as the second
+element. If the match succeeds, then the
+variables <code class="highlighter-rouge">Status</code>, <code class="highlighter-rouge">Headers</code>, and <code class="highlighter-rouge">Body</code> are set to the three
+elements of that second tuple.</p>
+
+<p>(An aside for Ruby folk: you can do something similar using an obscure
+Ruby syntax. The statement</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="n">rc</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">200</span><span class="p">,</span> <span class="p">[</span> <span class="s">"status"</span><span class="p">,</span> <span class="s">"headers"</span><span class="p">,</span> <span class="s">"body"</span> <span class="p">]</span> <span class="p">]</span>
+
+</code></pre>
+</div>
+
+<p>will leave <code class="highlighter-rouge">headers</code> containing the string <code class="highlighter-rouge">"headers"</code>.)</p>
+
+<p>In our Erlang example, what happens if <code class="highlighter-rouge">http:request</code> returns an
+error? In this case, the first element of the returned tuple will be
+the atom <code class="highlighter-rouge">error</code>. This won’t match the left hand side of our
+expression (because the atom <code class="highlighter-rouge">error</code> is not the same as the atom <code class="highlighter-rouge">ok</code>)
+and we’ll get a badmatch error. We won’t bother to handle this
+here—it’s someone else’s problem.</p>
+
+<p>Let’s compile our program.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(ranks).
+./ranks.erl:13: Warning: variable 'Headers' is unused
+./ranks.erl:13: Warning: variable 'Status' is unused
+{ok,ranks}
+
+</code></pre>
+</div>
+
+<p>Erlang warns us that we have some unused variables. Do we care? To a
+point. I personally like my compilations to be clean, so let’s fix
+this. If you prefix a variable’s name with an underscore, it tells the
+Erlang compiler that you don’t intend to use that variable. As a
+degenerate case, you can use just a lone underscore, which means “some
+anonymous variable.” So, we can fix our warnings by writing either</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="p">{_</span><span class="nv">Status</span><span class="p">,</span> <span class="p">_</span><span class="nv">Headers</span><span class="p">,</span> <span class="nv">Body</span> <span class="p">}}</span> <span class="o">=</span> <span class="nn">http</span><span class="p">:</span><span class="nf">request</span><span class="p">(</span><span class="nv">URL</span><span class="p">),</span>
+
+</code></pre>
+</div>
+
+<p>or</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="p">{_,</span> <span class="p">_,</span> <span class="nv">Body</span> <span class="p">}}</span> <span class="o">=</span> <span class="nn">http</span><span class="p">:</span><span class="nf">request</span><span class="p">(</span><span class="nv">URL</span><span class="p">),</span>
+
+</code></pre>
+</div>
+
+<p>I mildly prefer the first form, as it helps me remember what those
+elements in the tuple are when I reread the program later.</p>
+
+<p>Now we can recompile and run our code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(ranks).
+{ok,ranks}
+2&gt; ranks:fetch_title_and_rank("0977616630").
+"&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;&lt;ItemLookupResponse
+xmlns=\"http://webservices.amazon.com/AWSECommerceService/2005-10-05\"&gt;
+&lt;OperationRequest&gt;&lt;HTTPHeaders&gt;&lt;Header ...
+   ... &lt;SalesRank&gt;1098&lt;/SalesRank&gt;
+   ... &lt;Title&gt;Agile Web Development with Rails (Pragmatic
+        Programmers)&lt;/Title&gt;...
+   ...
+
+</code></pre>
+</div>
+
+<p>Cool! We get a boatload of XML back. (If you’re running this at home,
+you’ll need to substitute your own AWS subscription ID into the
+request string to make this work.) Now we need to extract out the
+title and the sales rank. We could to this using string operations,
+but wouldn’t it be more fun to use XPath? Another quick filesystem
+scan reveals the xmerl library, which both generates and parses
+XML. It also supports XPath queries. To use this, we first scan the
+Amazon response. This constructs an Erlang data structure representing
+the original XML. We then call the <code class="highlighter-rouge">xmerl_xpath</code> library to find the
+elements in this data structure matching our query.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">"xmerl/include/xmerl.hrl"</span><span class="p">).</span>
+
+<span class="nf">fetch_title_and_rank</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">URL</span> <span class="o">=</span> <span class="nf">amazon_url_for</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">),</span>
+  <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="p">{_</span><span class="nv">Status</span><span class="p">,</span> <span class="p">_</span><span class="nv">Headers</span><span class="p">,</span> <span class="nv">Body</span> <span class="p">}}</span> <span class="o">=</span> <span class="nn">http</span><span class="p">:</span><span class="nf">request</span><span class="p">(</span><span class="nv">URL</span><span class="p">),</span>
+  <span class="p">{</span> <span class="nv">Xml</span><span class="p">,</span> <span class="p">_</span><span class="nv">Rest</span> <span class="p">}</span> <span class="o">=</span> <span class="nn">xmerl_scan</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="nv">Body</span><span class="p">),</span>
+  <span class="p">[</span> <span class="nl">#xmlText</span><span class="p">{</span><span class="n">value</span><span class="o">=</span><span class="nv">Rank</span><span class="p">}</span> <span class="p">]</span>  <span class="o">=</span> <span class="nn">xmerl_xpath</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="s">"//SalesRank/text()"</span><span class="p">,</span> <span class="nv">Xml</span><span class="p">),</span>
+  <span class="p">[</span> <span class="nl">#xmlText</span><span class="p">{</span><span class="n">value</span><span class="o">=</span><span class="nv">Title</span><span class="p">}</span> <span class="p">]</span> <span class="o">=</span> <span class="nn">xmerl_xpath</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="s">"//Title/text()"</span><span class="p">,</span> <span class="nv">Xml</span><span class="p">),</span>
+  <span class="p">{</span> <span class="nv">Title</span><span class="p">,</span> <span class="nv">Rank</span> <span class="p">}.</span>
+
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">-include</code> line loads up the set of Erlang record definitions that
+xmerl uses to represent elements in the parsed XML. This isn’t
+strictly necessary, but doing so makes the XPath stuff a little
+cleaner.</p>
+
+<p>The line</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">{</span> <span class="nv">Xml</span><span class="p">,</span> <span class="p">_</span><span class="nv">Rest</span> <span class="p">}</span> <span class="o">=</span> <span class="nn">xmerl_scan</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="nv">Body</span><span class="p">),</span>
+
+</code></pre>
+</div>
+
+<p>parses the XML response, storing the internal Erlang representation in
+the variable <code class="highlighter-rouge">Xml</code>.</p>
+
+<p>Then we have the line</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">[</span> <span class="nl">#xmlText</span><span class="p">{</span><span class="n">value</span><span class="o">=</span><span class="nv">Rank</span><span class="p">}</span> <span class="p">]</span>  <span class="o">=</span> <span class="nn">xmerl_xpath</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="s">"//SalesRank/text()"</span><span class="p">,</span> <span class="nv">Xml</span><span class="p">),</span>
+
+</code></pre>
+</div>
+
+<p>The notation <code class="highlighter-rouge">#xmlText</code> identifies an Erlang <em>record</em>. A record is
+basically a tuple where each element is given a name. In this case the
+tuple (defined in that <code class="highlighter-rouge">.hrl</code> file we included) is
+called <code class="highlighter-rouge">xmlText</code>. It represents a text node in the
+XML. The <code class="highlighter-rouge">xmlText</code> record has a field called <code class="highlighter-rouge">value</code>. We use pattern
+matching to assign whatever is in that field to the variable Rank. But
+there’s one more twist. Did you notice that we wrote square brackets
+around the left hand side of the pattern match? Thats because XPath
+queries return an array of results. By writing the left hand side the
+way we did, we force Erlang to check that an array containing just one
+element was returned, and then to check that this element was a record
+of type <code class="highlighter-rouge">xmlText</code>. That’s pretty cool stuff—pattern matching extends
+down deep into the bowels of Erlang.</p>
+
+<p>The last line of the method simply returns a tuple containing the
+title and the sales rank.</p>
+
+<p>We can call it from the command line:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(ranks).
+{ok,ranks}
+2&gt; ranks:fetch_title_and_rank("0977616630").
+{"Agile Web Development with Rails (Pragmatic Programmers)","1098"}
+
+</code></pre>
+</div>
+
+<p>That’s it for now. Next we’ll look at fetching the data for multiple
+books at once. In the meantime, here’s the full listing of
+our <code class="highlighter-rouge">ranks.erl</code> file.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">ranks</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">fetch_title_and_rank</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+<span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">"xmerl/include/xmerl.hrl"</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">BASE_URL</span><span class="p">,</span> 
+      <span class="s">"http://webservices.amazon.com/onca/xml?"</span> <span class="o">++</span>
+      <span class="s">"Service=AWSECommerceService"</span> <span class="o">++</span>
+      <span class="s">"&amp;SubscriptionId=&lt;your id&gt;"</span> <span class="o">++</span>
+      <span class="s">"&amp;Operation=ItemLookup"</span> <span class="o">++</span>
+      <span class="s">"&amp;ResponseGroup=SalesRank,Small"</span> <span class="o">++</span>
+      <span class="s">"&amp;ItemId="</span><span class="p">).</span>
+
+
+<span class="nf">fetch_title_and_rank</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">URL</span> <span class="o">=</span> <span class="nf">amazon_url_for</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">),</span>
+  <span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="p">{_</span><span class="nv">Status</span><span class="p">,</span> <span class="p">_</span><span class="nv">Headers</span><span class="p">,</span> <span class="nv">Body</span> <span class="p">}}</span> <span class="o">=</span> <span class="nn">http</span><span class="p">:</span><span class="nf">request</span><span class="p">(</span><span class="nv">URL</span><span class="p">),</span>
+  <span class="p">{</span> <span class="nv">Xml</span><span class="p">,</span> <span class="p">_</span><span class="nv">Rest</span> <span class="p">}</span> <span class="o">=</span> <span class="nn">xmerl_scan</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="nv">Body</span><span class="p">),</span>
+  <span class="p">[</span> <span class="nl">#xmlText</span><span class="p">{</span><span class="n">value</span><span class="o">=</span><span class="nv">Rank</span><span class="p">}</span> <span class="p">]</span>  <span class="o">=</span> <span class="nn">xmerl_xpath</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="s">"//SalesRank/text()"</span><span class="p">,</span> <span class="nv">Xml</span><span class="p">),</span>
+  <span class="p">[</span> <span class="nl">#xmlText</span><span class="p">{</span><span class="n">value</span><span class="o">=</span><span class="nv">Title</span><span class="p">}</span> <span class="p">]</span> <span class="o">=</span> <span class="nn">xmerl_xpath</span><span class="p">:</span><span class="nf">string</span><span class="p">(</span><span class="s">"//Title/text()"</span><span class="p">,</span> <span class="nv">Xml</span><span class="p">),</span>
+  <span class="p">{</span> <span class="nv">Title</span><span class="p">,</span> <span class="nv">Rank</span> <span class="p">}.</span>
+
+<span class="nf">amazon_url_for</span><span class="p">(</span><span class="nv">ISBN</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="o">?</span><span class="nv">BASE_URL</span> <span class="o">++</span> <span class="nv">ISBN</span><span class="p">.</span>
+</code></pre>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2007/04/15/a-first-erlang-program.html';
+      this.page.identifier = 'https://pragdave.me/blog/2007/04/15/a-first-erlang-program.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

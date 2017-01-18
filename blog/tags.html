@@ -1,32 +1,964 @@
----
-layout: page
-title: Tags
----
-{% assign sorted_tags = site.tags | sort_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Tags
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  The Code Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so you...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  The Code Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so you...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Tags
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/tags
+">
+  <meta property="og:title"
+        content="
+  
+     Tags
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  The Code Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so you...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/tags
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/tags
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Tags</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+          
 <div class="tags-expo">
   <ul class="tags-expo-list">
-    {% for tag in sorted_tags %}
+    
     <li>
-      <a href="{{ site.tag_page}}#{{ tag[0] | slugify }}" class="post-tag">
-        {{ tag[0] }} <small>({{ tag[1] | size}})</small>
+      <a href="/blog/tags#agility" class="post-tag">
+        agility <small>(1)</small>
       </a>
     </li>
-    {% endfor %}
+    
+    <li>
+      <a href="/blog/tags#deploy" class="post-tag">
+        deploy <small>(4)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#design" class="post-tag">
+        design <small>(4)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#elixir" class="post-tag">
+        elixir <small>(5)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#erlang" class="post-tag">
+        erlang <small>(3)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#improving" class="post-tag">
+        improving <small>(2)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#javascript" class="post-tag">
+        javascript <small>(2)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#music" class="post-tag">
+        music <small>(6)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#osx" class="post-tag">
+        osx <small>(1)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#photos" class="post-tag">
+        photos <small>(3)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#process" class="post-tag">
+        process <small>(3)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#programming" class="post-tag">
+        programming <small>(5)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#publishing" class="post-tag">
+        publishing <small>(9)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#rails" class="post-tag">
+        rails <small>(6)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#recruiting" class="post-tag">
+        recruiting <small>(1)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#ruby" class="post-tag">
+        ruby <small>(18)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#training" class="post-tag">
+        training <small>(4)</small>
+      </a>
+    </li>
+    
+    <li>
+      <a href="/blog/tags#writing-a-book" class="post-tag">
+        writing-a-book <small>(7)</small>
+      </a>
+    </li>
+    
   </ul>
   <hr/>
   <div class="tags-expo-section">
-    {% for tag in sorted_tags %}
-    <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
+    
+    <h2 id="agility">agility</h2>
     <ul class="tags-expo-posts">
-      {% for post in tag[1] %}
+      
       <li>
-        <a class="post-title" href="{{ site.baseurl }}{{ post.url }}">
-          <small class="post-date">{{ post.date | date_to_string }}</small>
-          {{ post.title }}
+        <a class="post-title" href="/blog/2007/03/18/agile-mastery.html">
+          <small class="post-date">18 Mar 2007</small>
+          Agile Mastery
         </a>
       </li>
-      {% endfor %}
+      
     </ul>
-    {% endfor %}
+    
+    <h2 id="deploy">deploy</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2008/11/29/see-rails-request-paths-in-top.html">
+          <small class="post-date">29 Nov 2008</small>
+          See Rails request paths in 'top'
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2006/07/17/migrations-outside-rails.html">
+          <small class="post-date">17 Jul 2006</small>
+          Migrations Outside Rails
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2006/01/03/sharing-external-activerecord-connections.html">
+          <small class="post-date">03 Jan 2006</small>
+          Sharing External ActiveRecord Connections
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/09/08/is-rails-ready-for-prime-time.html">
+          <small class="post-date">08 Sep 2005</small>
+          Is Rails Ready for Prime Time?
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="design">design</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/28/class-factories-in-coffeescript.html">
+          <small class="post-date">28 Jan 2014</small>
+          Class factories in Coffeescript
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/04/reactive-systems-have-no-top.html">
+          <small class="post-date">04 Jan 2014</small>
+          Reactive systems have no top
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/03/10/the-language-in-domainspecific-language-doesnt-mean-english-or-french-or-japanese-or.html">
+          <small class="post-date">10 Mar 2008</small>
+          The 'Language' in Domain-Specific Language Doesn't Mean English (or French, or Japanese, or ...)
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2003/06/11/construction-methods.html">
+          <small class="post-date">11 Jun 2003</small>
+          Construction Methods
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="elixir">elixir</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+          <small class="post-date">23 Feb 2016</small>
+          (Over)using <code>with</code> in Elixir 1.2
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/11/05/a-simple-elixir-macro.html">
+          <small class="post-date">05 Nov 2014</small>
+          A Simple Elixir Macro
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/10/05/thinking-in-transforms-handling-options.html">
+          <small class="post-date">05 Oct 2014</small>
+          Thinking in Transforms—Handling Options
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/09/03/elixir.html">
+          <small class="post-date">03 Sep 2014</small>
+          Elixir: state machines, metaprogramming, and generating tests
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2013/12/30/elixir-wordl-fromganesan-janarthanam.html">
+          <small class="post-date">30 Dec 2013</small>
+          Elixir Wordl from Ganesan Janarthanam
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="erlang">erlang</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2007/04/19/testfirst-word-wrap-in-erlang.html">
+          <small class="post-date">19 Apr 2007</small>
+          Test-First Word Wrap in Erlang
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/04/16/adding-concurrency-to-our-erlang-program.html">
+          <small class="post-date">16 Apr 2007</small>
+          Adding Concurrency to Our Erlang Program
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/04/15/a-first-erlang-program.html">
+          <small class="post-date">15 Apr 2007</small>
+          A First Erlang Program
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="improving">improving</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/18/agile-mastery.html">
+          <small class="post-date">18 Mar 2007</small>
+          Agile Mastery
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/02/27/failure-and-surgeons.html">
+          <small class="post-date">27 Feb 2005</small>
+          Failure and Surgeons
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="javascript">javascript</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/28/class-factories-in-coffeescript.html">
+          <small class="post-date">28 Jan 2014</small>
+          Class factories in Coffeescript
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/04/reactive-systems-have-no-top.html">
+          <small class="post-date">04 Jan 2014</small>
+          Reactive systems have no top
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="music">music</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2015/08/06/personal-area-stereo.html">
+          <small class="post-date">06 Aug 2015</small>
+          Personal Area Stereo
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2009/06/11/some-music.html">
+          <small class="post-date">11 Jun 2009</small>
+          Final Piece of Music
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2009/05/11/some-music-seventy-eight.html">
+          <small class="post-date">11 May 2009</small>
+          Some music: Seventy Eight
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/12/25/some-music-fives-and-sixes.html">
+          <small class="post-date">25 Dec 2008</small>
+          Some music: Fives and Sixes
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/09/06/clearing-the-logjam.html">
+          <small class="post-date">06 Sep 2008</small>
+          Clearing the logjam
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/05/27/my-first-music-composition.html">
+          <small class="post-date">27 May 2008</small>
+          My first music composition
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="osx">osx</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2005/04/19/shared-find-clipboard-on-osx.html">
+          <small class="post-date">19 Apr 2005</small>
+          Shared Find Clipboard on OSX
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="photos">photos</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/12/room-for-one-more.html">
+          <small class="post-date">12 Jan 2014</small>
+          Room for one more
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/09/moon-over-midway.html">
+          <small class="post-date">09 Jan 2014</small>
+          Moon over Midway
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/01/water-tower.html">
+          <small class="post-date">01 Jan 2014</small>
+          Water tower
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="process">process</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2004/08/11/weeding-out-bugs.html">
+          <small class="post-date">11 Aug 2004</small>
+          Weeding out Bugs
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2003/03/23/artifacting.html">
+          <small class="post-date">23 Mar 2003</small>
+          Artifacting
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2003/02/02/learning-from-mistakes.html">
+          <small class="post-date">02 Feb 2003</small>
+          Learning from Mistakes
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="programming">programming</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2014/11/05/a-simple-elixir-macro.html">
+          <small class="post-date">05 Nov 2014</small>
+          A Simple Elixir Macro
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/10/05/thinking-in-transforms-handling-options.html">
+          <small class="post-date">05 Oct 2014</small>
+          Thinking in Transforms—Handling Options
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2014/09/03/elixir.html">
+          <small class="post-date">03 Sep 2014</small>
+          Elixir: state machines, metaprogramming, and generating tests
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2004/08/11/weeding-out-bugs.html">
+          <small class="post-date">11 Aug 2004</small>
+          Weeding out Bugs
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2003/02/28/io-io-its-off-to-play-i-go.html">
+          <small class="post-date">28 Feb 2003</small>
+          Io, Io, it's Off to Play I Go
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="publishing">publishing</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2013/11/01/pragmatic-royalties2013-edition.html">
+          <small class="post-date">01 Nov 2013</small>
+          Pragmatic Royalties—2013 Edition
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2009/10/19/pragmatic-bookshelf-royalty-rates.html">
+          <small class="post-date">19 Oct 2009</small>
+          Pragmatic Bookshelf Royalty Rates
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2009/05/03/the-passionate-programmer.html">
+          <small class="post-date">03 May 2009</small>
+          The Passionate Programmer
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/05/19/two-new-books.html">
+          <small class="post-date">19 May 2008</small>
+          Two new books
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/05/15/our-take-on-presenting-code.html">
+          <small class="post-date">15 May 2008</small>
+          Our take on presenting code
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/11/08/michael-swaine-on-computer-book-publishing.html">
+          <small class="post-date">08 Nov 2007</small>
+          Michael Swaine on Computer Book Publishing
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/10/19/onetwo-on-amazon.html">
+          <small class="post-date">19 Oct 2005</small>
+          One-Two on Amazon
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/07/12/we-reached-the-station.html">
+          <small class="post-date">12 Jul 2005</small>
+          We Reached the Station
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/04/01/putting-code-in-books.html">
+          <small class="post-date">01 Apr 2005</small>
+          Putting Code in Books
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="rails">rails</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2008/12/20/epic-cover.html">
+          <small class="post-date">20 Dec 2008</small>
+          Epic Cover
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/11/29/see-rails-request-paths-in-top.html">
+          <small class="post-date">29 Nov 2008</small>
+          See Rails request paths in 'top'
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/05/20/rails-is-love.html">
+          <small class="post-date">20 May 2007</small>
+          Rails is Love
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2006/07/17/migrations-outside-rails.html">
+          <small class="post-date">17 Jul 2006</small>
+          Migrations Outside Rails
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2006/04/16/rails-is-more.html">
+          <small class="post-date">16 Apr 2006</small>
+          Rails is More...
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/09/08/is-rails-ready-for-prime-time.html">
+          <small class="post-date">08 Sep 2005</small>
+          Is Rails Ready for Prime Time?
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="recruiting">recruiting</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2003/02/08/every-day-in-every-way.html">
+          <small class="post-date">08 Feb 2003</small>
+          Every day in every way…
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="ruby">ruby</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2014/01/09/just-used-a-cool-regexp-trick-in-ruby.html">
+          <small class="post-date">09 Jan 2014</small>
+          Just used a cool regexp trick in Ruby
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/12/20/epic-cover.html">
+          <small class="post-date">20 Dec 2008</small>
+          Epic Cover
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/12/16/ruby-19-can-check-your-indentation.html">
+          <small class="post-date">16 Dec 2008</small>
+          Ruby 1.9 can check your indentation
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/12/01/forking-rubymy-rubyconf-keynote-is-now-up.html">
+          <small class="post-date">01 Dec 2008</small>
+          Forking Ruby—my RubyConf Keynote is now up
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/11/29/see-rails-request-paths-in-top.html">
+          <small class="post-date">29 Nov 2008</small>
+          See Rails request paths in 'top'
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/10/15/fun-with-ruby-19-regular-expressions.html">
+          <small class="post-date">15 Oct 2008</small>
+          Fun with Ruby 1.9 Regular Expressions
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/09/08/fun-with-procs-in-ruby-19.html">
+          <small class="post-date">08 Sep 2008</small>
+          Fun with Procs in Ruby 1.9
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/06/15/silly-ruby-19-trivia.html">
+          <small class="post-date">15 Jun 2008</small>
+          Silly Ruby 1.9 trivia
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/06/09/screencasting-ruby-metaprogramming.html">
+          <small class="post-date">09 Jun 2008</small>
+          Screencasting Ruby Metaprogramming
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/04/27/shoulda-used-this-earlier.html">
+          <small class="post-date">27 Apr 2008</small>
+          Shoulda used this earlier
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/04/08/babydoc.html">
+          <small class="post-date">08 Apr 2008</small>
+          BabyDoc
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/04/07/fun-with-ruby-19-file-encodings.html">
+          <small class="post-date">07 Apr 2008</small>
+          Fun with Ruby 1.9 File Encodings
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/03/12/playing-with-a-testing-library.html">
+          <small class="post-date">12 Mar 2008</small>
+          Playing with a Testing Library
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2008/01/01/pipelines-using-fibers-in-ruby-19part-ii.html">
+          <small class="post-date">01 Jan 2008</small>
+          Pipelines Using Fibers in Ruby 1.9—Part II
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/08/29/superators-neat-ruby-hack.html">
+          <small class="post-date">29 Aug 2007</small>
+          Superators: neat Ruby hack
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/07/quick-ruby-quiz.html">
+          <small class="post-date">07 Mar 2007</small>
+          Quick Ruby Quiz
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2003/06/11/construction-methods.html">
+          <small class="post-date">11 Jun 2003</small>
+          Construction Methods
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2003/06/03/dynamically-scoped-variables.html">
+          <small class="post-date">03 Jun 2003</small>
+          Dynamically Scoped Variables
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="training">training</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2008/06/09/screencasting-ruby-metaprogramming.html">
+          <small class="post-date">09 Jun 2008</small>
+          Screencasting Ruby Metaprogramming
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2006/04/16/rails-is-more.html">
+          <small class="post-date">16 Apr 2006</small>
+          Rails is More...
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/11/20/the-first-rails-studio.html">
+          <small class="post-date">20 Nov 2005</small>
+          The First Rails Studio
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2005/03/24/the-pragmatic-studio.html">
+          <small class="post-date">24 Mar 2005</small>
+          The Pragmatic Studio
+        </a>
+      </li>
+      
+    </ul>
+    
+    <h2 id="writing-a-book">writing-a-book</h2>
+    <ul class="tags-expo-posts">
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/21/sywtwab-7-reviewers-and-how-not-to-kill-them.html">
+          <small class="post-date">21 Mar 2007</small>
+          SYWTWAB 7: Reviewers, And How Not to Kill Them
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/12/sywtwab-6-wrandom-writing-wrules.html">
+          <small class="post-date">12 Mar 2007</small>
+          SYWTWAB 6: Wrandom Writing Wrules
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/11/sywtwab-5-finding-your-voice.html">
+          <small class="post-date">11 Mar 2007</small>
+          SYWTWAB 5: Finding Your Voice
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/08/sywtwab-4-readers-on-your-shoulders.html">
+          <small class="post-date">08 Mar 2007</small>
+          SYWTWAB 4: Readers on Your Shoulders
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/07/sywtwab-3-the-heros-journey-are-you-experienced.html">
+          <small class="post-date">07 Mar 2007</small>
+          SYWTWAB 3: The Hero's Journey: Are You Experienced?
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/05/sywtwab-2-the-heros-journey.html">
+          <small class="post-date">05 Mar 2007</small>
+          SYWTWAB 2: The Hero's Journey
+        </a>
+      </li>
+      
+      <li>
+        <a class="post-title" href="/blog/2007/03/04/sywtwab-1-so-you-want-to-write-a-book.html">
+          <small class="post-date">04 Mar 2007</small>
+          SYWTWAB 1: So You Want to Write a Book?
+        </a>
+      </li>
+      
+    </ul>
+    
   </div>
 </div>
+
+
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Dynamically Scoped Variables
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  Whenever I write complex systems, I find I need a way to keep context information lying around. For example I may pick up a set of user preferences for color...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  Whenever I write complex systems, I find I need a way to keep context information lying around. For example I may pick up a set of user preferences for color...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Dynamically Scoped Variables
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2003/06/03/dynamically-scoped-variables.html
+">
+  <meta property="og:title"
+        content="
+  
+     Dynamically Scoped Variables
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  Whenever I write complex systems, I find I need a way to keep context information lying around. For example I may pick up a set of user preferences for color...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2003/06/03/dynamically-scoped-variables.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2003/06/03/dynamically-scoped-variables.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Dynamically Scoped Variables</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2003-06-03T00:00:00-05:00" itemprop="datePublished">Jun 3, 2003
+        </time>
+         | 
+        
+        <a href="/blog/tags#ruby" class="post-tag">ruby</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Whenever I write complex systems, I find I need a way to keep context
+information lying around. For example I may pick up a set of user
+preferences for colors at the top level of some code, but then I need
+them when I get fifteen levels deep, somewhere within the bowels of a
+component’s paint method. Or perhaps I get a database connection at
+the start of request handling, but then need to use it when I get
+deeply nested inside some application code.</p>
+
+<p>These types of scenario seem to have no easy answer. Sometimes you
+solve it by passing a common parameter to all your methods. This
+parameter then contains references to all the context information
+needed by the application code. But this is a messy approach: it means
+that all your methods have to accept and pass on a parameter that they
+don’t necessarily need themselves.</p>
+
+<p>A variant of the above is to pass the context object to every
+constructor, and then store a reference in an instance variable. This
+suffers from the same drawbacks; every object is carrying around
+payload that it might not itself need.</p>
+
+<p>Sometimes you can get away with using singletons to store this kind of
+stuff, but this rapidly breaks down (or at least becomes unwieldy) in
+the face of multi-threading.</p>
+
+<p>There is another answer, though: <em>dynamically scoped variables</em>.</p>
+
+<p>Most languages offer lexically-scoped variables. When a program is
+compiled, variable names are looked up by first examining the
+enclosing scope, then the scope that lexically encloses that scope,
+and so on. Variables are bound according to their static location in
+the source code.</p>
+
+<p>However, another kind of variable binding is remarkably useful for
+passing around context information. Dynamically scoped variables are
+resolved not at compile time but at run time. When a dynamically
+scoped variable is referenced, the runtime looks for an appropriate
+variable in the current stack frame. If none is found, it looks in the
+caller’s stack frame, and then in that stack frame’s caller, and so
+on. That way you can set the context in one method, then call multiple
+levels deep, and still reference it.</p>
+
+<p>Many languages offer dynamically scoped variables: Lisp, TCL,
+Postscript, and Perl to name a few. In Perl, you could use local to
+achieve the effect:</p>
+
+<div class="language-perl highlighter-rouge"><pre class="highlight"><code>  <span class="k">sub </span><span class="nf">update_widget</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">print</span> <span class="s">"&lt;$color&gt;$name&lt;/$color&gt;\n"</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">sub </span><span class="nf">update_screen</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nv">update_widget</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">sub </span><span class="nf">do_draw</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">local</span> <span class="nv">$name</span> <span class="o">=</span> <span class="s">"dave"</span><span class="p">;</span>
+      <span class="nb">local</span> <span class="nv">$color</span> <span class="o">=</span> <span class="s">"red"</span><span class="p">;</span>
+      <span class="nv">update_screen</span><span class="p">();</span>
+  <span class="p">}</span>
+
+</code></pre>
+</div>
+
+<p>Although easy to use, locals in Perl are hard to control. And Perl’s
+features don’t help me much anyway; I needed a Ruby solution. I came
+up with something that’ll let me do the following.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">update_widget</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="n">find_in_context</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">find_in_context</span><span class="p">(</span><span class="ss">:color</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">"&lt;</span><span class="si">#{</span><span class="n">color</span><span class="si">}</span><span class="s2">&gt;</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&lt;/</span><span class="si">#{</span><span class="n">color</span><span class="si">}</span><span class="s2">&gt;"</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">update_screen</span>
+    <span class="n">update_widget</span>
+  <span class="k">end</span>
+
+  <span class="n">with_context</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">'dave'</span><span class="p">,</span> <span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">'red'</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">update_screen</span>
+  <span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">with_context</code> block establishes a set of dynamic variables (the
+parameters to the call). Within any method called at any level during
+the execution of the <code class="highlighter-rouge">with_context</code> block, a call
+to <code class="highlighter-rouge">find_in_context</code> looks up the appropriate dynamic variable’s value
+and returns it.</p>
+
+<p>The implementation I came up with allows nested dynamic scopes, so the code:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="n">with_context</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">'dave'</span><span class="p">,</span> <span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">'red'</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">with_context</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">'fred'</span><span class="p">,</span> <span class="ss">:color</span> <span class="o">=&gt;</span> <span class="s1">'green'</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">update_screen</span>
+    <span class="k">end</span>
+    <span class="n">update_screen</span>
+  <span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>outputs:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="o">&lt;</span><span class="n">green</span><span class="o">&gt;</span><span class="n">fred</span><span class="o">&lt;</span><span class="sr">/green&gt;
+  &lt;red&gt;dave&lt;/</span><span class="n">red</span><span class="o">&gt;</span>
+
+</code></pre>
+</div>
+
+<p>The actual implementation itself is a tad ugly (and I’d welcome
+alternatives), but right now I view it as something of a singing pig.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">with_context</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">finder</span> <span class="o">=</span> <span class="kp">catch</span><span class="p">(</span><span class="ss">:context</span><span class="p">)</span> <span class="p">{</span> <span class="k">yield</span> <span class="p">}</span>
+    <span class="n">finder</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>  <span class="k">if</span> <span class="n">finder</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">find_in_context</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="nb">callcc</span> <span class="k">do</span> <span class="o">|</span><span class="n">again</span><span class="o">|</span>
+      <span class="kp">throw</span><span class="p">(</span><span class="ss">:context</span><span class="p">,</span> <span class="nb">proc</span> <span class="p">{</span><span class="o">|</span><span class="n">params</span><span class="o">|</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">.</span><span class="nf">has_key?</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+          <span class="n">again</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="nb">name</span><span class="p">])</span>
+        <span class="k">else</span>
+          <span class="k">raise</span> <span class="s2">"Can't find context value for </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">end</span>
+      <span class="p">})</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>Update…</p>
+
+<p>And of course, it took less than eight hours for a more elegant
+implementation to surface (I love the Ruby community). Tanaka Akira
+posted:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">with_context</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="no">Thread</span><span class="p">.</span><span class="nf">current</span><span class="p">[</span><span class="ss">:dynamic</span><span class="p">]</span> <span class="o">||=</span> <span class="p">[]</span>
+    <span class="no">Thread</span><span class="p">.</span><span class="nf">current</span><span class="p">[</span><span class="ss">:dynamic</span><span class="p">].</span><span class="nf">push</span> <span class="n">params</span>
+    <span class="k">begin</span>
+      <span class="k">yield</span>
+    <span class="k">ensure</span>
+      <span class="no">Thread</span><span class="p">.</span><span class="nf">current</span><span class="p">[</span><span class="ss">:dynamic</span><span class="p">].</span><span class="nf">pop</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">find_in_context</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="no">Thread</span><span class="p">.</span><span class="nf">current</span><span class="p">[</span><span class="ss">:dynamic</span><span class="p">].</span><span class="nf">reverse_each</span> <span class="p">{</span><span class="o">|</span><span class="n">params</span><span class="o">|</span>
+      <span class="k">return</span> <span class="n">params</span><span class="p">[</span><span class="nb">name</span><span class="p">]</span> <span class="k">if</span> <span class="n">params</span><span class="p">.</span><span class="nf">has_key?</span> <span class="nb">name</span>
+    <span class="p">}</span>
+    <span class="k">raise</span> <span class="s2">"Can't find context value for </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>Update #2…</p>
+
+<p>And Avi Bryant massages the original into this masterpiece of minimalism…</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">with_context</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+   <span class="n">k</span><span class="p">,</span> <span class="nb">name</span> <span class="o">=</span> <span class="kp">catch</span><span class="p">(</span><span class="ss">:context</span><span class="p">)</span> <span class="p">{</span><span class="k">yield</span><span class="p">;</span> <span class="k">return</span><span class="p">}</span>
+   <span class="n">k</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="nb">name</span><span class="p">]</span> <span class="o">||</span> <span class="n">find_in_context</span><span class="p">(</span><span class="nb">name</span><span class="p">))</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">find_in_context</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="nb">callcc</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="o">|</span> <span class="kp">throw</span><span class="p">(</span><span class="ss">:context</span><span class="p">,</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="nb">name</span><span class="p">])}</span>
+  <span class="k">end</span>
+</code></pre>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2003/06/03/dynamically-scoped-variables.html';
+      this.page.identifier = 'https://pragdave.me/blog/2003/06/03/dynamically-scoped-variables.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

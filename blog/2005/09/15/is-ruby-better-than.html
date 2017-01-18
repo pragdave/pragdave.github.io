@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Is Ruby Better Than…?
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  As I speak about Ruby with folks around the world, a question comes up with depressing regularity: “is Ruby better than Xyz?”, where Xyz is the questioner’s ...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  As I speak about Ruby with folks around the world, a question comes up with depressing regularity: “is Ruby better than Xyz?”, where Xyz is the questioner’s ...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Is Ruby Better Than…?
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2005/09/15/is-ruby-better-than.html
+">
+  <meta property="og:title"
+        content="
+  
+     Is Ruby Better Than…?
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  As I speak about Ruby with folks around the world, a question comes up with depressing regularity: “is Ruby better than Xyz?”, where Xyz is the questioner’s ...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2005/09/15/is-ruby-better-than.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2005/09/15/is-ruby-better-than.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Is Ruby Better Than…?</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2005-09-15T00:00:00-05:00" itemprop="datePublished">Sep 15, 2005
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>As I speak about Ruby with folks around the world, a question comes up
+with depressing regularity: “is Ruby better than <em>Xyz</em>?”,
+where <em>Xyz</em> is the questioner’s current language du jour.</p>
+
+<p>The simple answer is “no.”</p>
+
+<p>But then let’s ask the same question differently. Is <em>Xyz</em> better that
+Ruby?</p>
+
+<p>The simple answer is “no.”</p>
+
+<p>The longer answer is that the question falls into the same category as
+“have you stopped beating your wife?”—it makes an implicit and
+(hopefully) incorrect assumption. In this case, it assumes that it’s
+possible to compare two languages and come up with some kind of
+binary <em>A trumps B</em> evaluation.</p>
+
+<p>Is your chisel better than my hammer? If I’m forming dovetail joints,
+yes. If I’m nailing two-by-fours, no.</p>
+
+<p>Is my Ruby better than your Java (or C#, or …)? It depends.</p>
+
+<p>So, over the next few weeks I’ll try to post some answers. I’ll look
+at areas of Ruby which seem to be hot buttons for folks when making
+language comparisons.</p>
+
+<p>Let’s start with a big one:</p>
+
+<h3 id="performance">Performance</h3>
+
+<p>Ruby is probably slower than Java or C# in most real-world
+situations. Does that worry me? Not normally.</p>
+
+<p>Think about your average web application. An incoming request appears
+on an Ethernet interface. The packets make their way up through the IP
+and TCP stacks, then get queued up as a data buffer. The web server
+receives the data, decodes some of the content and passes it off to
+your application server. There the information is massaged into some
+kind of request object, and your application is invoked. Your code
+hits the database a couple of times, probably using an OR mapping
+layer such as Hibernate to sanitize the access. It then constructs
+response data before calling some kind of templating library to format
+a response. The response heads back through the application server,
+and possibly through the web server, before being deconstructed into
+packets and sent over the network.</p>
+
+<p>Whew! There’s a bunch of processing going on there. Millions and
+millions of machine instructions being executed. There’s latency while
+packets are queued, processes are scheduled, threads are dispatched,
+and disk heads seek to the right track.</p>
+
+<p>How much of this processing is done in code that you write? How much
+of the total time spend handling the request is spend executing the
+actual instructions corresponding to your code?</p>
+
+<p>Zip.</p>
+
+<p>I’m guessing maybe 5% on a really bad day, with a complex
+application. Let’s face it: you average commercial application isn’t
+burning CPU cycles solving NP-complete problems. We typically write
+code that moves chunks of data about and adds up a couple of numbers.</p>
+
+<p>In these scenarios, is it worth worrying about the relative
+performance of the language used to do the moving and adding? Not in
+my book.</p>
+
+<p>Instead, I’d rather write in a language that let’s me focus on the
+application, and which lets me express myself clearly and
+effectively. And, if I can do those two things, I believe that
+sometimes I’ll be able to write code which is cleverer than something
+I’d write in a lower-level language. A better algorithm will easily
+gain back any marginal performance hit I take for using a slower
+language.</p>
+
+<p>Justin Ghetland experienced this recently on a Rails project. Having
+coded the same application twice, once in Java and once using Ruby on
+Rails, he was surprised to <a href="http://www.relevancellc.com/blogs/?p=31">discover</a> that the
+Rails application outperformed the Java one. Why? Justin believes it’s
+because Rails does smarter caching. The Rails framework contains some
+very high-level abstractions, and that allows the folks writing the
+framework to be smart about what they do. They accepted the linear hit
+of writing in a language that executes more slowly because they got a
+non-linear increase in speed from being able to write better code.</p>
+
+<p>Clearly there’ll be times where you need to squeeze the most out of
+your CPU, where your application itself is the bottleneck and it’s CPU
+bound. In these cases, Ruby might be a bad choice. You probably want
+to look at a high-performance language such as OCAML. But even then,
+the choice isn’t always clear. Ruby with a good parallizing matrix
+library would probably beat Java or C# code which inlines the same
+operations.</p>
+
+<p>So, is Ruby fast enough for <em>your</em> application?</p>
+
+<p>I don’t know. But I do know that I wouldn’t assume that I can’t use
+Ruby for performance reasons. There are plenty of sites out there
+pumping high transaction volumes through a Ruby application. The real
+answer, as always, is <em>it depends</em>. If you’re concerned about
+performance as you start to develop a new application, it doesn’t
+matter if you’re writing Ruby, Java, C#, or assembler. It’s prudent to
+spend a small amount of time doing some rough tests on your proposed
+architecture before you start laying down the code.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2005/09/15/is-ruby-better-than.html';
+      this.page.identifier = 'https://pragdave.me/blog/2005/09/15/is-ruby-better-than.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>

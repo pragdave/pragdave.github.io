@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Screencasting Ruby Metaprogramming
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  
+">
+  <meta property="og:site_name"
+        content="
+  
+     Screencasting Ruby Metaprogramming
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2008/06/09/screencasting-ruby-metaprogramming.html
+">
+  <meta property="og:title"
+        content="
+  
+     Screencasting Ruby Metaprogramming
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2008/06/09/screencasting-ruby-metaprogramming.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/apple-touch-icon-180x180.png" />
+  
+  <title><%= page_title %></title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2008/06/09/screencasting-ruby-metaprogramming.html
+">
+  <link rel="alternate"
+        type="application/rss+xml"
+        title="pragdave—the coding gnome"
+        href="/feed.xml">
+
+  <script src="https://use.fontawesome.com/113445e025.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+        <h1>Screencasting Ruby Metaprogramming</h1>
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/05/03/pragdave-2.0.html">
+        <small>03 May 2016</small>
+        Pragdave 2.0
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html">
+        <small>23 Feb 2016</small>
+        (Over)using <code>with</code> in Elixir 1.2
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2015/11/13/immutability.html">
+        <small>13 Nov 2015</small>
+        Immutability, State, and Functions
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2008-06-09T00:00:00-05:00" itemprop="datePublished">Jun 9, 2008
+        </time>
+         | 
+        
+        <a href="/blog/tags#training" class="post-tag">training</a>
+        
+        <a href="/blog/tags#ruby" class="post-tag">ruby</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p><img class="right" src="/img/tv.jpg" /></p>
+
+<p>I’ve been teaching Ruby (and in particularly, metaprogramming Ruby)
+for almost 7 years now. And, in that time, I’ve gradually found ways
+of cutting through all the confusing stuff to the actual
+essentials. And when you do that, suddenly things get a lot
+simpler. I’ve always know that Ruby didn’t really have class methods
+and singleton methods, for example, but until recently I didn’t have a
+simple way to explain that.</p>
+
+<p>Then, when preparing to give an <a href="http://pragmaticstudio.com/ruby">Advanced Ruby Studio</a>, my
+thinking crystalized. Metaprogramming in Ruby becomes simple to
+explain if you focus on four things:</p>
+
+<p>Objects, not classes.  There is only one kind of method call in
+Ruby. The “right-then-up” rule covers everything.  Understanding
+that <code class="highlighter-rouge">self</code> can only be changed by a method call with a receiver or by
+a class or module definition makes it easy to keep track of what’s
+going on when metaprogramming.  Knowing that Ruby keeps an internal
+concept of “the current class” which is where <code class="highlighter-rouge">def</code> defines its
+methods. Knowing what changes this makes it easier to know what’s
+going on.</p>
+
+<p>I tried this approach in a number of Studios, and refined it during
+some talks for RubyFools in Copenhagen and Oslo.</p>
+
+<p>So Mike Clark, who’s producing our new series of <a href="http://pragmatic.tv/">screencasts</a>, started pushing me to put
+this description into video. Last week I finally cleared the decks
+enough to record the <a href="http://pragprog.com/screencasts/v-dtrubyom/the-ruby-object-model-and-metaprogramming">first three episodes</a>.</p>
+
+<p>First, I have to say it was a blast. I’d never recorded this many
+minutes of screencast before, and I was blown away by the amount of
+time it takes. I was also surprised at the level of detail involved,
+from microphone setup (which I messed up for a couple of segments) to
+color matching between codecs, it was fun to learn a whole new set of
+technologies.</p>
+
+<p>I was also surprised at how hard it was to talk to a microphone. When
+we write books, we always try to write as if the reader was sitting
+there next to us. I tried to to the same approach with the
+screencasts, but it takes a whole new set of skills…</p>
+
+<p>What I really liked was the way that I could live code examples to
+illustrate points. The first episode has maybe 50/50 code and
+exposition, and the second and third episodes are mostly code. And the
+code acts as a great skeleton on which to hang the concepts. Apple-R
+also keeps me honest.</p>
+
+<p>So, if you’re interested in how the Ruby object model really works,
+and want to improve your metaprogramming chops, why not <a href="http://pragprog.com/screencasts/v-dtrubyom/the-ruby-object-model-and-metaprogramming">check them out</a>?</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2008/06/09/screencasting-ruby-metaprogramming.html';
+      this.page.identifier = 'https://pragdave.me/blog/2008/06/09/screencasting-ruby-metaprogramming.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>    
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+  </body>
+
+</html>
