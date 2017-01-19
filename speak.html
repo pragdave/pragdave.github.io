@@ -144,20 +144,29 @@ media:
     escaping local maxima.
 ---
 
-<section class="row speak">
-<div class="col-sm-12">
-<div class="card-columns">
-  {% for talk in page.media          %}
-  {%   if talk.type == 'audio'       %}
-  {%     include render_audio.html   %}
-  {%   elsif talk.type == 'vlog'     %}
-  {%     include render_vlog.html    %}
-  {%   else                          %}
-  {%     include render_video.html   %}
-  {%   endif                         %}
-  {% endfor                          %}
-</div>
-</div>
-</section>
+    <section class="speak">
+      <div class="showcase row" style="display: none" >
+        <div class="col-md-8 offset-md-2">
+          <figure id="holder" >
+          </figure>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-sm-12">
+          <div class="card-columns">
+            {% for talk in page.media          %}
+            {%   if talk.type == 'audio'       %}
+            {%     include render_audio.html   %}
+            {%   elsif talk.type == 'vlog'     %}
+            {%     include render_vlog.html    %}
+            {%   else                          %}
+            {%     include render_video.html   %}
+            {%   endif                         %}
+            {% endfor                          %}
+          </div>
+        </div>
+      </div>
+    </section>
+
 
 
