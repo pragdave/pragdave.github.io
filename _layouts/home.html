@@ -43,7 +43,7 @@ layout: default
         <ul class="">
           {% for talk in entry.media limit: 5 %}
           <li>
-            <a href="{{ talk.url }}">
+            <a href="/speak#{{ talk.title | slugify }}">
               {{ talk.title }}
               {% if talk.sub %}
                 <small>({{ talk.sub }})</small>

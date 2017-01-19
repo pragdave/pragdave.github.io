@@ -28,4 +28,8 @@
     &.media-audio .card-header {
         background: adjust-hue(lighten($primary-color, 50%), 120%);
     }
+
+    &.media-vlog .card-header {
+        background: adjust-hue(lighten($primary-color, 50%), -120%);
+    }
 }

@@ -2,6 +2,20 @@
 layout: page
 title:  Talks and Conversations
 media:
+- type: vlog
+  html: >
+    <iframe src="https://player.vimeo.com/video/199860926?portrait=0"
+    width="1024" height="576" frameborder="0"
+    class="embed-responsive-item"
+    webkitallowfullscreen
+    mozallowfullscreen
+    allowfullscreen></iframe>
+  desc: >-
+    I've known that the future of software development will require
+    writing parallel applications, but I never knew the underlying
+    reason until I did some research.
+  title: Why the Future is Parallel
+
 - type: video
   html: >
     <iframe width="560" height="315"
@@ -133,13 +147,15 @@ media:
 <section class="row speak">
 <div class="col-sm-12">
 <div class="card-columns">
-  {% for talk in page.media %}
-  {%   if talk.type == 'audio' %}
-  {%     include render_audio.html  %}
-  {%   else %}
-  {%     include render_video.html  %}
-  {%   endif %}
-  {% endfor %}
+  {% for talk in page.media          %}
+  {%   if talk.type == 'audio'       %}
+  {%     include render_audio.html   %}
+  {%   elsif talk.type == 'vlog'     %}
+  {%     include render_vlog.html    %}
+  {%   else                          %}
+  {%     include render_video.html   %}
+  {%   endif                         %}
+  {% endfor                          %}
 </div>
 </div>
 </section>
