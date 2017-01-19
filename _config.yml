@@ -17,7 +17,7 @@ tag_page:  /blog/tags
 assets:
   compress:
       css: true
-      js: true
+      js:  false
   features:
     automatic_img_size: false
   sources:

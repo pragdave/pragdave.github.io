@@ -1,4 +1,5 @@
 @import "bootstrap/scss/bootstrap.scss";
+@import "font-awesome/scss/font-awesome.scss";
 
 $background-green: #417663;
 $primary-color: $background-green;
@@ -72,6 +73,31 @@ body {
         margin: 0;
         line-height: 90%;
         width: 100%;
+    }
+
+    #search-trigger {
+        position: absolute;
+        right: 0.5rem;
+        top: 25px;
+        button {
+            outline: none;
+            font-size: 2rem;
+            color: lighten($primary-color, 30%);
+            background: none;
+            border: none;
+
+            &:hover {
+                background: darken($primary-color, 10%);
+                border-color: darken($primary-color, 10%);
+            }
+        }
+        .word {
+            width: 100%;
+            color: white;
+            font-size: 0.5rem;
+            display: block;
+            text-align: center;
+        }
     }
 }
 
