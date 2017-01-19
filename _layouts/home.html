@@ -27,40 +27,71 @@ layout: default
       </div>
     </div>
 
-    <div class="card card-outline-warning">
+    <div class="card card-outline-info">
       <div class="card-header">
         <h4 class="card-title text-muted text-center">Talks and Conversations</h4>
+        <a href="/speak.html" class="btn btn-info btn-xs" role="button">
+          Index
+        </a>
       </div>
       {% image dave-thomas-speaking.jpg class="img-fluid" src="" alt="Dave Thomas speaking" %}
       <div class="card-block">
         <p class="card-text">
           One of the ways I clarify my thoughts is to stand up in
-          front of people and try to explain them. Here are a
-          collection of conference talks, videos, and podcast
-          interviews.
+          front of people and try to explain them. Here are a few recent examples:
         </p>
-      </div>
-      <div class="card-footer">
-        <a href="/speak.html" class="btn btn-info btn-xs" role="button">
-          View the list
-        </a>
+
+        {% for entry in site.pages %}
+        {% if entry.media %}
+        <ul class="">
+          {% for talk in entry.media limit: 5 %}
+          <li>
+            <a href="{{ talk.url }}">
+              {{ talk.title }}
+              {% if talk.sub %}
+                <small>({{ talk.sub }})</small>
+              {% endif %}
+            </a>
+          </li>
+          {% endfor %}
+          <li>. . .</li>
+        </ul>
+        {% endif %}
+        {% endfor %}
+
+        <p>
+          I've also collected a
+          <a href="/speak.html" >more complete list</a> of
+          some of the conference talks, videos, and podcast interviews.
+        </p>
       </div>
     </div>
 
     <div class="card card-outline-info">
       <div class="card-header">
+        <a href="/blog" class="btn btn-info btn-xs" role="button">
+          Posts
+        </a>
         <h4 class="card-title text-muted text-center">Articles & Posts</h4>
       </div>
       {% image keyboard-small.png class="img-fluid" alt="a keyboard" %}
       <div class="card-block">
         <p class="card-text">
-          I don't always blog, but when I do, you'll find it here.
+          I don't always blog, but when I do, you'll find it
+          <a href="/blog" >here</a>.
         </p>
-      </div>
-      <div class="card-footer">
-        <a href="/blog" class="btn btn-info btn-xs" role="button">
-          Index
-        </a>
+        <h6>Some recent posts…</h6>
+        <ul class="">
+          {% for post in site.posts limit: 5 %}
+          <li>
+            <a href="{{ post.url }}">
+              <small class="post-date">{{ post.date | date_to_string }}</small>
+              {{ post.title }}
+            </a>
+          </li>
+          {% endfor %}
+          <li>. . .</li>
+        </ul>
       </div>
     </div>
   </div>
