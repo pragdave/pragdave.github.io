@@ -2,6 +2,8 @@
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {% include head.html %}
+  {% javascript vendor %}
+  {% javascript vendor/drumknott-0.2.0.js %}
 
   <body>
 
@@ -18,13 +20,6 @@
     
     {% include footer.html %}
 
-    <script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>    
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
   </body>
 
 </html>

@@ -1,6 +1,12 @@
 {
   "name": "pragdave_me",
   "dependencies": {
-    "jquery": "~3.1.1"
+    "jquery": "~3.1.1",
+    "urijs": "^1.18.4",
+    "bootstrap": "v4.0.0-alpha.6",
+    "tether": "^1.4.0"
+  },
+  "resolutions": {
+    "bootstrap": "v4.0.0-alpha.6"
   }
 }
