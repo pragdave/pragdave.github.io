@@ -6,8 +6,5 @@
     "bootstrap": "v4.0.0-alpha.6",
     "tether": "^1.4.0",
     "font-awesome": "^4.7.0"
-  },
-  "resolutions": {
-    "bootstrap": "v4.0.0-alpha.6"
   }
 }
