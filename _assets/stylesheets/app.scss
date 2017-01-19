@@ -30,6 +30,10 @@ body {
 .main-header {
     margin-top: 1rem;
 
+    .heading-box {
+        width: 100%;
+    }
+
     .bar {
         background: url(image_path("banner-background-bar.png")) repeat-x;
         height: 109px;
@@ -48,10 +52,14 @@ body {
 
         h1 {
             margin-left: 145px;
-            padding-top:  1.5rem;
+            margin-right: 4rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-top:  2rem;
             //        font-family: 'Gloria Hallelujah', cursive;
             color: #dfd;
-            font-size: 55px;
+            font-size: 2rem;
             text-align: center;
             font-weight: normal;
 
