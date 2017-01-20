@@ -74,7 +74,7 @@
   sub:   Discussion in September 2015
 
 - type: audio
-  audio_link: http://thinkmakesell.com/podcast/TMS015.mp3
+  audio_link: //thinkmakesell.com/podcast/TMS015.mp3
   title: Pragmatic Publishing
   sub: Think, Make, Sell podcast
   desc: >
@@ -83,7 +83,7 @@
     Bookshelf.
 
 - type: audio
-  site_link: http://agiletoolkit.libsyn.com/rails_edge_2007_dave_thomas_monoculture_music_and_erlang_oh_my
+  site_link: //agiletoolkit.libsyn.com/rails_edge_2007_dave_thomas_monoculture_music_and_erlang_oh_my
   title: Agile Toolkit Podcast with Bob Payne
   sub: RailsEdge 2007
 
@@ -109,7 +109,7 @@
     a remarkably simply and elegant object model.
 
 - type: audio
-  embed_html: <iframe src='http://poddirectory.com/embed/episode/11591081' frameborder='no' height='135' width='100%'></iframe>
+  embed_html: <iframe src='//poddirectory.com/embed/episode/11591081' frameborder='no' height='135' width='100%'></iframe>
   title: Elixir and Functional Programming
   sub: Hack & Heckle, Interview at Yow 2015
 
@@ -125,15 +125,15 @@
   desc: A whirlwind tour through 30 things I think about when coding.
 
 - type: audio
-  audio_link: http://media.libsyn.com/media/seradio/seradio-episode148-softwareArchaeology.mp3
+  audio_link: //media.libsyn.com/media/seradio/seradio-episode148-softwareArchaeology.mp3
   title: Software Archeology
   sub:   Software Engineering Radio, 2009
 
 
 
 - type: audio
-  site_link: http://developeronfire.com/episode-049-dave-thomas-programmer-first
-  audio_link: http://traffic.libsyn.com/developeronfire/DeveloperOnFire-49-DaveThomas.mp3
+  site_link: //developeronfire.com/episode-049-dave-thomas-programmer-first
+  audio_link: //traffic.libsyn.com/developeronfire/DeveloperOnFire-49-DaveThomas.mp3
   title: Developer on Fire, 2015
   desc: >
     Dave Rael and I chat about new ways of thinking that shake things
