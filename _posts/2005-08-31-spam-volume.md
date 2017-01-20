@@ -6,7 +6,7 @@ comments: true
 tags: []
 ---
 
-{% img1 right /img/trash.gif %}
+{% image trash.gif class:right %}
 
 I’m sure I’m just in the minor leagues here, but for the last month or
 so I’ve been averaging 50Mb of incoming spam a day. All but a handful
