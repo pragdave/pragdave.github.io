@@ -32,4 +32,12 @@
     &.media-vlog .card-header {
         background: adjust-hue(lighten($primary-color, 50%), -120%);
     }
+
+    figcaption {
+        &:hover {
+            i.fa {
+                color: rgba(0,0,0, .5);
+            }
+        }
+    }
 }
