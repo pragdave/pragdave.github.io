@@ -38,10 +38,8 @@ layout: default
           front of people and try to explain them. Here are a few recent examples:
         </p>
 
-        {% for entry in site.pages %}
-        {% if entry.media %}
-        <ul class="">
-          {% for talk in entry.media limit: 5 %}
+        <ul>
+          {% for talk in site.data.media limit: 5 %}
           <li>
             <a href="/speak#{{ talk.title | slugify }}">
               {{ talk.title }}
@@ -53,8 +51,6 @@ layout: default
           {% endfor %}
           <li>. . .</li>
         </ul>
-        {% endif %}
-        {% endfor %}
 
         <p>
           I've also collected a

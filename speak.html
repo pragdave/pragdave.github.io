@@ -1,147 +1,6 @@
 ---
 layout: page
 title:  Talks and Conversations
-media:
-- type: vlog
-  html: >
-    <iframe data-src="https://player.vimeo.com/video/199860926?portrait=0"
-    width="1024" height="576" frameborder="0"
-    class="embed-responsive-item"
-    webkitallowfullscreen
-    mozallowfullscreen
-    allowfullscreen></iframe>
-  desc: >-
-    I've known that the future of software development will require
-    writing parallel applications, but I never knew the underlying
-    reason until I did some research.
-  title: Why the Future is Parallel
-
-- type: video
-  html: >
-    <iframe width="560" height="315"
-    class="embed-responsive-item"
-    data-src="https://www.youtube.com/embed/a-BOSpxYJ9M"
-    frameborder="0" allowfullscreen></iframe>
-  title: Agile is Dead
-  sub:   Goto Amsterdam, 2015
-  desc: >-
-    <p>
-    We seem to have forgotten what agility is all about. As one of the
-      authors of the <a href="http://agilemanifesto.org">Agile Manifesto</a>,
-    this distresses me.
-    </p>
-    <p>
-    This talk is a (slightly cynical) analysis of the forces that are
-    destroying the meaning of agility, and a suggestion on how we
-    should recapture it.
-    </p>
-
-- type: audio
-  audio_link: https://media.devchat.tv/ruby-rogues/RR204Limerence.mp3
-  title: Limmerence
-  sub:   Ruby Rogues, 2015
-  desc: >
-    <p>
-    The Rogues are great to chat with, so this one ranges far and wide.
-    </p>
-
-    
-- type: video
-  html: >
-    <iframe data-src="https://player.vimeo.com/video/61255738"
-    class="embed-responsive-item"
-    width="500" height="281" frameborder="0"
-    webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-  title: Closing Keynote
-  sub:   RubyConf Australia, 2013
-  desc: >
-    What makes a language special? Why do we love some of them, and
-    not others? Here I look at some of the ways that the quirkiness of
-    Ruby helps to endear it to its users.
-
-- type: video
-  html: >
-    <iframe width="560" height="315"
-    class="embed-responsive-item"
-    data-src="https://www.youtube.com/embed/lww1aZ-ldz0"
-    frameborder="0" allowfullscreen></iframe>
-  title: Elixir—The Power of Erlang, the Joy of Ruby
-  sub:   Goto Conference, Chicago, 2014
-  desc:  >
-    An introduction to Elixir, and why I think it is important. (Sorry
-    about the camera work—outside my control.)
-
-- type: audio
-  site_link: https://soundcloud.com/elixirfountain/elixir-fountain-2015-09-25-dave-thomas
-  title: Elixir Fountain
-  sub:   Discussion in September 2015
-
-- type: audio
-  audio_link: http://thinkmakesell.com/podcast/TMS015.mp3
-  title: Pragmatic Publishing
-  sub: Think, Make, Sell podcast
-  desc: >
-    This one's a little different. TMS is a series for entrepreneurs.
-    In this episode, we talk about the ideas behind The Pragmatic
-    Bookshelf.
-
-- type: audio
-  site_link: http://agiletoolkit.libsyn.com/rails_edge_2007_dave_thomas_monoculture_music_and_erlang_oh_my
-  title: Agile Toolkit Podcast with Bob Payne
-  sub: RailsEdge 2007
-
-- type: video
-  html: >
-    <iframe width="560" height="315"
-    class="embed-responsive-item"
-    data-src="https://www.youtube.com/embed/MwnVwqt0UwE"
-    frameborder="0" allowfullscreen></iframe>
-  title: About Ruby, and communities, and having fun.
-  sub: Lone Star RubyConf, 2009
-
-- type: video
-  html: >
-    <iframe width="560" height="315"
-    class="embed-responsive-item"
-    data-src="https://www.youtube.com/embed/X2sgQ38UDVY"
-    frameborder="0" allowfullscreen></iframe>
-  title: The Ruby Object Model
-  sub: Scotland on Rails, 2009
-  desc: >
-    Just how does Ruby do all it’s magic? In a large part it’s down to
-    a remarkably simply and elegant object model.
-
-- type: audio
-  embed_html: <iframe src='http://poddirectory.com/embed/episode/11591081' frameborder='no' height='135' width='100%'></iframe>
-  title: Elixir and Functional Programming
-  sub: Hack & Heckle, Interview at Yow 2015
-
-
-- type: video
-  html: >
-    <iframe width="560" height="315"
-    class="embed-responsive-item"
-    data-src="https://www.youtube.com/embed/yCBUsd52a3s"
-    frameborder="0" allowfullscreen></iframe>
-  title: My Dog Taught Me To Code
-  sub: Lone Star Ruby, 2015
-  desc: A whirlwind tour through 30 things I think about when coding.
-
-- type: audio
-  audio_link: http://media.libsyn.com/media/seradio/seradio-episode148-softwareArchaeology.mp3
-  title: Software Archeology
-  sub:   Software Engineering Radio, 2009
-
-
-
-- type: audio
-  site_link: http://developeronfire.com/episode-049-dave-thomas-programmer-first
-  audio_link: http://traffic.libsyn.com/developeronfire/DeveloperOnFire-49-DaveThomas.mp3
-  title: Developer on Fire, 2015
-  desc: >
-    Dave Rael and I chat about new ways of thinking that shake things
-    up, a history of delivery, balance in doing vs delegating, and
-    escaping local maxima.
 ---
 
     <section class="speak">
@@ -151,10 +10,20 @@ media:
           </figure>
         </div>
       </div>
+
+      <div class="alert alert-info alert-dismissible fade show col-md-8 offset-md-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>      
+        <strong><i class="fa fa-user-secret"> </i>Psst!</strong>
+        You can zoom a particular talk by
+        clicking on its title.
+      </div>      
+
       <div class="row" >
         <div class="col-sm-12">
           <div class="card-columns">
-            {% for talk in page.media          %}
+            {% for talk in site.data.media     %}
             {%   if talk.type == 'audio'       %}
             {%     include render_audio.html   %}
             {%   elsif talk.type == 'vlog'     %}
