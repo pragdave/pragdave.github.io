@@ -78,10 +78,8 @@
 
   <link rel="canonical"
         href="{{ url }}">
-  <link rel="alternate"
-        type="application/rss+xml"
-        title="{{ site.title | escape }}"
-        href="{{ "/feed.xml" | relative_url }}">
+
+  {% feed_meta %}
 
   {% include google-analytics.html %}
 
