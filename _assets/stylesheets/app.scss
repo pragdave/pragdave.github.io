@@ -184,6 +184,22 @@ p.alert {
 }
 
 
+.narrow {
+
+    padding-top: 10vh;
+    img.ella {
+        width: 40%;
+        float: right;
+    }
+
+    .footnotes {
+        margin-top: 30vh;
+        font-size: 80%;
+        color: #888;
+        border-top: 1px solid #ddd;
+    }
+}
+
 @import "code";
 @import "info-pages";
 @import "posts";
