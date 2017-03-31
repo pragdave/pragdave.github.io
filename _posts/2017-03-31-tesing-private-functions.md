@@ -171,7 +171,7 @@ Of course.
 Says who? Seriously.
 
 Refactoring encourages you to change the implementation without
-changing the API. It suggestions using tests to verify this. Those
+changing the API. It suggests using tests to verify this. Those
 tests shouldn't fail at the end of each step of refactoring. But they
 may well fail _during_ the refactoring.
 
