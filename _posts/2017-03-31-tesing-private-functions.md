@@ -56,7 +56,7 @@ progression, and so on. The rest of the code in an application calls
 functions in a module when it needs that module's expertise. For
 example, a Twitter module will have functions to send a tweet, read a
 tweet, and maybe subscribe to a timeline. The functions that do this
-are part of the modules external interface—it's API.
+are part of the modules external interface—its API.
 
 The API functions are public. They are exposed to the rest of the app.
 
