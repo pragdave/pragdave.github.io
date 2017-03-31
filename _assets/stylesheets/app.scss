@@ -35,17 +35,17 @@ body {
     }
 
     .bar {
-        background: url(image_path("banner-background-bar.png")) repeat-x;
+        background: url(image_path("/assets/banner-background-bar.png")) repeat-x;
         height: 109px;
 
         .logo {
             width: 139px;
             height: 109px;
-            background: url(image_path("gnome-in-circle.png")) no-repeat;
+            background: url(image_path("/assets/gnome-in-circle.png")) no-repeat;
             position: absolute;
 
             &:hover {
-                background: url(image_path("gnome-in-circle-hover.png")) no-repeat;
+                background: url(image_path("/assets/gnome-in-circle-hover.png")) no-repeat;
             }
 
         }
