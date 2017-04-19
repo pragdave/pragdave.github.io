@@ -14,7 +14,7 @@ commas and the ends of lists, and so on.
 Last month I decided that by investing just a couple of weeks, I could
 save myself those two-minute housekeeping sessions. And so was
 born [`mix_generator`](https://github.com/pragdave/mix_generator)
-and [`mix_template`](https://github.com/pragdave/mix_template), an
+and [`mix_template`](https://github.com/pragdave/mix_templates), an
 open and extendable templating system for creating new projects.
 
 I made a screencast showing how to use and extend it:
