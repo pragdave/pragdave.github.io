@@ -129,4 +129,57 @@ module LiquidTags
 
   Liquid::Template.register_tag('img1', ImageTag)
 
+
+  class HeadshotListTag < Liquid::Tag
+    def initialize(tag_name, markup, tokens)
+      @name = markup.strip
+    end
+
+    HTML_TOP = '<table class="formats"><tr><th>Size</th><th>.jpg</th><th>.png</th></tr>'
+
+    HTML_ROW = '<tr><td>SIZE</td><td>JPG</td><td>PNG</td></tr>'
+
+    HTML_BOTTOM = '</table>'
+
+    def render(context)
+      result = {}
+      base = File.join(Dir.pwd, "_assets/images/headshots", @name)
+      sizes = Dir.glob(base + "*").map do |img|
+        info = `file #{img}`
+        if info =~ /(\d{2,}) ?x ?(\d{2,})/
+          img_size = [ Integer($1), "#{$1}x#{$2}" ]
+          file_size = human_size(File.stat(img).size)
+          result[img_size] ||= {}
+          result[img_size][File.extname(img)] = [ file_size, img ]
+        end
+      end
+
+     sizes = result
+        .sort_by {|img_size, _| img_size[0]}
+        .map     {|img_size, formats|
+          HTML_ROW
+            .sub(/SIZE/, img_size[1])
+            .sub(/PNG/, headshot_link(formats[".png"]))
+            .sub(/JPG/, headshot_link(formats[".jpg"]))
+      }
+      HTML_TOP + sizes.join("\n") + HTML_BOTTOM
+    end
+
+    def headshot_link(format)
+      url = format[1].sub(/.*assets/, "")
+      size = format[0]
+      %{<a href="#{url}">#{size}</a>}
+    end
+
+    def human_size(size)
+      if size > 1_000_000
+        sprintf("%2.1fMB", size/1.0e6)
+      else
+        "#{Integer(size/1000)}kB"
+      end
+    end
+  end
+
+  Liquid::Template.register_tag('headshot_list', HeadshotListTag)
+
 end
