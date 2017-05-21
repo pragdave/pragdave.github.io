@@ -143,7 +143,7 @@ module LiquidTags
 
     def render(context)
       result = {}
-      base = File.join(Dir.pwd, "_assets/images/headshots", @name)
+      base = File.join(Dir.pwd, "headshots", @name)
       sizes = Dir.glob(base + "*").map do |img|
         info = `file #{img}`
         if info =~ /(\d{2,}) ?x ?(\d{2,})/
