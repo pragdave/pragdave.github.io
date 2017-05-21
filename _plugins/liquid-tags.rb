@@ -166,7 +166,7 @@ module LiquidTags
     end
 
     def headshot_link(format)
-      url = format[1].sub(/.*images/, "/headshots")
+      url = format[1].sub(/.*\/headshots/, "/headshots")
       size = format[0]
       %{<a href="#{url}">#{size}</a>}
     end
