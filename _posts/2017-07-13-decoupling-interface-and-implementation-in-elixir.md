@@ -28,7 +28,7 @@ concept of _servers_. You call a function (typically
 server identified by `pid`. Inside that server, you write callback
 functions that are invoked in response to these messages.
 
-In real life, no one wants to write a server whose API involves such
+In real life, no one wants to use a server whose API involves such
 convolution. So the convention arose that you'd provide an API layer
 to your server, written in the same module. Here's an example, stolen
 from the Elixir guide, and cut down somewhat:
@@ -239,20 +239,21 @@ application.
 
 But in Erlang, and hence Elixir, an application is a self-contained
 bundle of modules and resources with its own lifecycle. The Logger,
-for example, is an application. The elixir compiler contains over a
+for example, is an application. The Elixir compiler contains over a
 dozen. 
 
 Erlang applications are really just components.
 
 But because the word application is so ingrained in us developers, it
 is hard to remember this. And so we have a tendency to throw all our
-code into a single directory tree because, after all, it's the
+code into a single project tree because, after all, it's the
 application.
 
 So I'm trying to retrain my brain by writing my code as series of
 separate applications, each as small as I can make it. And I'm not
 using umbrella projects for this, because I want to be able to share
-these components across different projects.
+these components across different projects. Instead, I just use file
+dependencies.
 
 So, next time you're writing a killer Phoenix app, think about why you
 have Ecto in your web tier. Shouldn't the business logic be out in its
