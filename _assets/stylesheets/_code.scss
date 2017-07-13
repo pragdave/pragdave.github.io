@@ -9,7 +9,7 @@ div.highlighter-rouge {
   text-align: left;
   font-size: 0.9em;
   font-family: "Lucida Console", Monaco, monospace;
-  line-height: 1.8em;
+  line-height: 1.5em;
   white-space: pre;
 
   background: $code-block-color
@@ -33,6 +33,13 @@ div.highlighter-rouge {
 
       code {
           color: lighten($primary-color, 40%);
+      }
+  }
+
+  &.tight {
+      line-height: 1.22em;
+      pre {
+          margin-bottom: -1.1em;
       }
   }
 }

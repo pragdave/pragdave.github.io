@@ -1,8 +1,8 @@
 ---
-layout: post
 title: Splitting APIs, Servers, and Implementations in Elixir
-date: 2017-07-14
+layout: post
 comments: true
+date: 2017-07-13
 tags: programming elixir
 ---
 
@@ -88,7 +88,6 @@ support—after all, it's just the app logic.
 
 ~~~ elixir
 defmodule Kv.Impl do       # in lib/kv/impl.ex
-
   def new() do
     %{}
   end
@@ -100,7 +99,6 @@ defmodule Kv.Impl do       # in lib/kv/impl.ex
   def store(names, name, value) do
     Map.put(names, name, value)
   end
-
 end
 ~~~
 
@@ -117,16 +115,15 @@ lib
 │   └── impl.ex
 └── kv.ex               # <- the API belongs in here
 ~~~
+{: .tight}
 
 Right now, this API just calls directly down to the implementation.
 
 ~~~ elixir
 defmodule Kv do
-
   defdelegate new(),                     to: Kv.Impl
   defdelegate lookup(names, name),       to: Kv.Impl
   defdelegate store(names, name, value), to: Kv.Impl
-
 end
 ~~~
 
@@ -167,7 +164,6 @@ Finally, we change the API in the top-level `kv.ex` file:
 
 ~~~ elixir
 defmodule Kv do
-
   def new() do
     { :ok, names } = GenServer.start_link(Kv.Server, %{})
     names
@@ -181,7 +177,6 @@ defmodule Kv do
     GenServer.cast(names, { :store, name, value })
     names
   end
-
 end
 ~~~
 
@@ -199,6 +194,7 @@ lib
 │   └── server.ex . . . . . .   GenServer implementation
 └── kv.ex . . . . . . . . . .   API
 ~~~
+{: .tight }
 
 This is the scheme I now use, and so far I much prefer it to the
 conventional one.
@@ -222,6 +218,7 @@ lib
 │   └── server.ex
 └── kv.ex
 ~~~
+{: .tight}
 
 The rule here is that no one outside the application is allowed to
 call functions outside `lib/kv.ex`.
@@ -233,6 +230,8 @@ smart people who produced designs for a future that did not yet exist,
 they really weren't that good at naming things. 
 
 One of the most confusing names is _application_. 
+
+<div style="float: right; margin-left: 2rem;" class="thinkific-product-card" data-btn-txt="Free Preview" data-btn-txt-color="#ffffff" data-btn-bg-color="#4c1130" data-card-type="card" data-link-type="landing_page" data-product="127256" data-embed-version="0.0.2" data-card-txt-color="#ffffff" data-card-bg-color="#a64d79" data-store-url="https://courses.thinkific.com/embeds/products/show"><div class="iframe-container"></div><script type="text/javascript">document.getElementById("thinkific-product-embed") || document.write('<script id="thinkific-product-embed" type="text/javascript" src="https://assets.thinkific.com/js/embeds/product-cards-client.min.js"><\/script>');</script><noscript><a href="https://coding-gnome.thinkific.com/courses/elixir-for-programmers" target="_blank">Free Preview</a></noscript></div>
 
 In "the real world" an application is something you deliver to the end
 user. A payroll system is an application. A word processor is an
@@ -262,5 +261,4 @@ the contexts each correspond to an external app.
 
 Decouple. You know it makes sense.
 
-<div class="thinkific-product-card" data-btn-txt="Free Preview" data-btn-txt-color="#ffffff" data-btn-bg-color="#4c1130" data-card-type="card" data-link-type="landing_page" data-product="127256" data-embed-version="0.0.2" data-card-txt-color="#ffffff" data-card-bg-color="#a64d79" data-store-url="https://courses.thinkific.com/embeds/products/show"><div class="iframe-container"></div><script type="text/javascript">document.getElementById("thinkific-product-embed") || document.write('<script id="thinkific-product-embed" type="text/javascript" src="https://assets.thinkific.com/js/embeds/product-cards-client.min.js"><\/script>');</script><noscript><a href="https://coding-gnome.thinkific.com/courses/elixir-for-programmers" target="_blank">Free Preview</a></noscript></div>
 
