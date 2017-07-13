@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Splitting APIs From Implementations in Elixir"
+title: Splitting APIs, Servers, and Implementations in Elixir
 date: 2017-07-14
 comments: true
-tags: programming
+tags: programming elixir
 ---
 
 > tldr; I think the conventional way of structuring Elixir code
