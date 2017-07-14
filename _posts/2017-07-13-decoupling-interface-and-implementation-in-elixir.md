@@ -153,7 +153,7 @@ defmodule Kv.Server do
   end
 
   def handle_cast({:store, name, value}, store) do
-    { :reply, Impl.store(store, name, value) }
+    { :noreply, Impl.store(store, name, value) }
   end
 end
 ~~~
