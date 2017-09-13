@@ -8,16 +8,12 @@ tags: programming elixir emacs
 (tldr; I can now open Elixir source files from inside iex, and have
 them pop up in an Emacs buffer alongside my terminal buffer.)
 
-<iframe
-src="https://player.vimeo.com/video/233162999?title=0&byline=0&portrait=0"
-width="640" height="360" frameborder="0" webkitallowfullscreen
-mozallowfullscreen allowfullscreen>
-</iframe>
-<p>
-<a href="https://vimeo.com/233162999">Multiterm with iex open</a>
-from <a href="https://vimeo.com/user50998191">Dave Thomas</a> on 
-<a href="https://vimeo.com">Vimeo</a>.
+<iframe src="https://player.vimeo.com/video/233436823?title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+</iframe> 
+
+<p><a href="https://vimeo.com/233436823">Multiterm with iex open</a> from <a href="https://vimeo.com/user50998191">Dave Thomas</a> on <a href="https://vimeo.com">Vimeo</a>.
 </p>
+
 
 ## Background
 
