@@ -16,7 +16,5 @@ This video shows you some ways of overcoming this.
 It's probably not new, but I haven't seen the technique in code that
 I've read.
 
-<a href="https://vimeo.com/216107561" title="click to
-play video"> 
-{% image put_this_in_your_pipe.png  class:img-fluid %}
-</a>
+<iframe src="https://player.vimeo.com/video/216107561?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+
