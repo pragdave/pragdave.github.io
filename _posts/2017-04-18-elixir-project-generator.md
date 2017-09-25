@@ -20,4 +20,4 @@ open and extendable templating system for creating new projects.
 I made a screencast showing how to use and extend it:
 
 
-<iframe src="https://player.vimeo.com/video/213689412?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/213689412?title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
