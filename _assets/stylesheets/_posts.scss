@@ -1,3 +1,21 @@
+ul.post-list {
+    list-style: none;
+    
+    li {
+        margin-top: 0.5em;
+        margin-bottom: 0;
+        text-indent: -8em;
+    }
+
+    .post-summary-date {
+        float: left;
+        width: 8em;
+        color: #aaa;
+        font-size: x-small;
+        white-space: nowrap;
+    }
+}
+
 .post {
     .post-title {
         margin: 2rem 0 0 0;

@@ -1,0 +1,19 @@
+---
+layout: default
+title: Musings...
+---
+
+<div class="row" >
+<ul class="post-list col-lg-6 offset-lg-3">
+  {% for post in site.posts %}
+  <li>
+    <span class="post-summary-date" >
+      {{ post.date | date_to_string }}
+    </span>
+    <a href="{{ post.url }}">{{ post.title }}</a>:
+  </li>
+  {% endfor %}
+</ul>
+</div>
+
+ 
