@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Thinking in Transforms—Handling Options
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I’ve been thinking a lot about the way I program recently. I even gave a talk about it at the first ElixirConf.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I’ve been thinking a lot about the way I program recently. I even gave a talk about it at the first ElixirConf.
+">
+  <meta property="og:site_name"
+        content="
+  
+     Thinking in Transforms—Handling Options
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2014/10/05/thinking-in-transforms-handling-options.html
+">
+  <meta property="og:title"
+        content="
+  
+     Thinking in Transforms—Handling Options
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I’ve been thinking a lot about the way I program recently. I even gave a talk about it at the first ElixirConf.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2014/10/05/thinking-in-transforms-handling-options.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Thinking in Transforms—Handling Options
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2014/10/05/thinking-in-transforms-handling-options.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Thinking in Transforms—Handling Options</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html">
+        <small>10 Sep 2017</small>
+        Using iex's open() command with Emacs multiterm
+      </a>
+  </li>
+  
+  
+  
+  
+  
+
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2014-10-05T00:00:00-05:00" itemprop="datePublished">Oct 5, 2014
+        </time>
+         | 
+        
+        <a href="/blog/tags#programming" class="post-tag">programming</a>
+        
+        <a href="/blog/tags#elixir" class="post-tag">elixir</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I’ve been thinking a lot about the way I program recently. I even
+<a href="http://www.confreaks.com/videos/4119-elixirconf2014-opening-keynote-think-different">gave a talk about it</a> at the first
+<a href="http://elixirconf.com/">ElixirConf</a>.</p>
+
+<p>One thing I’m discovering is that transforming data is easier to think
+about than maintaining state. I bumped into an interesting case of
+this idea when adding option handling to
+a library I was writing.</p>
+
+<h2 id="dirwalkersome-background">DirWalker—Some Background</h2>
+
+<p>I’m working on an app that helps organize large numbers of photos
+(about 3Tb of them). I needed to be able to traverse all the files in
+a set of directory trees, and do it lazily. I wrote a GenServer where
+the state is a list of the paths and files still be be traversed, and
+the main API returns the next <em>n</em> paths found by traversing the input
+paths. The code that returns the next path looks something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">next_path</span><span class="p">([</span> <span class="n">path</span> <span class="o">|</span> <span class="n">rest</span> <span class="p">],</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">stat</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">stat!</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+  <span class="k">case</span> <span class="n">stat</span><span class="o">.</span><span class="n">type</span> <span class="k">do</span>
+  <span class="ss">:directory</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">([</span><span class="n">files_in</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span> <span class="n">result</span><span class="p">)</span>
+  <span class="ss">:regular</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="p">[</span> <span class="n">path</span> <span class="o">|</span> <span class="n">result</span> <span class="p">])</span>
+  <span class="no">true</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>So, if the next file in the list of paths to scan is a directory, we
+replace it with the list of files in that directory and call
+ourselves. Otherwise if it is a regular file, we add it to the result
+and call ourselves on the remaining paths. (The actual code is more
+complex, as it unfolds the nested path lists, and knows how to return
+individual paths, but this code isn’t the point of this post.)</p>
+
+<p>Having added my DirWalker library to Hex.pm, I got a feature
+request—could it be made to return the <code class="highlighter-rouge">File.Stat</code> structure along
+with the path to the file?</p>
+
+<p>I wanted to add this capability, but also to make it optional, so I
+started coding using what felt like the obvious approach:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">next_path</span><span class="p">([</span> <span class="n">path</span> <span class="o">|</span> <span class="n">rest</span> <span class="p">],</span> <span class="n">opts</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">stat</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">stat!</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+  <span class="k">case</span> <span class="n">stat</span><span class="o">.</span><span class="n">type</span> <span class="k">do</span>
+  <span class="ss">:directory</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">([</span><span class="n">files_in</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span> <span class="n">result</span><span class="p">)</span>
+  <span class="ss">:regular</span> <span class="o">-&gt;</span>
+    <span class="n">return_value</span> <span class="o">=</span> <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_stat</span> <span class="k">do</span>
+      <span class="p">{</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">}</span>
+    <span class="k">else</span>
+      <span class="n">path</span>
+    <span class="k">end</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="p">[</span> <span class="n">return_value</span> <span class="o">|</span> <span class="n">result</span> <span class="p">])</span>
+  <span class="no">true</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>So, the function now has nested conditionals—never a good sign—but it
+is livable-with.</p>
+
+<p>Then I thought, “while I’m making this change, let’s also add an
+option to return directory paths along with file paths.” And my code explodes in terms of complexity:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">next_path</span><span class="p">([</span> <span class="n">path</span> <span class="o">|</span> <span class="n">rest</span> <span class="p">],</span> <span class="n">opts</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">stat</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">stat!</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+  <span class="k">case</span> <span class="n">stat</span><span class="o">.</span><span class="n">type</span> <span class="k">do</span>
+  <span class="ss">:directory</span> <span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_dir_names</span> <span class="k">do</span>
+      <span class="n">return_value</span> <span class="o">=</span> <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_stat</span> <span class="k">do</span>
+        <span class="p">{</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">}</span>
+      <span class="k">else</span>
+        <span class="n">path</span>
+      <span class="k">end</span>
+      <span class="n">next_path</span><span class="p">([</span><span class="n">files_in</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span> <span class="p">[</span><span class="n">return_value</span> <span class="o">|</span> <span class="n">result</span><span class="p">])</span>
+    <span class="k">else</span>
+      <span class="n">next_path</span><span class="p">([</span><span class="n">files_in</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span> <span class="n">result</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="ss">:regular</span> <span class="o">-&gt;</span>
+    <span class="n">return_value</span> <span class="o">=</span> <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_stat</span> <span class="k">do</span>
+      <span class="p">{</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">}</span>
+    <span class="k">else</span>
+      <span class="n">path</span>
+    <span class="k">end</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="p">[</span> <span class="n">return_value</span> <span class="o">|</span> <span class="n">result</span> <span class="p">])</span>
+  <span class="no">true</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>So, lots of duplication, and the code is pretty much unreadable. Time
+to put down the keyboard and take Moose for a walk.</p>
+
+<p>As it stands, the options map represents some state—the values of the
+two options passed to the API. But we really want to think in terms of
+transformations. So what happens if we instead think of the options as
+transformers?</p>
+
+<p>Let’s look at the <code class="highlighter-rouge">include_stat</code> option first. If set, we want to
+return a tuple containing a path and a stat structure; otherwise we
+return just a path. The first case is a function that looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="n">path</span><span class="p">,</span> <span class="n">stat</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">path</span><span class="p">,</span> <span class="n">stat</span> <span class="p">}</span> <span class="k">end</span>
+</code></pre>
+</div>
+
+<p>and the second case looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="n">path</span><span class="p">,</span> <span class="n">_stat</span> <span class="o">-&gt;</span> <span class="n">path</span> <span class="k">end</span>
+</code></pre>
+</div>
+
+<p>So, if the <code class="highlighter-rouge">include_stat</code> value in our options was one of these two
+functions, rather than a boolean value, our main code becomes simpler:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">next_path</span><span class="p">([</span> <span class="n">path</span> <span class="o">|</span> <span class="n">rest</span> <span class="p">],</span> <span class="n">opts</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">stat</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">stat!</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+  <span class="k">case</span> <span class="n">stat</span><span class="o">.</span><span class="n">type</span> <span class="k">do</span>
+  <span class="ss">:directory</span> <span class="o">-&gt;</span>
+    <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_dir_names</span> <span class="k">do</span>
+      <span class="n">return_value</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_stat</span><span class="o">.</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">)</span>
+      <span class="n">next_path</span><span class="p">([</span><span class="n">files_in</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span> <span class="p">[</span><span class="n">return_value</span> <span class="o">|</span> <span class="n">result</span><span class="p">])</span>
+    <span class="k">else</span>
+      <span class="n">next_path</span><span class="p">([</span><span class="n">files_in</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span> <span class="n">result</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="ss">:regular</span> <span class="o">-&gt;</span>
+    <span class="n">return_value</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_stat</span><span class="o">.</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">)</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="p">[</span> <span class="n">return_value</span> <span class="o">|</span> <span class="n">result</span> <span class="p">])</span>
+  <span class="no">true</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>We can do the same thing with <code class="highlighter-rouge">include_dir_names</code>. Here the two functions are</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>  <span class="o">-&gt;</span> <span class="p">[</span> <span class="n">path</span> <span class="o">|</span> <span class="n">result</span> <span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>and</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">result</span> <span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>and now our main function becomes:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">next_path</span><span class="p">([</span> <span class="n">path</span> <span class="o">|</span> <span class="n">rest</span> <span class="p">],</span> <span class="n">opts</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">stat</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">stat!</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+  <span class="k">case</span> <span class="n">stat</span><span class="o">.</span><span class="n">type</span> <span class="k">do</span>
+  <span class="ss">:directory</span> <span class="o">-&gt;</span>
+    <span class="n">return_value</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_stat</span><span class="o">.</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">)</span>
+                <span class="o">|&gt;</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_dir_names</span><span class="o">.</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">next_path</span><span class="p">([</span><span class="n">files_in</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span> <span class="n">return_value</span><span class="p">)</span>
+  <span class="ss">:regular</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="p">[</span> <span class="n">opts</span><span class="o">.</span><span class="n">include_stat</span><span class="o">.</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">)</span> <span class="o">|</span> <span class="n">result</span> <span class="p">])</span>
+  <span class="no">true</span> <span class="o">-&gt;</span>
+    <span class="n">next_path</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Changing the options from being simple state into things that transform values according the the <em>meaning</em> of each option has tamed the complexity of the <code class="highlighter-rouge">next_path</code> function.</p>
+
+<p>But we don’t want the users of our API to have to set up transforming functions—that would force them to know our internal implementation details. So on the way in, we want to map their options (which are booleans) into our functions.</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">setup_mappers</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">%{</span>
+    <span class="ss">include_stat:</span>
+      <span class="n">one_of</span><span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="ss">:include_stat</span><span class="p">],</span>
+             <span class="k">fn</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">_stat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">path</span>         <span class="k">end</span>
+             <span class="k">fn</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">)</span>  <span class="o">-&gt;</span> <span class="p">{</span><span class="n">path</span><span class="p">,</span> <span class="n">stat</span><span class="p">}</span> <span class="k">end</span><span class="p">),</span>
+    <span class="ss">include_dir_names:</span>
+      <span class="n">one_of</span><span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="ss">:include_dir_names</span><span class="p">],</span>
+             <span class="k">fn</span> <span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">result</span>            <span class="k">end</span><span class="p">,</span> 
+             <span class="k">fn</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>  <span class="o">-&gt;</span> <span class="p">[</span> <span class="n">path</span> <span class="o">|</span> <span class="n">result</span> <span class="p">]</span> <span class="k">end</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">one_of</span><span class="p">(</span><span class="n">bool</span><span class="p">,</span> <span class="n">if_false</span><span class="p">,</span> <span class="n">if_true</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="n">bool</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">if_true</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="n">if_false</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>If you’re interested in all the gritty details, the code is <a href="https://github.com/pragdave/dir_walker/blob/master/lib/dir_walker.ex">in Github</a>.</p>
+
+<h3 id="my-takeaway">My Takeaway</h3>
+
+<p>I wrote my first OO program (in Simula) back in 1974 (which is
+probably before most Elixir programmers were born—sigh). During the
+intervening years, I’ve developed many reflexes that made
+object-oriented development easier. And now I’m having to rethink that
+tacit knowledge.</p>
+
+<p>Programming in Elixir encourages me to move away from state and to
+think about transformations. As I force myself to apply this
+change in thinking at all levels of my code, I discover interesting
+and delightful new patterns of development.</p>
+
+<p>And that’s why I’m still having a blast, hacking out code, after all
+these years.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2014/10/05/thinking-in-transforms-handling-options.html';
+      this.page.identifier = 'https://pragdave.me/blog/2014/10/05/thinking-in-transforms-handling-options.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

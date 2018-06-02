@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Pipelines Using Fibers in Ruby 1.9
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  Users of the command line are familiar with the idea of building pipelines: a chain of simple commands strung together to the output of one becomes the input...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  Users of the command line are familiar with the idea of building pipelines: a chain of simple commands strung together to the output of one becomes the input...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Pipelines Using Fibers in Ruby 1.9
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2007/12/30/pipelines-using-fibers-in-ruby-19.html
+">
+  <meta property="og:title"
+        content="
+  
+     Pipelines Using Fibers in Ruby 1.9
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  Users of the command line are familiar with the idea of building pipelines: a chain of simple commands strung together to the output of one becomes the input...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2007/12/30/pipelines-using-fibers-in-ruby-19.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Pipelines Using Fibers in Ruby 1.9
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2007/12/30/pipelines-using-fibers-in-ruby-19.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Pipelines Using Fibers in Ruby 1.9</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2007-12-30T00:00:00-06:00" itemprop="datePublished">Dec 30, 2007
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Users of the command line are familiar with the idea of building
+pipelines: a chain of simple commands strung together to the output of
+one becomes the input of the next. Using pipelines and a basic set of
+primitives, shell users can accomplish some sophisticated
+tasks. Here’s a basic Unix shell pipeline that reports the ten longest
+.tip files in the current directory, based on the number of lines in
+each file:</p>
+
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>wc -l <span class="k">*</span>.tip | grep <span class="se">\.</span>tip | sort -n | tail -10
+
+</code></pre>
+</div>
+
+<p>Let’s see how to add something similar to Ruby. By the end of this set of two articles, we’ll be able to write things like</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="nb">puts</span> <span class="p">(</span><span class="n">even_numbers</span> <span class="o">|</span> <span class="n">tripler</span> <span class="o">|</span> <span class="n">incrementer</span> <span class="o">|</span> <span class="n">multiple_of_five</span> <span class="p">).</span><span class="nf">resume</span>
+
+</code></pre>
+</div>
+
+<p>and a palindrome finder using blocks:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">words</span> <span class="o">=</span> <span class="no">Pump</span><span class="p">.</span><span class="nf">new</span> <span class="sx">%w{Madam, the civic radar rotator is not level.}</span>
+<span class="n">is_palindrome</span> <span class="o">=</span> <span class="no">Filter</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span><span class="o">|</span><span class="n">word</span><span class="o">|</span> <span class="n">word</span> <span class="o">==</span> <span class="n">word</span><span class="p">.</span><span class="nf">reverse</span><span class="p">}</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">words</span> <span class="o">.|</span> <span class="p">{</span><span class="o">|</span><span class="n">word</span><span class="o">|</span> <span class="n">word</span><span class="p">.</span><span class="nf">downcase</span><span class="p">.</span><span class="nf">tr</span><span class="p">(</span><span class="s2">"^a-z"</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span> <span class="p">}</span> <span class="o">.|</span> <span class="n">is_palindrome</span>
+
+<span class="k">while</span> <span class="n">word</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">.</span><span class="nf">resume</span>
+  <span class="nb">puts</span> <span class="n">word</span>
+<span class="k">end</span>
+
+</code></pre>
+</div>
+
+<p>Great code? Nope. But getting there is fun. And, who knows? The
+techniques might well be useful in your next project.</p>
+
+<h3 id="a-daily-dose-of-fiber">A Daily Dose of Fiber</h3>
+
+<p>Ruby 1.9 adds support for Fibers. At their most basic, let you create
+simple generators (much as you could do previously with blocks. Here’s
+a trivial example: a fiber that generates successive Fibonacci
+numbers:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">fib</span> <span class="o">=</span> <span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+  <span class="n">f1</span> <span class="o">=</span> <span class="n">f2</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="kp">loop</span> <span class="k">do</span>
+    <span class="no">Fiber</span><span class="p">.</span><span class="nf">yield</span> <span class="n">f1</span>
+    <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f1</span> <span class="o">+</span> <span class="n">f2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="nb">puts</span> <span class="n">fib</span><span class="p">.</span><span class="nf">resume</span> <span class="p">}</span>
+
+</code></pre>
+</div>
+
+<p>A fiber is somewhat like a thread, except you have control over when
+it gets scheduled. Initially, a fiber is suspended. When you resume
+it, it runs the block until the block finishes, or it hits
+a <code class="highlighter-rouge">Fiber.yield</code>. This is similar to a regular block yield: it suspends
+the fiber and passes control back to the <code class="highlighter-rouge">resume</code>. Any value passed
+to <code class="highlighter-rouge">Fiber.yield</code> becomes the value returned by <code class="highlighter-rouge">resume</code>.</p>
+
+<p>By default, a fiber can only yield back to the code that resumed
+it. However, if you require the <code class="highlighter-rouge">"fiber"</code>library, Fibers get extended
+with a <code class="highlighter-rouge">transfer</code> method that allows one fiber to transfer control to
+another. Fibers then become fully fledged coroutines. However, we
+won’t be needing all that power today.</p>
+
+<p>Instead, let’s get back to the idea of creating pipelines of
+functionality in code, much as you can create pipelines in the shell.</p>
+
+<p>As a starting point, let’s write two fibers. One’s a generator—it
+creates a list of even numbers. The second is a consumer. All it does
+it accept values from the generator and print them. We’ll make the
+consumer stop after printing 10 numbers.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">evens</span> <span class="o">=</span> <span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+<span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kp">loop</span> <span class="k">do</span>
+  <span class="no">Fiber</span><span class="p">.</span><span class="nf">yield</span> <span class="n">value</span>
+  <span class="n">value</span> <span class="o">+=</span> <span class="mi">2</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">consumer</span> <span class="o">=</span> <span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+<span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+  <span class="n">next_value</span> <span class="o">=</span> <span class="n">evens</span><span class="p">.</span><span class="nf">resume</span>
+  <span class="nb">puts</span> <span class="n">next_value</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">consumer</span><span class="p">.</span><span class="nf">resume</span>
+
+</code></pre>
+</div>
+
+<p>Note how we had to use <code class="highlighter-rouge">resume</code> to kick off the consumer. Technically,
+the consumer doesn’t have to be a Fiber, but, as we’ll see in a
+minute, making it one gives us some flexibility.</p>
+
+<p>As a next step, notice how we’ve created some coupling in this
+code. Our <code class="highlighter-rouge">consumer</code> fiber has the name of the evens generator coded
+into it. Let’s wrap both fibers in a method, and pass the name of the
+generator into the <code class="highlighter-rouge">consumer</code> method.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">evens</span>
+<span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="kp">loop</span> <span class="k">do</span>
+    <span class="no">Fiber</span><span class="p">.</span><span class="nf">yield</span> <span class="n">value</span>
+    <span class="n">value</span> <span class="o">+=</span> <span class="mi">2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">consumer</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+  <span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+    <span class="n">next_value</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="nf">resume</span>
+    <span class="nb">puts</span> <span class="n">next_value</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">consumer</span><span class="p">(</span><span class="n">evens</span><span class="p">).</span><span class="nf">resume</span>
+
+</code></pre>
+</div>
+
+<p>OK. Let’s add one more fiber to the weave. We’ll create a filter that
+only passes on numbers that are multiples of three. Again, we’ll wrap
+it in a method.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">evens</span>
+<span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="kp">loop</span> <span class="k">do</span>
+    <span class="no">Fiber</span><span class="p">.</span><span class="nf">yield</span> <span class="n">value</span>
+    <span class="n">value</span> <span class="o">+=</span> <span class="mi">2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">multiples_of_three</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+  <span class="kp">loop</span> <span class="k">do</span>
+    <span class="n">next_value</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="nf">resume</span>
+    <span class="no">Fiber</span><span class="p">.</span><span class="nf">yield</span> <span class="n">next_value</span> <span class="k">if</span> <span class="n">next_value</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">consumer</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+  <span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+    <span class="n">next_value</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="nf">resume</span>
+    <span class="nb">puts</span> <span class="n">next_value</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">consumer</span><span class="p">(</span><span class="n">multiples_of_three</span><span class="p">(</span><span class="n">evens</span><span class="p">)).</span><span class="nf">resume</span>
+
+</code></pre>
+</div>
+
+<p>Running this, we get the output</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0
+6
+12
+18
+. . .
+
+</code></pre>
+</div>
+
+<p>This is getting cool. We write little chunks of code, and then combine
+them to get work done. Just like a pipeline. Except…</p>
+
+<p>We can do better. First, the composition looks backwards. Because
+we’re passing methods to methods, we write</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">consumer</span><span class="p">(</span><span class="n">multiples_of_three</span><span class="p">(</span><span class="n">evens</span><span class="p">))</span>
+
+</code></pre>
+</div>
+
+<p>Instead, we’d like to write</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">evens</span> <span class="o">|</span> <span class="n">multiples_of_three</span> <span class="o">|</span> <span class="n">consumer</span>
+
+</code></pre>
+</div>
+
+<p>Also, there’s a fair amount of duplication in this code. Each of our
+little pipeline methods has the same overall structure, and each is
+coupled to the implementation of fibers. Let’s see if we can fix this.</p>
+
+<h3 id="wrapping-fibers">Wrapping Fibers</h3>
+
+<p>As is usual when we’re refactoring towards a solution, we’re about to
+get really messy. Don’t worry, though. It will all wash off, and we’ll
+end up with something a lot neater.</p>
+
+<p>First, let’s create a class that represents something that can appear
+in our pipeline. At it’s heart is the<code class="highlighter-rouge">process</code> method. This reads
+something from the input side of the pipe, then “handles” that
+value. The default handling is to write that value to the output side
+of the pipeline, passing it on to the next element in the chain.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PipelineElement</span>
+
+  <span class="kp">attr_accessor</span> <span class="ss">:source</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="vi">@fiber_delegate</span> <span class="o">=</span> <span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+      <span class="n">process</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">resume</span>
+    <span class="vi">@fiber_delegate</span><span class="p">.</span><span class="nf">resume</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">process</span>
+    <span class="k">while</span> <span class="n">value</span> <span class="o">=</span> <span class="n">input</span>
+      <span class="n">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">input</span>
+    <span class="n">source</span><span class="p">.</span><span class="nf">resume</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="no">Fiber</span><span class="p">.</span><span class="nf">yield</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>When I first wrote this, I was tempted to make <code class="highlighter-rouge">PipelineElement</code> a
+subclass of <code class="highlighter-rouge">Fiber</code>, but that leads to coupling. In the end, the
+pipeline elements delegate to a separate <code class="highlighter-rouge">Fiber</code> object.</p>
+
+<p>The first element of the pipeline doesn’t receive any input from prior
+elements (because there are no prior elements), so we need to override
+its <code class="highlighter-rouge">process</code> method.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Evens</span> <span class="o">&lt;</span> <span class="no">PipelineElement</span>
+   <span class="k">def</span> <span class="nf">process</span>
+     <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+     <span class="kp">loop</span> <span class="k">do</span>
+       <span class="n">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+       <span class="n">value</span> <span class="o">+=</span> <span class="mi">2</span>
+     <span class="k">end</span>
+   <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">evens</span> <span class="o">=</span> <span class="no">Evens</span><span class="p">.</span><span class="nf">new</span>
+</code></pre>
+</div>
+
+<p>Just to make things more interesting, we’ll create a
+generic <code class="highlighter-rouge">MultiplesOf filter, so we can filter based on any number, and
+not just 3:</code></p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MultiplesOf</span> <span class="o">&lt;</span> <span class="no">PipelineElement</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+    <span class="vi">@factor</span> <span class="o">=</span> <span class="n">factor</span>
+    <span class="k">super</span><span class="p">()</span>
+  <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="vi">@factor</span> <span class="o">==</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">multiples_of_three</span> <span class="o">=</span> <span class="no">MultiplesOf</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">multiples_of_seven</span> <span class="o">=</span> <span class="no">MultiplesOf</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Then we just knit it all together into a pipeline:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">multiples_of_three</span><span class="p">.</span><span class="nf">source</span> <span class="o">=</span> <span class="n">evens</span>
+<span class="n">multiples_of_seven</span><span class="p">.</span><span class="nf">source</span> <span class="o">=</span> <span class="n">multiples_of_three</span>
+
+<span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="n">multiples_of_seven</span><span class="p">.</span><span class="nf">resume</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>We get 0, 42, 84, 126, 168, and so on as output. (Any output stream
+that contains 42 must be correct, so no need for any unit tests here.)</p>
+
+<p>But we’re still a little way from our ideal of being able to pipe
+these puppies together. It’s a good thing that Ruby let’s us override
+the “|” operator. Up in class<code class="highlighter-rouge">PipelineElement</code>, define a new method:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">|</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+  <span class="n">other</span><span class="p">.</span><span class="nf">source</span> <span class="o">=</span> <span class="nb">self</span>
+  <span class="n">other</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>This allows us to write:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="p">(</span><span class="n">evens</span> <span class="o">|</span> <span class="n">multiples_of_three</span> <span class="o">|</span> <span class="n">multiples_of_seven</span><span class="p">).</span><span class="nf">resume</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+<p>or even:</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="n">pipeline</span> <span class="o">=</span> <span class="n">evens</span> <span class="o">|</span> <span class="n">multiples_of_three</span> <span class="o">|</span> <span class="n">multiples_of_seven</span>
+
+<span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="n">pipeline</span><span class="p">.</span><span class="nf">resume</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Cool, or what?</p>
+
+<h3 id="in-the-next-thrilling-installment">In The Next Thrilling Installment</h3>
+
+<p>The next post will take these basic ideas and tart them up a bit,
+allowing us to use blocks directly in pipelines. We’ll also reveal why
+our <code class="highlighter-rouge">PipelineElement</code> class I just wrote is somewhat more complicated
+than might seem necessary. In the meantime, here’s the full source of
+the code so far.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PipelineElement</span>
+
+  <span class="kp">attr_accessor</span> <span class="ss">:source</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="vi">@fiber_delegate</span> <span class="o">=</span> <span class="no">Fiber</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+      <span class="n">process</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">|</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="n">other</span><span class="p">.</span><span class="nf">source</span> <span class="o">=</span> <span class="nb">self</span>
+    <span class="n">other</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">resume</span>
+    <span class="vi">@fiber_delegate</span><span class="p">.</span><span class="nf">resume</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">process</span>
+    <span class="k">while</span> <span class="n">value</span> <span class="o">=</span> <span class="n">input</span>
+      <span class="n">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">input</span>
+    <span class="n">source</span><span class="p">.</span><span class="nf">resume</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="no">Fiber</span><span class="p">.</span><span class="nf">yield</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1">##</span>
+<span class="c1"># The classes below are the elements in our pipeline</span>
+<span class="c1">#</span>
+ <span class="k">class</span> <span class="nc">Evens</span> <span class="o">&lt;</span> <span class="no">PipelineElement</span>
+   <span class="k">def</span> <span class="nf">process</span>
+     <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+     <span class="kp">loop</span> <span class="k">do</span>
+       <span class="n">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+       <span class="n">value</span> <span class="o">+=</span> <span class="mi">2</span>
+     <span class="k">end</span>
+   <span class="k">end</span>
+ <span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">MultiplesOf</span> <span class="o">&lt;</span> <span class="no">PipelineElement</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span>
+    <span class="vi">@factor</span> <span class="o">=</span> <span class="n">factor</span>
+    <span class="k">super</span><span class="p">()</span>
+  <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="o">%</span> <span class="vi">@factor</span> <span class="o">==</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">evens</span> <span class="o">=</span> <span class="no">Evens</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">multiples_of_three</span> <span class="o">=</span> <span class="no">MultiplesOf</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">multiples_of_seven</span> <span class="o">=</span> <span class="no">MultiplesOf</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">evens</span> <span class="o">|</span> <span class="n">multiples_of_three</span> <span class="o">|</span> <span class="n">multiples_of_seven</span>
+
+<span class="mi">10</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="n">pipeline</span><span class="p">.</span><span class="nf">resume</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2007/12/30/pipelines-using-fibers-in-ruby-19.html';
+      this.page.identifier = 'https://pragdave.me/blog/2007/12/30/pipelines-using-fibers-in-ruby-19.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

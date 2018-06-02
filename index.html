@@ -1,4 +1,418 @@
----
-layout: home
-title: The Coding Gnome
----
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     The Coding Gnome
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  The Coding Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so y...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  The Coding Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so y...
+">
+  <meta property="og:site_name"
+        content="
+  
+     The Coding Gnome
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/
+">
+  <meta property="og:title"
+        content="
+  
+     The Coding Gnome
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  The Coding Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so y...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     The Coding Gnome
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>The Coding Gnome</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <div class="card">
+  <div class="card-header">
+    <h4 class="card-title text-muted text-center">Online Courses</h4>
+    <a href="http://codestool.coding-gnome.com/courses/elixir-for-programmers" class="btn btn-info btn-xs" role="button">
+      Catalog
+    </a>
+  </div>
+
+  <div class="card-block">
+    <div class="row" >
+      <div class="col-md-3 course-aside">
+        
+        <p>
+          Dive deep into a topic, learning both <i>how</i>
+          and <i>why</i> things work.
+        </p>
+        <p>
+          Written for programmers, the pace is fast and the content skips
+          all the basic stuff you already know.
+          Each course includes hours of videos, course notes, quizzes,
+          exercises, and sample code.
+        </p>
+        <p>
+          <a class="btn btn-lg btn-primary btn-block"
+             href="http://codestool.coding-gnome.com/courses/elixir-for-programmers">
+            Learn More!
+          </a>.
+          
+      </div>
+      <div class="col-md-8 offset-md-1 new-course">
+        <h3 style="color: #a602d3">Elixir for Programmers</h3>
+        <p>
+          Everyone's talking about Elixir, the functional, parallel,
+          modern language built on the battle-tested Erlang runtime.
+        </p>
+        <p>
+          This new course takes programmers from the basics through to
+          writing channel-based Phoenix web applications. And it shows
+          you how <em>I</em> structure my code, giving you great base
+          to build from.
+        </p>
+
+        <div class="embed-responsive embed-responsive-16by9">
+
+          <iframe
+              src="https://player.vimeo.com/video/220077408?title=0&byline=0&portrait=0"
+              class="embed-responsive-item"
+              width="600" height="338" frameborder="0"
+              webkitallowfullscreen
+              mozallowfullscreen allowfullscreen></iframe>
+
+        </div>
+        <p>
+          <a class="btn btn-lg btn-primary btn-block"
+             href="http://codestool.coding-gnome.com/courses/elixir-for-programmers">
+            Learn More!
+          </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card-deck-wrapper main-cards">
+  <div class="card-deck">
+
+    <div class="card card-outline-success" style="display: none">
+      <div class="card-header">
+        <h4 class="card-title text-muted text-center">Courses</h4>
+      </div>
+      <img class="img-fluid" src="http://placehold.it/" alt="">
+      <div class="card-block">
+        <p class="card-text">
+          Dive deep into a topic, learning both <i>how</i>
+          and <i>why</i> things work. Each course includes hours of
+          videos, course notes, quizzes, exercises, and sample code.
+        </p>
+      </div>
+      <div class="card-footer">
+        <a href="#" class="btn btn-info btn-xs" role="button">
+          Sample
+        </a>
+        <a href="#" class="btn btn-default btn-xs" role="button">Catalog</a>
+      </div>
+    </div>
+
+    <div class="card card-outline-info">
+      <div class="card-header">
+        <h4 class="card-title text-muted text-center">Talks and Conversations</h4>
+        <a href="/speak.html" class="btn btn-info btn-xs" role="button">
+          Index
+        </a>
+      </div>
+      <img src="/assets/dave-thomas-speaking.jpg" class=img-fluid src= alt=Dave Thomas speaking alt="dave-thomas-speaking.jpg">
+      <div class="card-block">
+        <p class="card-text">
+          One of the ways I clarify my thoughts is to stand up in
+          front of people and try to explain them. Here are a few recent examples:
+        </p>
+
+        <ul>
+          
+          <li>
+            <a href="/speak#why-the-future-is-parallel">
+              Why the Future is Parallel
+              
+            </a>
+          </li>
+          
+          <li>
+            <a href="/speak#agile-is-dead">
+              Agile is Dead
+              
+                <small>(Goto Amsterdam, 2015)</small>
+              
+            </a>
+          </li>
+          
+          <li>
+            <a href="/speak#limmerence">
+              Limmerence
+              
+                <small>(Ruby Rogues, 2015)</small>
+              
+            </a>
+          </li>
+          
+          <li>
+            <a href="/speak#closing-keynote">
+              Closing Keynote
+              
+                <small>(RubyConf Australia, 2013)</small>
+              
+            </a>
+          </li>
+          
+          <li>
+            <a href="/speak#elixir-the-power-of-erlang-the-joy-of-ruby">
+              Elixir—The Power of Erlang, the Joy of Ruby
+              
+                <small>(Goto Conference, Chicago, 2014)</small>
+              
+            </a>
+          </li>
+          
+          <li>. . .</li>
+        </ul>
+
+        <p>
+          I've also collected a
+          <a href="/speak.html" >more complete list</a> of
+          some of the conference talks, videos, and podcast interviews.
+        </p>
+      </div>
+    </div>
+
+    <div class="card card-outline-info">
+      <div class="card-header">
+        <a href="/blog" class="btn btn-info btn-xs" role="button">
+          Posts
+        </a>
+        <h4 class="card-title text-muted text-center">Articles & Posts</h4>
+      </div>
+      <img src="/assets/keyboard-small.png" class=img-fluid alt=a keyboard alt="keyboard-small.png">
+      <div class="card-block">
+        <p class="card-text">
+          I don't always blog, but when I do, you'll find it
+          <a href="/blog" >here</a>.
+        </p>
+        <h6>Some recent posts…</h6>
+        <ul class="">
+          
+          <li>
+            <a href="/blog/2018/06/02/project-structure.html">
+              <small class="post-date">02 Jun 2018</small>
+              Project Structure Fire
+            </a>
+          </li>
+          
+          <li>
+            <a href="/blog/2018/04/04/moving-back-to-linux.html">
+              <small class="post-date">04 Apr 2018</small>
+              Moving Back to Linux
+            </a>
+          </li>
+          
+          <li>
+            <a href="/blog/2018/01/28/dynamic-supervisors.html">
+              <small class="post-date">28 Jan 2018</small>
+              Dynamix Supervisors replace :simple_one_for_one
+            </a>
+          </li>
+          
+          <li>
+            <a href="/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html">
+              <small class="post-date">10 Sep 2017</small>
+              Using iex's open() command with Emacs multiterm
+            </a>
+          </li>
+          
+          <li>
+            <a href="/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html">
+              <small class="post-date">13 Jul 2017</small>
+              Splitting APIs, Servers, and Implementations in Elixir
+            </a>
+          </li>
+          
+          <li>. . .</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

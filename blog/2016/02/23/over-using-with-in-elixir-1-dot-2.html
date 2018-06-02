@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     (Over)using &lt;code&gt;with&lt;/code&gt; in Elixir 1.2
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  Elixir 1.2 introduced a new expression type, with. It’s so new that the syntax highlighter I use in this blog doesn’t know about it.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  Elixir 1.2 introduced a new expression type, with. It’s so new that the syntax highlighter I use in this blog doesn’t know about it.
+">
+  <meta property="og:site_name"
+        content="
+  
+     (Over)using &lt;code&gt;with&lt;/code&gt; in Elixir 1.2
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html
+">
+  <meta property="og:title"
+        content="
+  
+     (Over)using &lt;code&gt;with&lt;/code&gt; in Elixir 1.2
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  Elixir 1.2 introduced a new expression type, with. It’s so new that the syntax highlighter I use in this blog doesn’t know about it.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     (Over)using &lt;code&gt;with&lt;/code&gt; in Elixir 1.2
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>(Over)using with in Elixir 1.2</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html">
+        <small>10 Sep 2017</small>
+        Using iex's open() command with Emacs multiterm
+      </a>
+  </li>
+  
+  
+  
+  
+  
+
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2016-02-23T00:00:00-06:00" itemprop="datePublished">Feb 23, 2016
+        </time>
+         | 
+        
+        <a href="/blog/tags#elixir" class="post-tag">elixir</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Elixir 1.2 introduced a new expression type, <code class="highlighter-rouge">with</code>.
+It’s so new that the syntax highlighter I use in this
+blog doesn’t know about it.</p>
+
+<p><code class="highlighter-rouge">with</code> is a bit like <code class="highlighter-rouge">let</code>
+in other functional languages, in that it defines a local scope for
+variables. This means you can write something like</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="n">owner</span> <span class="o">=</span> <span class="sd">"</span><span class="s2">Jill"</span>
+
+<span class="n">with</span> <span class="n">name</span>  <span class="o">=</span> <span class="sd">"</span><span class="s2">/etc/passwd"</span><span class="p">,</span>
+     <span class="n">stat</span>  <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">stat!</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+     <span class="n">owner</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">uid</span><span class="p">,</span>
+<span class="k">do</span><span class="p">:</span>
+     <span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="sd">"</span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2"> is owned by user </span><span class="err">#</span><span class="si">#{</span><span class="n">owner</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="no">IO</span><span class="o">.</span><span class="n">puts</span> <span class="sd">"</span><span class="s2">And </span><span class="si">#{</span><span class="n">owner</span><span class="si">}</span><span class="s2"> is still Jill"</span>
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">with</code> expression has two parts. The first is a list of
+expressions; the second is a <code class="highlighter-rouge">do</code> block. The inital expressions are
+evaluated in turn, and then the code in the <code class="highlighter-rouge">do</code> block is evaluated.
+Any variables introduced inside a <code class="highlighter-rouge">with</code> are local to that <code class="highlighter-rouge">with</code>. The
+the case of the example code, this means that the line <code class="highlighter-rouge">owner =
+stat.uid</code> will create a new variable, and not change the binding of
+the variable of the same name in the outer scope.</p>
+
+<p>On its own, this is a big win, as it lets us break apart complex
+function call sequences that aren’t amenable to a pipeline. Basically,
+we get temporary variables. And this makes reading code a lot more
+fun.</p>
+
+<p>For example, here’s some code I wrote a year ago. It handles the
+command-line options for the Earmark markdown parser:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">switches</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="ss">help:</span> <span class="ss">:boolean</span><span class="p">,</span>
+    <span class="ss">version:</span> <span class="ss">:boolean</span><span class="p">,</span>
+    <span class="p">]</span>
+  <span class="n">aliases</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="ss">h:</span> <span class="ss">:help</span><span class="p">,</span>
+    <span class="ss">v:</span> <span class="ss">:version</span>
+  <span class="p">]</span>
+
+  <span class="n">parse</span> <span class="o">=</span> <span class="no">OptionParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="ss">switches:</span> <span class="n">switches</span><span class="p">,</span> <span class="ss">aliases:</span> <span class="n">aliases</span><span class="p">)</span>
+
+  <span class="k">case</span> <span class="n">parse</span> <span class="k">do</span>
+
+  <span class="p">{</span> <span class="p">[</span> <span class="p">{</span><span class="n">switch</span><span class="p">,</span> <span class="no">true</span> <span class="p">}</span> <span class="p">],</span>  <span class="n">_</span><span class="p">,</span>  <span class="n">_</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">switch</span>
+  <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="p">[</span> <span class="n">filename</span> <span class="p">],</span> <span class="n">_</span>     <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+  <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="p">[</span> <span class="p">],</span>          <span class="n">_</span> <span class="p">}</span>     <span class="o">-&gt;</span> <span class="ss">:stdio</span>
+    <span class="n">_</span>                        <span class="o">-&gt;</span> <span class="ss">:help</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Quick! Scan this and decide how many times the <code class="highlighter-rouge">switches</code>
+variable is used in the function. You have to stop and parse the code
+to find out. And given the ugly <code class="highlighter-rouge">case</code> expression at the end, that
+isn’t trivial.</p>
+
+<p>Here’s how I’d have written this code this morning:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">parse</span> <span class="o">=</span>
+    <span class="n">with</span> <span class="n">switches</span> <span class="o">=</span> <span class="p">[</span> <span class="ss">help:</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">version:</span> <span class="ss">:boolean</span> <span class="p">],</span>
+         <span class="n">aliases</span>  <span class="o">=</span> <span class="p">[</span> <span class="ss">h:</span> <span class="ss">:help</span><span class="p">,</span> <span class="ss">v:</span> <span class="ss">:version</span> <span class="p">],</span>
+    <span class="k">do</span><span class="p">:</span>
+         <span class="no">OptionParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="ss">switches:</span> <span class="n">switches</span><span class="p">,</span> <span class="ss">aliases:</span> <span class="n">aliases</span><span class="p">)</span>
+
+  <span class="k">case</span> <span class="n">parse</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="p">[</span> <span class="p">{</span><span class="n">switch</span><span class="p">,</span> <span class="no">true</span> <span class="p">}</span> <span class="p">],</span>  <span class="n">_</span><span class="p">,</span>  <span class="n">_</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">switch</span>
+    <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="p">[</span> <span class="n">filename</span> <span class="p">],</span> <span class="n">_</span>     <span class="p">}</span>      <span class="o">-&gt;</span> <span class="n">open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="p">[</span> <span class="p">],</span>          <span class="n">_</span> <span class="p">}</span>          <span class="o">-&gt;</span> <span class="ss">:stdio</span>
+      <span class="n">_</span>                             <span class="o">-&gt;</span> <span class="ss">:help</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Now the scope of the switches and aliases is explicit—we know that
+can’t be used in the <code class="highlighter-rouge">case</code>.</p>
+
+<p>There’s still the <code class="highlighter-rouge">parse</code> variable, though. We <em>could</em> handle this
+with a nested <code class="highlighter-rouge">with</code>, but that would proably make our function harder
+to read. Instead, I think I’d refactor this into two helper functions:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">argv</span>
+  <span class="o">|&gt;</span> <span class="n">parse_into_options</span>
+  <span class="o">|&gt;</span> <span class="n">options_to_values</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">parse_into_options</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">with</span> <span class="n">switches</span> <span class="o">=</span> <span class="p">[</span> <span class="ss">help:</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">version:</span> <span class="ss">:boolean</span> <span class="p">],</span>
+       <span class="n">aliases</span>  <span class="o">=</span> <span class="p">[</span> <span class="ss">h:</span> <span class="ss">:help</span><span class="p">,</span> <span class="ss">v:</span> <span class="ss">:version</span> <span class="p">],</span>
+  <span class="k">do</span><span class="p">:</span>
+       <span class="no">OptionParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="ss">switches:</span> <span class="n">switches</span><span class="p">,</span> <span class="ss">aliases:</span> <span class="n">aliases</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">options_to_values</span><span class="p">(</span><span class="n">options</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="n">options</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="p">[</span> <span class="p">{</span><span class="n">switch</span><span class="p">,</span> <span class="no">true</span> <span class="p">}</span> <span class="p">],</span>  <span class="n">_</span><span class="p">,</span>  <span class="n">_</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">switch</span>
+    <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="p">[</span> <span class="n">filename</span> <span class="p">],</span> <span class="n">_</span>     <span class="p">}</span>      <span class="o">-&gt;</span> <span class="n">open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="p">[</span> <span class="p">],</span>          <span class="n">_</span> <span class="p">}</span>          <span class="o">-&gt;</span> <span class="ss">:stdio</span>
+      <span class="n">_</span>                             <span class="o">-&gt;</span> <span class="ss">:help</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Much better: easier to read, easier to test, and easier to change.</p>
+
+<p>Now, at this point you might be wondering why I left the <code class="highlighter-rouge">with</code>
+expression in the <code class="highlighter-rouge">parse_into_options</code> function. A good question, and
+one I’ll ty to answer after looking at the second use of <code class="highlighter-rouge">with</code>.</p>
+
+<h2 id="with-and-pattern-matching"><code class="highlighter-rouge">with</code> and Pattern Matching</h2>
+
+<p>The previous section parsed command line arguments. Let’s change it up
+(slightly) and look at validating options passed between functions.</p>
+
+<p>I’m in the middle of writing an Elixir interface to GitLab, the open
+source GitHub contender. It’s a simple but wide JSON REST API, with
+dozens, if not hundreds of available calls. And most of these calls
+take a set of named parameters, some required and some optional. For
+example, the API to create a user has four required parameters (email,
+name, password, and username) along with a bunch of optional ones
+(bio, Skype and Twitter handles, and so on).</p>
+
+<p>I wanted my interface code to validate that the parameters passed to
+it met the GitLab API spec, so I wrote a simple option checking
+library. Here’s some idea of how it could be used:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="nv">@create_options_spec</span> <span class="p">%{</span>
+  <span class="ss">required:</span> <span class="no">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p">([</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:username</span> <span class="p">]),</span>
+  <span class="ss">optional:</span> <span class="no">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p">([</span> <span class="ss">:admin</span><span class="p">,</span> <span class="ss">:bio</span><span class="p">,</span> <span class="ss">:can_create_group</span><span class="p">,</span> <span class="ss">:confirm</span><span class="p">,</span>
+                         <span class="ss">:extern_uid</span><span class="p">,</span> <span class="ss">:linkedin</span><span class="p">,</span> <span class="ss">:projects_limit</span><span class="p">,</span>
+                         <span class="ss">:provider</span><span class="p">,</span> <span class="ss">:skype</span><span class="p">,</span> <span class="ss">:twitter</span><span class="p">,</span> <span class="ss">:website_url</span> <span class="p">])</span>
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="n">create_user</span><span class="p">(</span><span class="n">options</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">full_options</span> <span class="p">}</span> <span class="o">=</span> <span class="no">Options</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="nv">@create_options_spec</span><span class="p">)</span>
+  <span class="no">API</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sd">"</span><span class="s2">users"</span><span class="p">,</span> <span class="n">full_options</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>The options specification is a Map with two keys, <code class="highlighter-rouge">:required</code> and <code class="highlighter-rouge">optional</code>.
+We pass it to <code class="highlighter-rouge">Options.check</code> which validates that the options passed
+to the API contains all required values and any additional values are
+in the optional set.</p>
+
+<p>Here’s a first implementation of the option checker:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">check</span><span class="p">(</span><span class="n">given</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">given</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">with</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">given</span> <span class="o">|&gt;</span> <span class="no">Dict</span><span class="o">.</span><span class="n">keys</span> <span class="o">|&gt;</span> <span class="no">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p">,</span>
+  <span class="k">do</span><span class="p">:</span>
+       <span class="k">if</span> <span class="n">opts_required</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span> <span class="o">&amp;&amp;</span> <span class="n">opts_optional</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span> <span class="o">==</span> <span class="ss">:ok</span> <span class="k">do</span>
+         <span class="p">{</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">given</span> <span class="p">}</span>
+       <span class="k">else</span>
+         <span class="ss">:error</span>
+       <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>We extract the keys from the options we are given, then call two
+helper methods to verify that all required values are there and that
+any other keys are in the optional list. These both return <code class="highlighter-rouge">:ok</code> if
+their checks pass, <code class="highlighter-rouge"><span class="p">{</span><span class="err">:error,</span><span class="w"> </span><span class="err">msg</span><span class="p">}</span></code> otherwise.</p>
+
+<p>Although this code works, we sacrificed the error messages to keep it
+compact. If either checking function fails to return <code class="highlighter-rouge">:ok</code>, we bail
+and return <code class="highlighter-rouge">:error</code>.</p>
+
+<p>This is where <code class="highlighter-rouge">with</code> shines. In the list of expressions between the
+<code class="highlighter-rouge">with</code> and the <code class="highlighter-rouge">do</code> we can use <code class="highlighter-rouge">&lt;-</code>, the new <em>conditional pattern match</em> operator.</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">check</span><span class="p">(</span><span class="n">given</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">given</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">with</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">given</span> <span class="o">|&gt;</span> <span class="no">Dict</span><span class="o">.</span><span class="n">keys</span> <span class="o">|&gt;</span> <span class="no">MapSet</span><span class="o">.</span><span class="n">new</span><span class="p">,</span>
+       <span class="ss">:ok</span> <span class="o">&lt;-</span> <span class="n">opts_required</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">spec</span><span class="p">),</span>
+       <span class="ss">:ok</span> <span class="o">&lt;-</span> <span class="n">opts_optional</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">spec</span><span class="p">),</span>
+  <span class="k">do</span><span class="p">:</span>
+       <span class="p">{</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">given</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">&lt;-</code> operator does a pattern match, just like <code class="highlighter-rouge">=</code>. If the match
+succeeds, then the effect of the two is identical—variables on the
+left are bound to values if necessary, and execution continues.</p>
+
+<p><code class="highlighter-rouge">=</code> and <code class="highlighter-rouge">&lt;-</code> diverge if the match fails. The <code class="highlighter-rouge">=</code> operator will raise
+and exception. But <code class="highlighter-rouge">&lt;-</code> does something sneaky: it
+terminates the execution of the <code class="highlighter-rouge">with</code> expression, but doesn’t raise
+an exception. Instead the <code class="highlighter-rouge">with</code> returns the value that couldn’t be
+matched.</p>
+
+<p>In our option checker, this means that if both the required and
+optional checks return <code class="highlighter-rouge">:ok</code>, we fall through and the <code class="highlighter-rouge">with</code> returns
+the <code class="highlighter-rouge"><span class="p">{</span><span class="err">:ok,</span><span class="w"> </span><span class="err">given</span><span class="p">}</span></code> tuple.</p>
+
+<p>But if either fails, it will return <code class="highlighter-rouge"><span class="p">{</span><span class="err">:error,</span><span class="w"> </span><span class="err">msg</span><span class="p">}</span></code>. As the <code class="highlighter-rouge">&lt;-</code>
+operator won’t match, the with clause will exist early. Its value will
+be the error tuple, and so that’s what the function returns.</p>
+
+<h3 id="the-point-labored">The Point, Labored</h3>
+
+<p>The new <code class="highlighter-rouge">with</code> expression gives you two great features in one tidy
+package: lexical scoping and early exit on failure.</p>
+
+<p>It makes your code better.</p>
+
+<p>Use it.</p>
+
+<p>A lot.</p>
+
+<h2 id="heres-where-i-differ-with-josé">Here’s Where I Differ with José</h2>
+
+<p>Johnny Winn interviewed José for the <a href="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/245652921&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true">Elixir Fountain</a> podcast a few
+weeks ago.</p>
+
+<p>The discussion turned to the new features of Elixir 1.2, and José
+described <code class="highlighter-rouge">with</code>. At the end, he somewhat downplayed it, saying you
+rarely needed it, but when you did it was invaluable. He mentioned
+that there were perhaps just a couple of times it was used in the
+Elixir source.</p>
+
+<p>I think that <code class="highlighter-rouge">with</code> is more than that. You rarely <em>need</em> it, but you’d
+often benefit from using it. In fact, I’m am experimenting with using
+it every time I create a function-level local variable.</p>
+
+<p>What I’m finding is that this discipline drives me to create simpler,
+single-purpose functions. If I have a function where I can’t easily
+encapsulate a local within a <code class="highlighter-rouge">with</code>, then I spend a moment thinking
+about splitting it into two. And that split almost always improves my
+code.</p>
+
+<p>So that’s why I left the <code class="highlighter-rouge">with</code> in the <code class="highlighter-rouge">parse_into_options</code> function
+earlier.</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defp</span> <span class="n">parse_into_options</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">with</span> <span class="n">switches</span> <span class="o">=</span> <span class="p">[</span> <span class="ss">help:</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">version:</span> <span class="ss">:boolean</span> <span class="p">],</span>
+       <span class="n">aliases</span>  <span class="o">=</span> <span class="p">[</span> <span class="ss">h:</span> <span class="ss">:help</span><span class="p">,</span> <span class="ss">v:</span> <span class="ss">:version</span> <span class="p">],</span>
+  <span class="k">do</span><span class="p">:</span>
+       <span class="no">OptionParser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="ss">switches:</span> <span class="n">switches</span><span class="p">,</span> <span class="ss">aliases:</span> <span class="n">aliases</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>It isn’t needed, but I like the way it delineates the two parts of the
+function, making it clear what is incidental and what is core. In my
+head, it has a narrative structure that simple linear code lacks.</p>
+
+<p>This is just unfounded opinion. But you might want to experiment with
+the technique foe a few weeks to see how it works for you.</p>
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html';
+      this.page.identifier = 'https://pragdave.me/blog/2016/02/23/over-using-with-in-elixir-1-dot-2.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

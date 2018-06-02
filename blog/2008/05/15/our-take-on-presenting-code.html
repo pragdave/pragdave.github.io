@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Our take on presenting code
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  Back in March, Jim Weirich posted some notes on a clever technique for  getting code into Keynote presentations. It struck a chord with me, because I’ve been...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  Back in March, Jim Weirich posted some notes on a clever technique for  getting code into Keynote presentations. It struck a chord with me, because I’ve been...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Our take on presenting code
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2008/05/15/our-take-on-presenting-code.html
+">
+  <meta property="og:title"
+        content="
+  
+     Our take on presenting code
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  Back in March, Jim Weirich posted some notes on a clever technique for  getting code into Keynote presentations. It struck a chord with me, because I’ve been...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2008/05/15/our-take-on-presenting-code.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Our take on presenting code
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2008/05/15/our-take-on-presenting-code.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Our take on presenting code</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2008-05-15T00:00:00-05:00" itemprop="datePublished">May 15, 2008
+        </time>
+         | 
+        
+        <a href="/blog/tags#publishing" class="post-tag">publishing</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Back in March, Jim Weirich posted some notes on a clever technique for 
+<a href="http://onestepback.org/index.cgi/General/PresentingCode.red">getting code into Keynote presentations</a>.
+It struck a chord with me, because I’ve been suffering the same
+problem for a long time now. Eventually, the pain of putting together
+the Studio content with Mike Clark and Chad Fowler drove me to find a
+solution. (The pain wasn’t working with Mike and Chad—it was creating
+and keeping up to date many hundreds of slides, most of which
+contained code.)</p>
+
+<p>The solution we went with was based on the way we do code in the
+Bookshelf books. Rather than embedding the code in the slides, we
+write regular old programs. Then, in the slide material, we reference
+the source file (and optionally say which section of that source
+file), and the appropriate code gets dragged into the slide, syntax
+highlighted, and hyperlinked back to our editor. Here’s how it works.</p>
+
+<h3 id="create-your-material">Create Your Material</h3>
+
+<p>We’ve given up using Keynote and Powerpoint. They’re a pain with
+version control, and they make it easy to fall into the eye-candy
+trap, favoring glitz over content. Instead, we create our material is
+plain text files using Textile markup. Typically we use one file per
+major topic, and the use an index file to bring all these individual
+files together into a single overall presentation.</p>
+
+<p>Within the material, we can include material from external files using
+the <code class="highlighter-rouge">:code</code> directive.</p>
+
+<p>Here’s the source for an individual slide:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>h1. const_missing
+Correctly handles nested modules
+:code code/meta/const_missing.rb
+</code></pre>
+</div>
+
+<p>and here’s what appears on the screen:</p>
+
+<p><img src="/assets/s1.jpg" alt="s1.jpg" /></p>
+
+<p>The code gets inserted onto the slide and is syntax highlighted. The
+blue text below the box shows the file name (so attendees can find it
+in their collateral material). It’s also a txmt: hyperlink—click it
+and the file opens in Textmate, so we can edit and run it.</p>
+
+<p><img src="/assets/s1a.jpg" alt="s1a.jpg" /></p>
+
+<h3 id="using-parts-of-a-source-file">Using Parts of a Source File</h3>
+
+<p>You often just want to show part of a larger source file. We do that
+by including <code class="highlighter-rouge">START:tag</code> and <code class="highlighter-rouge">END:tag</code>comments in the original
+source. (This works in any language, and not just Ruby source). In the
+slide markup, you indicate the part(s) you want to include in square
+brackets after the file name:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>h1. method_missing
+:code code/meta/my_ostruct.rb[impl class="code-small"]
+</code></pre>
+</div>
+
+<p>This says to look at the source file <code class="highlighter-rouge">code/meta/my_ostruct.rb</code> and
+only include on the slide the stuff
+between <code class="highlighter-rouge">START:impl</code> and comments. We’ll also display it using the CSS
+class <code class="highlighter-rouge">code-small</code>.</p>
+
+<p>The ability to include parts of code is invaluable when you’re doing a
+sequence of slides that builds a solution: you can show each part of a
+source file in turn.</p>
+
+<h2 id="building-the-presentation">Building the Presentation</h2>
+
+<p>The toolchain that takes all this is remarkably simple, because most
+of the work is done for us. We use a simple Ruby script that takes our
+original slides, embeds the source code from external files, and then
+runs Textile to produce an HTML version. We then add a header to that
+HTML that drags in two incredibly useful Javascript libraries.</p>
+
+<p>For the presentation itself, we use Eric Meyer’s <a href="http://meyerweb.com/eric/tools/s5/">S5</a> system. It gives us
+nice looking slides, simple to use navigation, and lets us present in
+our own browsers or (potentially) on our students’.</p>
+
+<p>For the syntax highlighting of code, we use <a href="http://code.google.com/p/syntaxhighlighter/">SyntaxHighlighter</a>. This
+clever piece of code doesn;t require you to mark up the code elements
+inthe HTML. Instead you just flag your <code class="highlighter-rouge">&lt;pre&gt;</code> blocks with an
+appropriate class and it does the parsing and highlighting in the
+browser. It means that really large decks can be a little slow to load
+(but the still beat Keynote on elaspsed time), but it also means your
+HTML is really clean.</p>
+
+<p>Finally, we have a Rake task that lets us built the whole presentation
+or just individual chapters.</p>
+
+<p>The whole thing took about 4 hours to get working, and probably
+another 4 hours on and off to tweak it based on experience. The code’s
+not really in a state that can be released (so please don’t ask), but
+it wouldn’t take much to produce something you could do the same with.</p>
+
+<h3 id="it-actually-works-in-practice">It Actually Works in Practice!</h3>
+
+<p>So far, we’ve done two studios using this stuff (Advanced Ruby and
+Erlang), and I’ve used it in a number of conference presentations. I
+wouldn’t switch back to regular presentation software for any
+code-based talk. (I’ll still use Keynote for non-code slides, though.)</p>
+
+<h3 id="a-few-more-slides">A Few More Slides:</h3>
+
+<p>Here’s the source:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>h1. initialize_copy
+Container wrappers such a OStruct have a potential problem
+:code code/meta/my_ostruct_problem.rb[class=code-small]
+
+h1. initialize_copy
+:code code/meta/my_ostruct_ic.rb[impl class=”code-small”
+
+h1. const_missing
+* Module method whenever undefined constant references in that module
+** (Module is a module, and acts as a global place for @const_missing@)
+* Mostly used to autoload classes
+* Not as easy as it looks (Rails’ @dependencies.rb@ is 500 lines long
+
+h1. const_missing
+:code code/meta/const_missing_autoload.rb[class=code-small]
+</code></pre>
+</div>
+
+<p><img src="/assets/s2.jpg" alt="s2.jpg" /></p>
+
+<p><img src="/assets/s3.jpg" alt="s3.jpg" /></p>
+
+<p><img src="/assets/s4.jpg" alt="s4.jpg" /></p>
+
+<p><img src="/assets/s5.jpg" alt="s5.jpg" /></p>
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2008/05/15/our-take-on-presenting-code.html';
+      this.page.identifier = 'https://pragdave.me/blog/2008/05/15/our-take-on-presenting-code.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

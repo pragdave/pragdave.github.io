@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     The RADAR Architecture: RESTful Application, Dumb-Ass Recipient
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  It Starts With Verbs and Nouns
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  It Starts With Verbs and Nouns
+">
+  <meta property="og:site_name"
+        content="
+  
+     The RADAR Architecture: RESTful Application, Dumb-Ass Recipient
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2007/03/28/the-radar-architecture-restful-application-dumbass-recipient.html
+">
+  <meta property="og:title"
+        content="
+  
+     The RADAR Architecture: RESTful Application, Dumb-Ass Recipient
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  It Starts With Verbs and Nouns
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2007/03/28/the-radar-architecture-restful-application-dumbass-recipient.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     The RADAR Architecture: RESTful Application, Dumb-Ass Recipient
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2007/03/28/the-radar-architecture-restful-application-dumbass-recipient.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>The RADAR Architecture: RESTful Application, Dumb-Ass Recipient</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2007-03-28T00:00:00-05:00" itemprop="datePublished">Mar 28, 2007
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <h3 id="it-starts-with-verbs-and-nouns">It Starts With Verbs and Nouns</h3>
+
+<p>Roy Fielding’s <a href="http://roy.gbiv.com/pubs/dissertation/top.htm">REST</a> work
+showed us that the design of the interaction between a client and a
+server could make a major difference to the reliability and
+scalability of that application. If you follow a set of conventions
+embodied in REST when designing your application, is means that (for
+example) the network will be able to cache responses to certain
+requests, offloading work from both upstream network components and
+from the application.</p>
+
+<p>But REST was about more than performance. It offered a way of
+separating the actions performed by your applications (the verbs) from
+the things acted upon (the nouns, or in REST terms,
+the <em>resources</em>). What’s more, REST said that the verbs that you use
+should apply consistently across all your resources.</p>
+
+<p>When using HTTP, the HTTP verbs (such as GET, PUT, POST, and DELETE)
+are also the verbs that should be used with REST applications. This
+makes a lot of sense, because things like routers and proxies also
+understand these verbs.</p>
+
+<p>One of the successes built using these principles is the <a href="http://bitworking.org/projects/atom/">Atom Publishing
+Protocol</a>. Atom allows clients to fetch, edit, and publish web
+resources. Atom is probably most commonly applied to allow people to
+use local editors to create and maintain blog articles—client software
+on the user’s computer uses Atom to fetch existing articles and to
+save back edited or new articles.</p>
+
+<p>Let’s look at how that happens with Atom.</p>
+
+<p>I fire up my Atom-based local client. It needs to fetch the updated
+list of all the articles currently on the server, so it issues a GET
+request to a URL that represents the collection of articles: the verb
+is GET, and the resource is the collection.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>GET   /articles
+
+</code></pre>
+</div>
+
+<p>What comes back is a list of resources. Included with each resource
+are one or two URIs. One of these URIs can be used to access that
+resource for editing. Let’s say I want to edit a particular
+article. First, my client software will fetch it, using the URI given
+in the collection:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>GET   /article/123
+
+</code></pre>
+</div>
+
+<p>As a user of the editing software, I then see a nicely formatted
+version of the article. If I click the <code class="highlighter-rouge">[EDIT]</code>button, that view
+changes: I now see text boxes, drop down lists, text areas, and so
+on. I can now change the article’s contents. When I press <code class="highlighter-rouge">[SAVE]</code>,
+the local application then packages up the changed article and sends
+it back to the server using a PUT request. The use of PUT says “update
+an existing resource with this new stuff.”</p>
+
+<h3 id="browsers-are-dumb">Browsers are Dumb</h3>
+
+<p>If you use a browser to interact with a server, you’re using a
+half-duplex, forms-based device. The host sends down a form, you fill
+in the form, and send it back when you’re ready. This turns out to be
+really convenient for people running networks and servers. Because
+HTTP is stateless, and because applications talk to browsers using a
+fire-and-forget model, your servers and networks can handle very large
+numbers of devices. This is exactly the architecture that IBM
+championed back in the 70s. The half-duplex, poll-select nature of
+3270-based applications allowed mainframes with less processing power
+than a modern toaster to handle tens of thousands of simultaneous
+users. The browser is really not much better than a 3270 (except the
+resolution is better when displaying porn). (Recently, folks have been
+trying to circumvent this simplicity by making browser-based
+applications more interactive using technologies such as Ajax. To my
+mind, this is just a stop-gap until we throw the browser away
+altogether—Ajax is just lipstick on a pig.)</p>
+
+<p>How well do browsers play in a RESTful world?</p>
+
+<p>Well, for a start, they really only use two of the HTTP verbs: GET and
+POST. Is this a problem? Yes and no.</p>
+
+<p>We can always hack around the lack of verbs by embedding the verb that
+you <em>wanted</em> to use somewhere in the request that you send to the
+server. It can be embedded in the URL that you use to access a
+resource or it can be embedded in the body of the request (for example
+as an element of the POST data). Both work, assuming the server
+understands the conventions. But both techniques also mean that you’re
+not using REST and the HTTP verb set; you’re simply using HTTP as a
+transport with your own protocol layered on top. And that means that
+the network is less able to do clever things to optimize your traffic.</p>
+
+<p>But a browser talking HTML over HTTP is also lacking in another
+important area. It isn’t running any application functionality
+locally. Remember our Atom-based blogging client? It had smarts, and
+so it knew how to display an article for editing. Browsers don’t have
+that (without a whole lot of support in terms of bolted on Javascript
+or Flash). So, as a result, people using RESTful ideas to talk to
+browsers have to put the smarts back on the server. They invent new
+URLs which (for example) return a resource, but return it all wrapped
+up in the HTML needed to display it as a form for browser-based
+editing. This is how Rails does it. Using the Rails conventions, if I
+want to fetch an article for viewing on a browser, I can use</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>GET   /article/1
+
+</code></pre>
+</div>
+
+<p>If, instead, I want to allow the user to edit the resource, I issue</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  GET  /article/1;edit
+
+</code></pre>
+</div>
+
+<p>The application then sends down a form pre-populated with the data
+from that article. When I hit submit, the form contents are sent back
+to the server, along with a hidden field that tells the server to
+pretend that the HTTP POST request is actually a RESTful PUT
+request—the result is that the resource is updated on the server.</p>
+
+<p>The <code class="highlighter-rouge">;xxx</code> notation looks like it was tacked on. I think that in this
+case, looks aren’t deceiving—these modifiers really were something of
+an afterthought, added when it became apparent that a pure Atom-like
+protocol actually wouldn’t do everything needed in a real-world
+browser-based web application. That’s because the client of an Atom
+server is assumed to be more that just a display device. An Atom
+client would not say “fetch me this resource and (oh, by the way) send
+it down as a form so that I can edit it.” The client would just say
+GET, do what it had to do, then issue a PUT.</p>
+
+<p>So, in pure REST, the client is a peer (or maybe even in charge) of
+the interchange. But when talking to a dumb browser, the client is no
+better than an intermediary between the human and the
+application. That’s why it was necessary to add things such
+as <code class="highlighter-rouge">;edit</code>.</p>
+
+<h3 id="client-independent-applications">Client-independent Applications</h3>
+
+<p>One of the other benefits of designing your applications against the
+limited verbs offered by HTTP REST is that you can (in theory) support
+many different clients with the same application code. You could write
+blogging server that (for example) looked at the HTTP <code class="highlighter-rouge">Accepts</code> header
+when deciding what to send back to a client. The response to a GET
+request to <code class="highlighter-rouge">/articles</code> could be a nicely formatted HTML page if the
+client wants an HTML response, an XML payload if the client asks for
+XML, or an Atom collection if the client asks
+for <code class="highlighter-rouge">application/atomcoll+xml</code>. In Rails terms, this is handled by
+the<code class="highlighter-rouge">respond_to</code> stanza that is duplicated in each controller action of
+a RESTful server.</p>
+
+<p>But the benefits run deeper than simply being able to serve up
+different styles of response.</p>
+
+<p>The HTTP verb set maps (with a little URL tweaking) pretty nicely onto
+the database verb set. POST, GET, PUT, and DELETE get mapped to the
+database CRUD verbs: Create, Read, Update, and Delete.</p>
+
+<p>So, in theory at least, you should be able to write your application
+code as a fairly thin veneer over a set of resources. The application
+exports the verbs to manipulate the resources and the clients have fun
+accessing them. This is similar to the vision of <a href="http://nakedobjects.org/wiki/Main_Page">Naked Objects</a>.</p>
+
+<p>However, I personally think it was optimistic to try to treat the two
+styles of interaction (smart and dumb clients) using the same
+protocol. The ugliness of the <code class="highlighter-rouge">;xxx</code> appendages was a hint.</p>
+
+<p>I think there’s a lot of merit in following a CRUD-based model for
+interacting with your application’s resources. I’m not convinced all
+the hassle of bending dumb browser interactions into a REST-based set
+of verbs, and then extending those verbs to make it work, is worth the
+extra hassle. To put it another way, I believe the discipline and
+conventions imposed by thinking of your application interface as a
+RESTful one are worthwhile. They lead to cleaner and
+easier-to-understand designs. The hoops you have to jump through to
+implement it with a browser as a client seem to suggest that a slavish
+adherence to the protocol might be trying to push it too far.</p>
+
+<h3 id="an-alternative-model">An Alternative Model</h3>
+
+<p>Does that mean I’m down on the RESTful, CRUD based approach to
+application development? Not at all. For some categories of
+application, I think it’s a great way of structuring your code. But
+REST isn’t designed for talking to people. So let’s accept that fact
+when creating applications. And, while we’re at it, let’s take
+advantage of the fact that HTTP is such a flexible transport. Rather
+than trying to design one monolithic application than has both the
+CRUD functionality and the smarts to be able to talk HTML to end
+users, why not split it into two smaller and simpler applications?</p>
+
+<p><img src="/assets/radar.png" alt="radar.png" /></p>
+
+<p>Put the main application logic into a RESTful server. This is where
+all the CRUD-style access to resources takes place.</p>
+
+<p>Then, write a second proxy server. This is an HTTP filter, sitting
+between dumb browsers and your core resources. When browser-based
+users need to interact with your resources, they actually connect to
+this proxy. It then talks REST to your main server, and interprets the
+RESTful responses back into a form that’s useful on the browser. And
+this filter doesn’t have to be a dumb presentation layer—there’s
+nothing to say that it can’t handle additional functionality as
+well. Things like menus, user preferences, and so on could all sit
+here.</p>
+
+<p>Where does this filter sit? That depends. Sometimes it makes sense to
+have it running locally on the user’s own computer. In this case
+you’re back in a situation like the one we looked at with the blogging
+software. Sometimes it makes sense to have the proxy running on the
+network. In this case you gain some interesting architectural
+flexibility—there’s no rule that says you must colocate your REST and
+presentation servers. Potentially this can lead to better response
+times, lower network loads, and increased security.</p>
+
+<p>With this approach, we can lose all the hacks we need to make to our
+URLs and POST data to make them act RESTfully. And we can lose all the
+ugly <code class="highlighter-rouge">respond_to</code> stanzas in our Rails server code. We might even be
+able to get better reuse, sharing both resource servers and
+presentation servers between applications.</p>
+
+<p>Let’s call it <em>RADAR</em>. We have a RESTful Application talking to
+Dumb-Ass Recipients.</p>
+
+<p>Does it work? I don’t know. You tell me.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2007/03/28/the-radar-architecture-restful-application-dumbass-recipient.html';
+      this.page.identifier = 'https://pragdave.me/blog/2007/03/28/the-radar-architecture-restful-application-dumbass-recipient.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

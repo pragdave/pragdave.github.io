@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="https://pragdave.me/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="https://pragdave.me/feed.xml" rel="self" type="application/atom+xml" /><link href="https://pragdave.me/" rel="alternate" type="text/html" /><updated>2018-06-02T12:17:12-05:00</updated><id>https://pragdave.me//</id><title type="html">pragdave—the coding gnome</title><subtitle>The Coding Gnome helps developers code better. We look at the languages, tools, and techniques used by successful programmers. We work on the new stuff, so your skills can develop to meet future needs. And we have some fun along the way. Dave Thomas. @pragdave
+
+  
+</subtitle><entry><title type="html">Project Structure Fire</title><link href="https://pragdave.me/blog/2018/06/02/project-structure.html" rel="alternate" type="text/html" title="Project Structure Fire" /><published>2018-06-02T00:00:00-05:00</published><updated>2018-06-02T00:00:00-05:00</updated><id>https://pragdave.me/blog/2018/06/02/project-structure</id><content type="html" xml:base="https://pragdave.me/blog/2018/06/02/project-structure.html">&lt;blockquote&gt;
+  &lt;p&gt;I think the way we structure our project source can obscure the code
+and make simple things complex. We do it not because we want to, but
+because we feel we need to in order to tame complexity. There’s
+another way: stop writing complex code.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;the-smoking-guns&quot;&gt;The Smoking Guns&lt;/h3&gt;
+
+&lt;p&gt;Here’s the result of running &lt;code class=&quot;highlighter-rouge&quot;&gt;mix new my_app --sup&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;my_app
+├── config
+│   └── config.exs
+├── lib
+│   ├── my_app
+│   │   └── application.ex
+│   └── my_app.ex
+├── mix.exs
+├── README.md
+└── test
+    ├── my_app_test.exs
+    └── test_helper.exs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here’s a Ruby project created with &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle gem my_app&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;my_app/
+├── bin
+│   ├── console
+│   └── setup
+├── Gemfile
+├── lib
+│   ├── my_app
+│   │   └── version.rb
+│   └── my_app.rb
+├── my_app.gemspec
+├── Rakefile
+└── README.md
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here’s a JavaScript project:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├── dist
+│   ├── app.js
+│   └── index.html
+├── node_modules
+├── src
+│   ├── lib
+│   │   ├── login.js
+│   │   └── user.js
+│   ├── app.js
+│   └── index.html
+├── gulpfile.js
+├── package.json
+└── README
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And here’s the recommended Go project tree:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;project-layout/
+├── api
+│   └── README.md
+├── assets
+│   └── README.md
+├── build
+│   ├── ci
+│   ├── package
+│   └── README.md
+├── cmd
+│   ├── README.md
+│   └── _your_app_
+├── configs
+│   └── README.md
+├── deployments
+│   └── README.md
+├── docs
+│   └── README.md
+├── examples
+│   └── README.md
+├── githooks
+│   └── README.md
+├── init
+│   └── README.md
+├── internal
+│   ├── app
+│   │   └── _your_app_
+│   ├── pkg
+│   │   └── _your_private_lib_
+│   └── README.md
+├── LICENSE.md
+├── Makefile
+├── pkg
+│   ├── README.md
+│   └── _your_public_lib_
+├── README.md
+├── scripts
+│   └── README.md
+├── test
+│   └── README.md
+├── third_party
+│   └── README.md
+├── tools
+│   └── README.md
+├── vendor
+│   └── README.md
+└── web
+    ├── app
+    ├── README.md
+    ├── static
+    └── template
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s look at just the top level directory of each:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+&lt;th&gt;Elixir&lt;/th&gt;
+&lt;th&gt;Ruby&lt;/th&gt;
+&lt;th&gt;JavaScript&lt;/th&gt;
+&lt;th&gt;Go&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr valign=&quot;top&quot;&gt;
+&lt;td&gt;
+&lt;pre&gt;&lt;code&gt;
+my_app
+├── config
+├── lib
+├── mix.exs
+├── README.md
+└── test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/td&gt;
+
+&lt;td&gt;
+&lt;pre&gt;&lt;code&gt;
+my_app/
+├── bin
+├── Gemfile
+├── lib
+├── my_app.gemspec
+├── Rakefile
+└── README.md
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/td&gt;
+&lt;td&gt;
+&lt;pre&gt;&lt;code&gt;
+├── dist
+├── node_modules
+├── src
+├── gulpfile.js
+├── package.json
+└── README
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/td&gt;
+&lt;td&gt;
+&lt;pre&gt;&lt;code&gt;
+project-layout/
+├── api
+├── assets
+├── build
+├── cmd
+├── configs
+├── deployments
+├── docs
+├── examples
+├── githooks
+├── init
+├── internal
+├── LICENSE.md
+├── Makefile
+├── pkg
+├── README.md
+├── scripts
+├── test
+├── third_party
+├── tools
+├── vendor
+└── web
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Now let’s imagine we can find an alien, unsullied by the preconceptions
+and practices of us developer folks. Let’s call this individual Normal
+Human Being.&lt;/p&gt;
+
+&lt;p&gt;We show these structures to Normal and ask “what does this do?” Normal
+thinks about this for a while.&lt;/p&gt;
+
+&lt;p&gt;“Well,”, they say, “I imagine that you organize your thinking
+hierarchically &lt;em&gt;(how quaint)&lt;/em&gt; and that you put the most important things
+at the top level. Doing things this was means that you can then split
+each top-level important thing into subthings at the next level in your
+hierarchy.”&lt;/p&gt;
+
+&lt;p&gt;“So, based on what I see across this selection of programming languages,
+you’re showing me four projects where the most important thing about the
+code is the boilerplate housekeeping. Clearly, you must be seriously
+advanced if this trumps the actual code that you write.”&lt;/p&gt;
+
+&lt;p&gt;Once they realized that they were wrong, and that, yes, we do worship
+housekeeping, the NHBs invaded the planet, conquering us without a shot
+being fired (largely because we were still waiting for NPM install
+to run on the fire control computers).&lt;/p&gt;
+
+&lt;h3 id=&quot;first-choose-the-correct-problem&quot;&gt;First, Choose The Correct Problem?&lt;/h3&gt;
+
+&lt;p&gt;I believe the reason for these baroque structures is simple: in the past
+we learned that when we write complex applications, things got out of
+hand. We ended up with directories with random names, some containing
+hundreds of files, each project different from the others.&lt;/p&gt;
+
+&lt;p&gt;So we fixed the wrong problem.&lt;/p&gt;
+
+&lt;p&gt;We said, “if we impose a strict structure on our projects, we can tame
+this complex katamari damacy of files.”&lt;/p&gt;
+
+&lt;p&gt;But what we &lt;em&gt;should&lt;/em&gt; have said was, “let’s not write such big projects.”&lt;/p&gt;
+
+&lt;h3 id=&quot;break-it-down&quot;&gt;Break It Down&lt;/h3&gt;
+
+&lt;p&gt;Imagine if instead we could build our code using lots of individual
+components, and that each component could fit into a single source file
+of (at most) a couple of hundred lines.&lt;/p&gt;
+
+&lt;p&gt;What would the project directory tree look like then?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;├── my_app.ex               &amp;lt;- source of component
+├── meta.yml                &amp;lt;- dependencies, build options, etc
+└── tests/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The README is simply the leading comment block in the source file. The
+build tool uses the metadata to find and resolve dependencies, compile
+the source, and construct an executable.  For a component with no
+dependencies that followed the default conventions of the language, and
+which used doctests, the
+component could be as simple as:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;└─ my_app.ex               &amp;lt;- source of component
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;you-may-say-im-bikeshedding&quot;&gt;You May Say I’m Bikeshedding&lt;/h3&gt;
+
+&lt;p&gt;And I am. Project directory structure is definitely not a big problem.&lt;/p&gt;
+
+&lt;p&gt;But the fact that we had to invent these structures, which hide the
+actual code of our project two, three, or more levels deep in a
+directory tree, is a smoking gun. We are writing all our code in a
+single project; a single application. The lessons of the &lt;a href=&quot;https://www.somethingsimilar.com/2012/07/23/monorail/&quot;&gt;monorail&lt;/a&gt;
+seem to have been forgotten. Frameworks such as Phoenix encourage you to
+bundle application logic into the web serving codebase. Deployment tools
+make it simpler to release monolithic applications. And coupling between
+components only increases.&lt;/p&gt;
+
+&lt;h3 id=&quot;you-may-say-im-a-dreamer&quot;&gt;You May Say I’m A Dreamer…&lt;/h3&gt;
+
+&lt;p&gt;…but I am experimenting with possible solutions. I’m working on a proof
+of concept library that makes it easier to write distributed, concurrent
+components in Elixir. I’m playing with a tool that makes it easier to
+assemble these components into deliverable solutions, and to deploy
+those assemblies to a dynamic cloud of machines. It’s way too early to
+say I have a solution to any of this. But I do have something I can
+experiment with.&lt;/p&gt;
+
+&lt;p&gt;I gave a talk about this at
+&lt;a href=&quot;http://empex.co/events/2018/conference.html&quot;&gt;Empex&lt;/a&gt; last month.&lt;/p&gt;
+
+&lt;iframe width=&quot;960&quot; height=&quot;540&quot; src=&quot;https://www.youtube.com/embed/6U7cLUygMeI&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Things
+have changed even since then. But I’m still convinced we need to rething
+how we write code.&lt;/p&gt;</content><category term="programming" /><category term="elixir" /><category term="ruby" /><category term="javascript" /><category term="go" /><summary type="html">I think the way we structure our project source can obscure the code
+and make simple things complex. We do it not because we want to, but
+because we feel we need to in order to tame complexity. There’s
+another way: stop writing complex code.</summary></entry><entry><title type="html">Moving Back to Linux</title><link href="https://pragdave.me/blog/2018/04/04/moving-back-to-linux.html" rel="alternate" type="text/html" title="Moving Back to Linux" /><published>2018-04-04T00:00:00-05:00</published><updated>2018-04-04T00:00:00-05:00</updated><id>https://pragdave.me/blog/2018/04/04/moving-back-to-linux</id><content type="html" xml:base="https://pragdave.me/blog/2018/04/04/moving-back-to-linux.html">&lt;p&gt;I first used Linux in the early 90’s (I think it was 0.99.pl9), and I
+continued to use it pretty much exclusively for over a decade. Back
+then, though, most Linux developers spent more time maintaining their
+operating system as they did writing code. Network interfaces, printers,
+displays: if you could plug it in, you’d probably end up downloading
+patches and drivers, and recompiling the OS multiple times. Even so,
+like growing old, it was better than the available alternatives.&lt;/p&gt;
+
+&lt;p&gt;OS X 10 came out around 2001. I didn’t really consider it for a while,
+thinking it was mostly a consumer device. But when they started turning
+up on the podiums at conferences, I looked again, then took the plunge.&lt;/p&gt;
+
+&lt;p&gt;It took a little while, but I came to realize that life in the walled
+garden was sweet. No more kernel builds, because Apple controlled both
+the OS and the hardware. I could compile (most) all my Linux tools, and
+I was productive. More productive than I had been with Linux.&lt;/p&gt;
+
+&lt;p&gt;I’d was a loyal Mac user (both desktop
+and laptop). I’ve probably bought 8 or more machines. For a long time, I
+felt they were the best hardware out there.&lt;/p&gt;
+
+&lt;p&gt;But after 14 or so years, that was no longer the case. The Air was
+probably the last revolutionary machine they made. After that, it seemed
+largely incremental.&lt;/p&gt;
+
+&lt;p&gt;So I started looking around. I bought a Samsung NP940X3L laptop with Windows 10,
+and tried to use it for development. Even with the bash shell, it seemed
+like a struggle: files were spread seemingly at random over the file
+system, the GUI was totally confusing, and the damn thing kept wanting
+to reboot to install some security patch. I was bummed, because the new
+Surface Book looks sweet.&lt;/p&gt;
+
+&lt;p&gt;Anyway, I repartioned the hard drive and installed Ubuntu 15.something.
+It booted fine but it was pretty much unusable: it didn’t handle the
+touchscreen without a patch, the scaling for the 3200x1800 display was
+totally inconsistent, and, yes, I had to install new drivers for the
+WiFi adapter.&lt;/p&gt;
+
+&lt;p&gt;So I lent to Samsung to my oldest son and went back to the Mac.&lt;/p&gt;
+
+&lt;p&gt;A couple of weeks back, he started a back-end programming course at Jeff
+Casimir’s Turing.io. He no longer needed the laptop, so I thought I’d
+try again.&lt;/p&gt;
+
+&lt;p&gt;I reformatted the Linux partition, and installed Ubuntu 17.10. And that
+was it: it just worked. In fact, I think every feature of the laptop I
+wanted to use was available with no effort on my part.&lt;/p&gt;
+
+&lt;p&gt;I wrote a trivil Ansible playbook to set things up (because otherwise
+I’d never remember) and used git to clone my dotfiles. I needed a couple
+of changes to some of the paths, but otherwise things just worked.&lt;/p&gt;
+
+&lt;p&gt;Over time, I had to make a few adjustments. I want to use Fira Code as
+my coding font, but Gnome’s terminal doesn’t support ligatures, so I
+went with Konsole. I’m still experimenting with alternatives to
+Spotlight for searching for files with particular content.&lt;/p&gt;
+
+&lt;p&gt;But, so far, I’ve been really happy. I don’t use the touch screen much
+when I’m just coding, but I’ve found it’s a great tool when I’m sitting
+next to someone exploring ideas.&lt;/p&gt;
+
+&lt;p&gt;I’m going to give it 6 months&lt;/p&gt;</content><category term="linux" /><category term="osx" /><summary type="html">I first used Linux in the early 90’s (I think it was 0.99.pl9), and I
+continued to use it pretty much exclusively for over a decade. Back
+then, though, most Linux developers spent more time maintaining their
+operating system as they did writing code. Network interfaces, printers,
+displays: if you could plug it in, you’d probably end up downloading
+patches and drivers, and recompiling the OS multiple times. Even so,
+like growing old, it was better than the available alternatives.</summary></entry><entry><title type="html">Dynamix Supervisors replace :simple_one_for_one</title><link href="https://pragdave.me/blog/2018/01/28/dynamic-supervisors.html" rel="alternate" type="text/html" title="Dynamix Supervisors replace :simple_one_for_one" /><published>2018-01-28T00:00:00-06:00</published><updated>2018-01-28T00:00:00-06:00</updated><id>https://pragdave.me/blog/2018/01/28/dynamic-supervisors</id><content type="html" xml:base="https://pragdave.me/blog/2018/01/28/dynamic-supervisors.html">&lt;p&gt;Elixir 1.6 replaced the old &lt;code class=&quot;highlighter-rouge&quot;&gt;:simple_one_for_one&lt;/code&gt; supervisor strategy
+with shiny the new &lt;code class=&quot;highlighter-rouge&quot;&gt;DynamicSupervisor&lt;/code&gt; module.&lt;/p&gt;
+
+&lt;p&gt;As well as giving you the old ability to spawn multiple instances of the same server, dynamic supervisors let you run different server modules under the same supervisor, all created at runtime.&lt;/p&gt;
+
+&lt;p&gt;Here’s a short video showing how I changed my Hangman game over.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://player.vimeo.com/video/253159406?title=0&amp;amp;byline=0&amp;amp;portrait=0&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content><category term="programming" /><category term="elixir" /><summary type="html">Elixir 1.6 replaced the old :simple_one_for_one supervisor strategy
+with shiny the new DynamicSupervisor module.</summary></entry><entry><title type="html">Using iex’s open() command with Emacs multiterm</title><link href="https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html" rel="alternate" type="text/html" title="Using iex's open() command with Emacs multiterm" /><published>2017-09-10T00:00:00-05:00</published><updated>2017-09-10T00:00:00-05:00</updated><id>https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm</id><content type="html" xml:base="https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html">&lt;p&gt;(tldr; I can now open Elixir source files from inside iex, and have
+them pop up in an Emacs buffer alongside my terminal buffer.)&lt;/p&gt;
+
+&lt;iframe src=&quot;https://player.vimeo.com/video/233436823?title=0&amp;amp;byline=0&amp;amp;portrait=0&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;
+&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://vimeo.com/233436823&quot;&gt;Multiterm with iex open&lt;/a&gt; from &lt;a href=&quot;https://vimeo.com/user50998191&quot;&gt;Dave Thomas&lt;/a&gt; on &lt;a href=&quot;https://vimeo.com&quot;&gt;Vimeo&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;My name is Dave Thomas and I use Emacs.&lt;/p&gt;
+
+&lt;p&gt;There, I’ve said it.&lt;/p&gt;
+
+&lt;p&gt;And when I switched from an 17” to a 13” laptop, I got into trouble,
+because I couldn’t easily manage terminal windows and Emacs windows
+side-by-side.&lt;sup id=&quot;fnref:fn1&quot;&gt;&lt;a href=&quot;#fn:fn1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;So I investigated ways of using terminals inside Emacs. It took a
+surprisingly long time to get a setup that worked the way I wanted,
+but now I use it pretty much exclusively. When I’m coding, I have an
+Emacs frame full screen, with editor buffers and terminal windows
+opened (and managed inside it).&lt;/p&gt;
+
+&lt;p&gt;My setup uses &lt;code class=&quot;highlighter-rouge&quot;&gt;term-mode&lt;/code&gt; inside Emacs, and some fish shell config on
+the outside to bind things nicely together. For example, I have an &lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt;
+shell function which takes a file name and an optional line number,
+and it opens an Emacs buffer on that file and line.&lt;/p&gt;
+
+&lt;h2 id=&quot;integrate-with-iex&quot;&gt;Integrate with IEx&lt;/h2&gt;
+
+&lt;p&gt;IEx 1.5 comes with a new &lt;code class=&quot;highlighter-rouge&quot;&gt;open&lt;/code&gt; function. You give it a module (with
+an optional function name) and it opens an editor on the file that
+contains it. This can be easily customized: Chris McCord has
+&lt;a href=&quot;https://dockyard.com/blog/2017/08/24/elixir-open-command-with-terminal-emacs&quot;&gt;written&lt;/a&gt;
+about his setup with Emacs. However, he uses a terminal-based Emacs,
+and I wanted to use windowing.&lt;/p&gt;
+
+&lt;p&gt;So here’s what I did.&lt;/p&gt;
+
+&lt;h2 id=&quot;create-a-simple-shell-function&quot;&gt;Create A Simple Shell Function&lt;/h2&gt;
+
+&lt;p&gt;When you all “open Fred.func” in IEx, it looks for the source file that
+contains the &lt;code class=&quot;highlighter-rouge&quot;&gt;Fred&lt;/code&gt; module, then opens an external editor, setting the
+cursor to the line containing the start of &lt;code class=&quot;highlighter-rouge&quot;&gt;func1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It finds the name of the editor program by reading the environment
+variable &lt;code class=&quot;highlighter-rouge&quot;&gt;ELIXIR_EDITOR&lt;/code&gt;. It then invokes the editor, passing the name
+of the file, colon, and the line number.&lt;/p&gt;
+
+&lt;p&gt;Normally, you’d set &lt;code class=&quot;highlighter-rouge&quot;&gt;ELIXIR_EDITOR&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;vi&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;atom&lt;/code&gt;, or whatever.
+In my case, through, I needed IEx not to run a program. Instead I
+wanted it to tell Emacs to open the file in a new window.&lt;/p&gt;
+
+&lt;p&gt;To do this, I defined &lt;code class=&quot;highlighter-rouge&quot;&gt;ELIXIR_EDITOR&lt;/code&gt; to be a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;echo&lt;/code&gt; command
+that simple wrote the name of the file to be edited,
+prepended by a magic escape sequence. The convention
+used by term-mode is to start the sequence &lt;code class=&quot;highlighter-rouge&quot;&gt;\eAnSiT&lt;/code&gt;, so I wrote:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set -gx ELIXIR_EDITOR 'echo &quot;\033A\nSiTe&quot;'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;intercept-this-sequence-in-emacs&quot;&gt;Intercept This Sequence in Emacs&lt;/h2&gt;
+
+&lt;p&gt;term-mode provides a hook that lets you intercept ANSI escape
+sequences. This is normally used to track and display the directory
+name in the buffer containing the terminal. However, in my Emacs
+initialization I have:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  (defun term-handle-ansi-terminal-messages (message)
+    (while (string-match &quot;\eAnSiT.+\n&quot; message)
+
+      ;; Extract the command code and the argument.
+      (let* ((start (match-beginning 0))
+             (command-code (aref message (+ start 6)))
+             (argument
+              (save-match-data
+                (substring message
+                           (+ start 8)
+                           (string-match &quot;\r?\n&quot; message
+                                         (+ start 8))))))
+        ;; Delete this command from MESSAGE.
+        (setq message (replace-match &quot;&quot; t t message))
+
+        (cond ((= command-code ?c)
+               (setq term-ansi-at-dir argument))
+              ((= command-code ?h)
+               (setq term-ansi-at-host argument))
+              ((= command-code ?u)
+               (setq term-ansi-at-user argument))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; this is the code that handles the edit function ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+              ((= command-code ?e)
+               (save-excursion
+                 (dt-find-file-with-line argument))))))
+    
+    (when (and term-ansi-at-host term-ansi-at-dir term-ansi-at-user)
+      (setq buffer-file-name
+            (format &quot;%s@%s:%s&quot; term-ansi-at-user term-ansi-at-host term-ansi-at-dir))
+      (set-buffer-modified-p nil)
+      (setq default-directory (if (string= term-ansi-at-host (system-name))
+                                  (concatenate 'string term-ansi-at-dir &quot;/&quot;)
+                                (format &quot;/%s@%s:%s/&quot; term-ansi-at-user term-ansi-at-host term-ansi-at-dir)))
+      (setq truncated-dir-name (truncate-dir-name default-directory)))
+    
+    message))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The three lines of code look for the &lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt; at the end of the ANSI escape
+sequence, then call &lt;code class=&quot;highlighter-rouge&quot;&gt;dt-find-file-with-line&lt;/code&gt; passing the file name and
+line number.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(defun dt-find-file-with-line (file-line-string)
+  (let* ((dt-file-line (split-string file-line-string &quot;:&quot;))
+         (dt-file      (car dt-file-line))
+         (dt-line      (or (cadr dt-file-line) &quot;1&quot;))
+         (dt-buffer    (find-file-other-window dt-file)))
+
+    (switch-to-buffer dt-buffer)
+    (goto-char (point-min))
+    (forward-line (- (string-to-int dt-line) 1))
+    (run-with-idle-timer 0
+                         nil
+                         (lambda (buffer)
+                                 (switch-to-buffer-other-window buffer))
+                         dt-buffer))
+  )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This function simply splits the argument into a file name and line
+number, loads the file into a buffer, and sets the cursor to the start
+of that line in the buffer.&lt;/p&gt;
+
+&lt;p&gt;One problem is that term-mode expects to be in its own buffer when we
+return from processing the escape sequence, so I add an idle timer
+which switches to the new buffer once term-mode has finished doing its
+stuff.&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:fn1&quot;&gt;
+      &lt;p&gt;I use the GUI version of Emacs because it gives me better OS X
+integration.&amp;nbsp;&lt;a href=&quot;#fnref:fn1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><category term="programming" /><category term="elixir" /><category term="emacs" /><summary type="html">(tldr; I can now open Elixir source files from inside iex, and have
+them pop up in an Emacs buffer alongside my terminal buffer.)</summary></entry><entry><title type="html">Splitting APIs, Servers, and Implementations in Elixir</title><link href="https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html" rel="alternate" type="text/html" title="Splitting APIs, Servers, and Implementations in Elixir" /><published>2017-07-13T00:00:00-05:00</published><updated>2017-07-13T00:00:00-05:00</updated><id>https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir</id><content type="html" xml:base="https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html">&lt;blockquote&gt;
+  &lt;p&gt;tldr; I think the conventional way of structuring Elixir code
+could be improved by paying more attention to decoupling.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I just finished writing the first of my Coding Gnome courses. This one
+was an &lt;a href=&quot;https://codestool.coding-gnome.com&quot;&gt;introduction to
+Elixir&lt;/a&gt; for experienced programmers.&lt;/p&gt;
+
+&lt;p&gt;I tried to concentrate on partitioning code in a reasonable manner. I
+didn’t use the traditional Elixir scheme, which comes from a mating of
+Ruby and Erlang project layouts. Instead, I tried to come at it with a
+fresh eye, asking myself how the various aspects of the code could
+best be decoupled.&lt;/p&gt;
+
+&lt;h2 id=&quot;separating-execution-strategy-from-logic&quot;&gt;Separating Execution Strategy from Logic&lt;/h2&gt;
+
+&lt;p&gt;Elixir and Erlang have an interesting execution module. You program
+using processes and message passing, but they abstract this into the
+concept of &lt;em&gt;servers&lt;/em&gt;. You call a function (typically
+&lt;code class=&quot;highlighter-rouge&quot;&gt;GenServer.call(pid, args)&lt;/code&gt;) and this in turn send a message to the
+server identified by &lt;code class=&quot;highlighter-rouge&quot;&gt;pid&lt;/code&gt;. Inside that server, you write callback
+functions that are invoked in response to these messages.&lt;/p&gt;
+
+&lt;p&gt;In real life, no one wants to use a server whose API involves such
+convolution. So the convention arose that you’d provide an API layer
+to your server, written in the same module. Here’s an example, stolen
+from the Elixir guide, and cut down somewhat:&lt;/p&gt;
+
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Registry&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;##############&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Client API #&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;##############&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start_link&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start_link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;__MODULE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;####################&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Server Callbacks #&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;####################&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;%{}}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle_call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:reply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle_call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:reply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here the top half of the module is the public facing API, and the
+lower half is the code that runs in a separate process and that
+implements the functionality.&lt;/p&gt;
+
+&lt;p&gt;I’ve never been comfortable with this. It seems to bury the important
+part—the actual implementation—in amongst all kinds of GenServer
+housekeeping. It also makes the development of the code a lot
+trickier—you have to write the server at the same time that you write
+the implementation.&lt;/p&gt;
+
+&lt;p&gt;So in the course I recommended a different approach—one that I’ve been
+using personally for a while. In it, I write the application
+functionality in its own module, under &lt;code class=&quot;highlighter-rouge&quot;&gt;lib/&lt;/code&gt;. This has no GenServer
+support—after all, it’s just the app logic.&lt;/p&gt;
+
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Impl&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# in lib/kv/impl.ex&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;%{}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;That makes it easier to see what’s going on. I can also write tests
+directly against this logic.&lt;/p&gt;
+
+&lt;p&gt;Now, here’s the weird part. You might look at this and say that here’s
+the module that other applications should call. But I think that’s not
+the case. Let’s instead declare the API in the top-level &lt;code class=&quot;highlighter-rouge&quot;&gt;kv.ex&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;tight highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lib
+├── kv
+│   └── impl.ex
+└── kv.ex               # &amp;lt;- the API belongs in here
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Right now, this API just calls directly down to the implementation.&lt;/p&gt;
+
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;defdelegate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;                     &lt;span class=&quot;ss&quot;&gt;to:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Impl&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;defdelegate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;       &lt;span class=&quot;ss&quot;&gt;to:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Impl&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;defdelegate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;to:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Impl&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Also pretty clean, right?&lt;/p&gt;
+
+&lt;p&gt;So now we have a working application (aka library), and people can
+start using it.&lt;/p&gt;
+
+&lt;h3 id=&quot;bring-on-the-server&quot;&gt;Bring On the Server&lt;/h3&gt;
+
+&lt;p&gt;Circumstances change, and our library needs to become a full server.&lt;/p&gt;
+
+&lt;p&gt;We write the server code in &lt;code class=&quot;highlighter-rouge&quot;&gt;lib/server.ex&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Server&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;alias&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Impl&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle_call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:reply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle_cast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:noreply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is just pure server code—no API, and no application logic.&lt;/p&gt;
+
+&lt;p&gt;Finally, we change the API in the top-level &lt;code class=&quot;highlighter-rouge&quot;&gt;kv.ex&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start_link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Kv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;%{})&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:lookup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The only slightly strange thing is that &lt;code class=&quot;highlighter-rouge&quot;&gt;store()&lt;/code&gt; returns the server
+pid. Doing so maintains the same API that we had previously, where the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;store()&lt;/code&gt; function returned the updated map. In both cases, the return
+value simply represents an (opaque) updated state.&lt;/p&gt;
+
+&lt;p&gt;As a result, we now have:&lt;/p&gt;
+
+&lt;div class=&quot;tight highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lib
+├── kv
+│   ├── impl.ex . . . . . . .   Application implementation
+│   └── server.ex . . . . . .   GenServer implementation
+└── kv.ex . . . . . . . . . .   API
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is the scheme I now use, and so far I much prefer it to the
+conventional one.&lt;/p&gt;
+
+&lt;h2 id=&quot;bonus-section&quot;&gt;Bonus Section&lt;/h2&gt;
+
+&lt;h3 id=&quot;subservers&quot;&gt;Subservers&lt;/h3&gt;
+
+&lt;p&gt;What if my application needs its own GenServers as part of its
+implementation? Well, just follow the same pattern, but one level down
+the directory tree:&lt;/p&gt;
+
+&lt;div class=&quot;tight highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lib
+├── kv
+│   ├── bucket
+│   │   ├── impl.ex
+│   │   └── server.ex
+│   ├── bucket.ex
+│   ├── impl.ex
+│   └── server.ex
+└── kv.ex
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The rule here is that no one outside the application is allowed to
+call functions outside &lt;code class=&quot;highlighter-rouge&quot;&gt;lib/kv.ex&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;applications-are-components&quot;&gt;Applications are Components&lt;/h3&gt;
+
+&lt;p&gt;Although the good folks who brought us Erlang were really, really
+smart people who produced designs for a future that did not yet exist,
+they really weren’t that good at naming things.&lt;/p&gt;
+
+&lt;p&gt;One of the most confusing names is &lt;em&gt;application&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div style=&quot;float: right; margin-left: 2rem;&quot; class=&quot;thinkific-product-card&quot; data-btn-txt=&quot;Free Preview&quot; data-btn-txt-color=&quot;#ffffff&quot; data-btn-bg-color=&quot;#4c1130&quot; data-card-type=&quot;card&quot; data-link-type=&quot;landing_page&quot; data-product=&quot;127256&quot; data-embed-version=&quot;0.0.2&quot; data-card-txt-color=&quot;#ffffff&quot; data-card-bg-color=&quot;#a64d79&quot; data-store-url=&quot;https://courses.thinkific.com/embeds/products/show&quot;&gt;&lt;div class=&quot;iframe-container&quot;&gt;&lt;/div&gt;&lt;script type=&quot;text/javascript&quot;&gt;document.getElementById(&quot;thinkific-product-embed&quot;) || document.write('&lt;script id=&quot;thinkific-product-embed&quot; type=&quot;text/javascript&quot; src=&quot;https://assets.thinkific.com/js/embeds/product-cards-client.min.js&quot;&gt;&lt;\/script&gt;');&lt;/script&gt;&lt;noscript&gt;&lt;a href=&quot;https://coding-gnome.thinkific.com/courses/elixir-for-programmers&quot; target=&quot;_blank&quot;&gt;Free Preview&lt;/a&gt;&lt;/noscript&gt;&lt;/div&gt;
+
+&lt;p&gt;In “the real world” an application is something you deliver to the end
+user. A payroll system is an application. A word processor is an
+application.&lt;/p&gt;
+
+&lt;p&gt;But in Erlang, and hence Elixir, an application is a self-contained
+bundle of modules and resources with its own lifecycle. The Logger,
+for example, is an application. The Elixir compiler contains over a
+dozen.&lt;/p&gt;
+
+&lt;p&gt;Erlang applications are really just components.&lt;/p&gt;
+
+&lt;p&gt;But because the word application is so ingrained in us developers, it
+is hard to remember this. And so we have a tendency to throw all our
+code into a single project tree because, after all, it’s the
+application.&lt;/p&gt;
+
+&lt;p&gt;So I’m trying to retrain my brain by writing my code as series of
+separate applications, each as small as I can make it. And I’m not
+using umbrella projects for this, because I want to be able to share
+these components across different projects. Instead, I just use file
+dependencies.&lt;/p&gt;
+
+&lt;p&gt;So, next time you’re writing a killer Phoenix app, think about why you
+have Ecto in your web tier. Shouldn’t the business logic be out in its
+own application? And why do you have contexts in the web layer? Maybe
+the contexts each correspond to an external app.&lt;/p&gt;
+
+&lt;p&gt;Decouple. You know it makes sense.&lt;/p&gt;</content><category term="programming" /><category term="elixir" /><summary type="html">tldr; I think the conventional way of structuring Elixir code
+could be improved by paying more attention to decoupling.</summary></entry><entry><title type="html">Put This in Your Pipe(line)</title><link href="https://pragdave.me/blog/2017/05/02/put-this-in-your-pipe.html" rel="alternate" type="text/html" title="Put This in Your Pipe(line)" /><published>2017-05-02T00:00:00-05:00</published><updated>2017-05-02T00:00:00-05:00</updated><id>https://pragdave.me/blog/2017/05/02/put-this-in-your-pipe</id><content type="html" xml:base="https://pragdave.me/blog/2017/05/02/put-this-in-your-pipe.html">&lt;p&gt;We know that Elixir programming is about transforming state, and &lt;code class=&quot;highlighter-rouge&quot;&gt;|&amp;gt;&lt;/code&gt;
+operator plays the starring role in making that happen. But sometimes
+you can’t just chain two named functions together—the output of one
+doesn’t match the first parameter of the next. Until I discovered this
+trick, I had to break the pipeline and assert the interim result to a
+local variable, or write a private function that massaged the value
+into the right format.&lt;/p&gt;
+
+&lt;p&gt;This video shows you some ways of overcoming this.
+It’s probably not new, but I haven’t seen the technique in code that
+I’ve read.&lt;/p&gt;
+
+&lt;iframe src=&quot;https://player.vimeo.com/video/216107561?title=0&amp;amp;byline=0&amp;amp;portrait=0&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content><category term="programming elixir" /><summary type="html">We know that Elixir programming is about transforming state, and |&amp;gt;
+operator plays the starring role in making that happen. But sometimes
+you can’t just chain two named functions together—the output of one
+doesn’t match the first parameter of the next. Until I discovered this
+trick, I had to break the pipeline and assert the interim result to a
+local variable, or write a private function that massaged the value
+into the right format.</summary></entry><entry><title type="html">An Elixir Project Generator</title><link href="https://pragdave.me/blog/2017/04/18/elixir-project-generator.html" rel="alternate" type="text/html" title="An Elixir Project Generator" /><published>2017-04-18T00:00:00-05:00</published><updated>2017-04-18T00:00:00-05:00</updated><id>https://pragdave.me/blog/2017/04/18/elixir-project-generator</id><content type="html" xml:base="https://pragdave.me/blog/2017/04/18/elixir-project-generator.html">&lt;p&gt;For the last year, I’ve had a ritual when creating new Elixir projects.&lt;/p&gt;
+
+&lt;p&gt;I’d type &lt;code class=&quot;highlighter-rouge&quot;&gt;mix new my_app&lt;/code&gt;, then spend the next 2 minutes tidying up
+the generated files: removing the comments that obscured the code,
+moving the volatile stuff in &lt;code class=&quot;highlighter-rouge&quot;&gt;mix.exs&lt;/code&gt; into module attributes, adding
+commas and the ends of lists, and so on.&lt;/p&gt;
+
+&lt;p&gt;Last month I decided that by investing just a couple of weeks, I could
+save myself those two-minute housekeeping sessions. And so was
+born &lt;a href=&quot;https://github.com/pragdave/mix_generator&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mix_generator&lt;/code&gt;&lt;/a&gt;
+and &lt;a href=&quot;https://github.com/pragdave/mix_templates&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mix_template&lt;/code&gt;&lt;/a&gt;, an
+open and extendable templating system for creating new projects.&lt;/p&gt;
+
+&lt;p&gt;I made a screencast showing how to use and extend it:&lt;/p&gt;
+
+&lt;iframe src=&quot;https://player.vimeo.com/video/213689412?title=0&amp;amp;byline=0&amp;amp;portrait=0&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content><category term="programming elixir" /><summary type="html">For the last year, I’ve had a ritual when creating new Elixir projects.</summary></entry><entry><title type="html">Testing Private Functions</title><link href="https://pragdave.me/blog/2017/03/31/tesing-private-functions.html" rel="alternate" type="text/html" title="Testing Private Functions" /><published>2017-03-31T00:00:00-05:00</published><updated>2017-03-31T00:00:00-05:00</updated><id>https://pragdave.me/blog/2017/03/31/tesing-private-functions</id><content type="html" xml:base="https://pragdave.me/blog/2017/03/31/tesing-private-functions.html">&lt;p&gt;A couple of days ago, I published
+a &lt;a href=&quot;https://hex.pm/packages/private&quot;&gt;trivial little Elixir library&lt;/a&gt;
+that temporarily overrides the &lt;code class=&quot;highlighter-rouge&quot;&gt;private&lt;/code&gt; status of functions while
+running tests.&lt;/p&gt;
+
+&lt;p&gt;I thought it was useful. I tend to decompose my work into lots of
+functions, and try to publicly expose only those that I want to be
+part of a module or class’s API. But I often want to test some
+particular aspect of the nonpublic functions. To do that, I’ve had to
+set up a suitable environment for the public APIs to ensure my private
+function gets called the way I want it to be called, and then work out
+how to tell from the public API whether it worked. This is indirect
+and laborious, so much so that I often just gave in and made the
+internal functions public.&lt;/p&gt;
+
+&lt;p&gt;In Ruby, there are cheats that let you invoke private methods. In
+Elixir, there aren’t. Hence my little library. It that changes the
+visibility of functions if they are being compiled for the purpose of
+running tests.&lt;/p&gt;
+
+&lt;p&gt;So far so good. I’m personally using this library every day, and my
+code seems clearer because of it.&lt;/p&gt;
+
+&lt;p&gt;But then I started getting comments. Not many, but they all seemed to
+share the same misconception. “You can’t test a private function!
+That’s an implementation detail. You can only test the public API.”&lt;/p&gt;
+
+&lt;p&gt;I think this is a common belief. Let me explain why I feel it is
+wrong.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/keep_out.jpg&quot; class=&quot;img-fluid&quot; alt=&quot;keep_out.jpg&quot; /&gt;&lt;/p&gt;
+&lt;div style=&quot;margin-top: -1.8em; margin-bottom: 1.8em; text-align: right; font-size: 60%; color: #aaa&quot;&gt;
+  DimitryB via &lt;a href=&quot;https://www.flickr.com/photos/dimitryb/2280688545/in/photolist-4tx8fi-6L8CS7-7VTJSs-6EPhxA-6LEHD7-8NZ7RT-ndsW2-bJFW3-48wVFF-a7BJni-64uShN-49S72Z-a8WRPg-47n3as-48HTde-53ryB-dRXinh-o8zwPT-fHtHaP-8jw9Da-6KVZoZ-7MtWt3-owVaNf-5sPCe-T8rQSR-dCktbn-q7Mhfe-d56mS3-7DGs9E-8GQmsA-2D2sP-bkcH1D-dckmub-c6vSLS-ueTK-dUappy-7YquPv-5zjHF3-5gpHg8-5TYnwx-65uMcs-9nMoJo-r6SVPi-nKMfpx-naCBq3-8JS7R7-atwQai-dLoRCZ-aAsmFJ-paRyfq&quot;&gt;Flickr&lt;/a&gt;.
+&lt;a href=&quot;https://creativecommons.org/licenses/by-nc-nd/2.0/&quot;&gt;[CC
+BY-NC-ND 2.0]&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;what-is-a-private-function&quot;&gt;What is a private function?&lt;/h3&gt;
+
+&lt;p&gt;A private function (or method) is one that can only be called from
+inside the module (or class) that defines it. It is invisible as far
+as the rest of the code is concerned.&lt;/p&gt;
+
+&lt;h3 id=&quot;why-do-we-need-them&quot;&gt;Why do we need them?&lt;/h3&gt;
+
+&lt;p&gt;A module is a collection of functions that share a common purpose:
+working out sales tax, interfacing to Twitter, creating a chord
+progression, and so on. The rest of the code in an application calls
+functions in a module when it needs that module’s expertise. For
+example, a Twitter module will have functions to send a tweet, read a
+tweet, and maybe subscribe to a timeline. The functions that do this
+are part of the modules external interface—its API.&lt;/p&gt;
+
+&lt;p&gt;The API functions are public. They are exposed to the rest of the app.&lt;/p&gt;
+
+&lt;p&gt;But an API function could be doing a complex job. So we would want to
+split it up into a number of subfunctions. These will typically
+be written in the same module. You can think of them as the
+&lt;em&gt;implementation&lt;/em&gt; of the API.&lt;/p&gt;
+
+&lt;p&gt;Logically, they’re just functions. We can define them just as we
+define the API functions. But there’s a problem. Other people may read
+our code and see that, as well as the “official” API, we expose all
+these helper functions. And maybe one or two of these might be useful
+in their code. So they call them.&lt;/p&gt;
+
+&lt;h3 id=&quot;so-what-if-someone-calls-my-helper-functions&quot;&gt;So what if someone calls my helper functions?&lt;/h3&gt;
+
+&lt;p&gt;Imagine it’s a month later, and you realize that you could improve the
+implementation of the module you wrote. You get stuck in, rip out
+half the code and replace it with new stuff.&lt;/p&gt;
+
+&lt;p&gt;Now, you don’t want to change your API—other people depend on that.
+But you feel totally free to change any of the helpers. After all,
+they’re just there to implement the API. After to finish hacking, you
+make sure your API passes its tests, and publish your masterpiece.&lt;/p&gt;
+
+&lt;p&gt;Thirty seconds later the emails start arriving: “You broke my code.”
+People who (wrongly) relied on the internal implementation of your
+module suddenly found that the functions they use had disappeared, or
+had changed.&lt;/p&gt;
+
+&lt;p&gt;Their code was coupled to the internal implementation of yours.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tangled_seaweed.jpg&quot; class=&quot;img-fluid&quot; alt=&quot;tangled_seaweed.jpg&quot; /&gt;&lt;/p&gt;
+&lt;div style=&quot;margin-top: -1.8em; margin-bottom: 1.8em; text-align: right; font-size: 60%; color: #aaa&quot;&gt;
+  Quinn Dombrowski via &lt;a href=&quot;https://www.flickr.com/photos/quinnanya/8107666487/in/photolist-dmrUMe-aF9aeJ-beLziP-awTTg8-775i8F-68abaa-89piSh-6RfcLj-4UC2WQ-4W1PAr-4WFtU8-oLGsn6-earqXh-967mST-ag6cPs-raLuUF-jrTkcC-eZ1j2M-pL6Xm6-bxvZHJ-n1djpi-mSyztT-pSbUAw-dYqzJA-5FfvNE-qTcB2S-6mdNs3-7GNxSu-eYUeB7-pprXQD-qCeJgX-FYzxd-mSyzoH-74Su1a-nM8P82-6m9NcF-qqYQ7x-r3BzZr-7dofqo-mV2bkH-8fjdvM-2GT51M-pXunTq-eDz3Ka-9aosCG-pou8MW-qDoitK-4eTT39-gGY36W-oUCrLq&quot;&gt;Flickr&lt;/a&gt;.
+&lt;a href=&quot;https://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;[CC
+BY-SA 2.0]&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;why-is-coupling-bad&quot;&gt;Why is coupling bad?&lt;/h3&gt;
+
+&lt;p&gt;To my mind, there is only one rule when it comes to designing
+software:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given the choice between two alternatives, choose the one
+that makes future change easier&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Most of the principles of good design are just
+someone’s idea of how to codify some aspect of this.&lt;/p&gt;
+
+&lt;p&gt;Avoiding unnecessary coupling is one of those principles.&lt;/p&gt;
+
+&lt;p&gt;If thing Y depends on thing Z, then changes to thing Z affect thing Y.
+Even worse, if X depends on Y, then a change to Z might force a change
+to Y which then breaks X. And, to make it a total disaster,
+dependencies aren’t nice and linear like this. Instead, they form a
+complex mesh. In a bad (typical?) code base, these dependency chains
+can often interconnect the majority of the code.&lt;/p&gt;
+
+&lt;p&gt;The problem is that a change to any module in such a system has the
+potential to ripple through to every other part of the system. Change
+the calling sequence of a function, and potentially dozens of other
+modules will need to change, too. This is the software equivalent to
+the butterfly flapping its wings in Tokyo. It’s chaos. And it makes it
+hard (and stressful) to change code.&lt;/p&gt;
+
+&lt;h3 id=&quot;whats-this-got-to-do-with-private-functions&quot;&gt;What’s this got to do with private functions?&lt;/h3&gt;
+
+&lt;p&gt;Every time you code a call from module A to a function in module B,
+you set up a dependency between them. A becomes coupled to B.&lt;/p&gt;
+
+&lt;p&gt;That’s not a bad thing. The whole reason you write code is to have it
+be called. But you try to arrange things so that when you write a
+module you provide a public API, which you expect people to call, and
+a private implementation, which is none of their business.&lt;/p&gt;
+
+&lt;p&gt;In the old days, this was never actually enforced. You wrote comments
+saying &lt;code class=&quot;highlighter-rouge&quot;&gt;one()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;two()&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;three()&lt;/code&gt; are the public API, and you’d
+have some kind of banner comment saying&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/**************************************************/&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt;/*  The low-level implementation follows...       */&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt;/**************************************************/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then language designers wised up, and added visibility modifiers. You
+could declare that the functions that formed your module’s API were
+publicly available, and the rest were private. Now you were free to
+change the internals, safe in the knowledge that, as long as you
+didn’t change the API, nothing would break as a result of your
+refactoring.&lt;/p&gt;
+
+&lt;h3 id=&quot;whats-this-got-to-do-with-testing&quot;&gt;What’s this got to do with testing?&lt;/h3&gt;
+
+&lt;p&gt;Nothing.&lt;/p&gt;
+
+&lt;p&gt;And that’s the point.&lt;/p&gt;
+
+&lt;p&gt;If I feel the need to test a piece of code, I want to isolate that
+code as much as I can. This lets my tests focus on just the thing
+they’re testing. Sure, I want to test my APIs. But I also want to
+isolate and test pieces of the implementation, too.&lt;/p&gt;
+
+&lt;h3 id=&quot;doesnt-that-mean-your-tests-may-fail-if-you-change-the-implementation&quot;&gt;Doesn’t that mean your tests may fail if you change the implementation?&lt;/h3&gt;
+
+&lt;p&gt;Of course.&lt;/p&gt;
+
+&lt;h3 id=&quot;but-then-you-cant-refactor&quot;&gt;But then you can’t refactor&lt;/h3&gt;
+
+&lt;p&gt;Says who? Seriously.&lt;/p&gt;
+
+&lt;p&gt;Refactoring encourages you to change the implementation without
+changing the API. It suggests using tests to verify this. Those
+tests shouldn’t fail at the end of each step of refactoring. But they
+may well fail &lt;em&gt;during&lt;/em&gt; the refactoring.&lt;/p&gt;
+
+&lt;p&gt;So if &lt;em&gt;they&lt;/em&gt; can fail, then so can the tests that I write on my private
+implementation functions. The only difference is that the API tests
+act as proxies for the rest of the application. You shouldn’t change
+them—the same tests should run identically against the pre- and
+post-refactored code.&lt;/p&gt;
+
+&lt;p&gt;The tests of the implementation are volatile. If you break them, it
+could be because they are now testing the wrong thing. It’s perfectly
+OK to change these to reflect the changes to the implementation.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-point&quot;&gt;The point?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;It’s good to decompose complex functions into smaller ones. Ideally
+each function has just one responsibility.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It’s good to differentiate the stuff that shouldn’t change (your
+public interface) from the stuff that may change (your internal
+implementation). Making the implementation private makes this
+easier.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;You should test code at both the API level and at the granular
+level. Visibility modifiers make the latter nearly impossible. Hence
+the Private library.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><category term="programming" /><summary type="html">A couple of days ago, I published
+a trivial little Elixir library
+that temporarily overrides the private status of functions while
+running tests.</summary></entry><entry><title type="html">Emacs Term Buffers—A Fix for the Modified Bit</title><link href="https://pragdave.me/blog/2017/01/24/emacs-term-buffers-fixed.html" rel="alternate" type="text/html" title="Emacs Term Buffers—A Fix for the Modified Bit" /><published>2017-01-24T00:00:00-06:00</published><updated>2017-01-24T00:00:00-06:00</updated><id>https://pragdave.me/blog/2017/01/24/emacs-term-buffers-fixed</id><content type="html" xml:base="https://pragdave.me/blog/2017/01/24/emacs-term-buffers-fixed.html">&lt;p&gt;I do 90% of my coding in Emacs. In the old days, I used to run iTerm
+on a separate desktop and Alt-Tab between them. But the lack of
+integration bugged me, so I kept trying Emacs &lt;code class=&quot;highlighter-rouge&quot;&gt;term-mode&lt;/code&gt;. It took a
+while, but I finally got a really nice setup, with
+mouseless-navigation, fish shell integration, and so on.&lt;/p&gt;
+
+&lt;p&gt;One thing always niggled. Emacs keeps track of changes to buffers.
+When you run a potentially destructive command (such as quitting
+Emacs, installing packages, or running Magit), Emacs warns you about
+each modified buffer in turn, asking you to decide what you want to
+do. I appreciate this for regular files, but for buffers containing
+terminal sessions it is a total PITA.&lt;/p&gt;
+
+&lt;p&gt;I’ve been meaning to fix it for months, but finally got around to it
+today. I have the following in my customization file for multiterm:&lt;/p&gt;
+
+&lt;div class=&quot;language-elisp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ignore-changes-in-term-buffers&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'after-change-functions&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;set-buffer-modified-p&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;
+            &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'term-mode-hook&lt;/span&gt;
+          &lt;span class=&quot;ss&quot;&gt;'ignore-changes-in-term-buffers&lt;/span&gt;
+          &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;
+          &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When term-mode is turned on for a buffer, it triggers the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ignore-changes...&lt;/code&gt; function. That in turn intercepts every buffer
+change event, and immediately resets the buffer-modified flag.&lt;/p&gt;
+
+&lt;p&gt;It feels like a total hack, so I’d love someone to tell me how silly I
+am and give me a proper fix.&lt;/p&gt;</content><category term="programming" /><summary type="html">I do 90% of my coding in Emacs. In the old days, I used to run iTerm
+on a separate desktop and Alt-Tab between them. But the lack of
+integration bugged me, so I kept trying Emacs term-mode. It took a
+while, but I finally got a really nice setup, with
+mouseless-navigation, fish shell integration, and so on.</summary></entry><entry><title type="html">We Perform State</title><link href="https://pragdave.me/blog/2017/01/19/we-perform-state.html" rel="alternate" type="text/html" title="We Perform State" /><published>2017-01-19T00:00:00-06:00</published><updated>2017-01-19T00:00:00-06:00</updated><id>https://pragdave.me/blog/2017/01/19/we-perform-state</id><content type="html" xml:base="https://pragdave.me/blog/2017/01/19/we-perform-state.html">&lt;p&gt;I saw this sign over the weekend.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/we_perform_state.jpg&quot; class=&quot;img-fluid&quot; alt=&quot;we_perform_state.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It seems to be a definition of object-orientation…&lt;/p&gt;</content><category term="programming" /><summary type="html">I saw this sign over the weekend.</summary></entry></feed>

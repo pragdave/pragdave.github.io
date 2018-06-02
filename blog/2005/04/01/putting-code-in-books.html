@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Putting Code in Books
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  Maybe there’s something to synchronicity. In the last month, I’ve had 4 or 5 people all ask me about (or e-mail with quotes about) putting source code in boo...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  Maybe there’s something to synchronicity. In the last month, I’ve had 4 or 5 people all ask me about (or e-mail with quotes about) putting source code in boo...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Putting Code in Books
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2005/04/01/putting-code-in-books.html
+">
+  <meta property="og:title"
+        content="
+  
+     Putting Code in Books
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  Maybe there’s something to synchronicity. In the last month, I’ve had 4 or 5 people all ask me about (or e-mail with quotes about) putting source code in boo...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2005/04/01/putting-code-in-books.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Putting Code in Books
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2005/04/01/putting-code-in-books.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Putting Code in Books</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2005-04-01T00:00:00-06:00" itemprop="datePublished">Apr 1, 2005
+        </time>
+         | 
+        
+        <a href="/blog/tags#publishing" class="post-tag">publishing</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Maybe there’s something to synchronicity. In the last month, I’ve had
+4 or 5 people all ask me about (or e-mail with quotes about) putting
+source code in books. So, just because it isn’t written down anywhere
+else, I thought I’d jot down some notes.</p>
+
+<p>When we wrote Pragmatic Programmer, we knew we were going to be
+including a fair amount of code. We wanted it to look decent, and we
+also wanted it to be correct. For us, that meant that we needed to be
+able to run most of the code shown in the book.</p>
+
+<p>We used TeX to do the book typesetting (the book was printed from a
+high-resolution Postscript file), so that gave us a lot of flexibility
+(the power of plain text…). In particular, it let me implement a
+preprocessor to handle all the code in the book.</p>
+
+<p>For the short code snippets, you could say:</p>
+
+<div class="language-tex highlighter-rouge"><pre class="highlight"><code>   <span class="nt">\begin{code}</span>
+     a = 1;
+     b = 2;
+     System.out.println(a+b);
+   <span class="nt">\end{code}</span>
+
+</code></pre>
+</div>
+
+<p>Now we’ve started the Pragmatic Bookshelf, and we have external
+authors. Rather than expect them to wrestle with TeX, we switched to
+an XML-based markup. Using it, you’d instead write:</p>
+
+<div class="language-tex highlighter-rouge"><pre class="highlight"><code>   &lt;code&gt;
+     a = 1;
+     b = 2;
+     System.out.println(a+b);
+   &lt;/code&gt;
+
+</code></pre>
+</div>
+
+<p>The preprocessor finds all these code blocks and did the necessary magic to format them nicely. If you wanted syntax highlighting, you had to tell it the language:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>   <span class="nt">&lt;code</span> <span class="na">language=</span><span class="s">"c"</span><span class="nt">&gt;</span>
+     for (int i = 0; i <span class="nt">&lt; 10</span><span class="err">;</span> <span class="err">i++)</span> <span class="err">{</span>
+       <span class="err">printf("</span><span class="na">i =</span> <span class="s">%d\n",</span> <span class="err">i);</span>
+     <span class="err">}</span>
+   <span class="err">&lt;/code</span><span class="nt">&gt;</span>
+
+</code></pre>
+</div>
+
+<p>There are many other options: font size, line numbering, indentation, and so on.</p>
+
+<p>We keep the bigger code samples in source files that can be compiled
+and tested. These are included in the books by specifying a file name
+(which also triggers the correct syntax highlighting):</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>   <span class="nt">&lt;code</span> <span class="na">file=</span><span class="s">"code/fib.c"</span> <span class="nt">/&gt;</span>
+
+</code></pre>
+</div>
+
+<p>Sometimes we have running examples, or the need to show just a small
+part of a larger program. To handle this, the preprocessor allows you
+to specify tags. Inside the source file, you delimit chunks of text
+with START:<em>tag</em> and END:<em>tag</em> in the code’s comments. Only those
+chunks are then copied to the final book.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>   <span class="nt">&lt;code</span> <span class="na">file=</span><span class="s">"code/fib.c"</span> <span class="na">part=</span><span class="s">"setup"</span><span class="nt">/&gt;</span>
+
+</code></pre>
+</div>
+
+<p>For Ruby code, we get a bit fancier. One major difference is that we
+want to show the results of executing Ruby code.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;code</span> <span class="na">language=</span><span class="s">"ruby"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;run</span> <span class="na">saying=</span><span class="s">"This outputs"</span><span class="nt">&gt;</span>
+      Dave
+      says
+    <span class="nt">&lt;/run&gt;</span>
+    a = gets
+    b = gets
+    puts a + " " + b
+  <span class="nt">&lt;/code&gt;</span>
+
+</code></pre>
+</div>
+
+<p>We wanted to book to show:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>        a = gets
+        b = gets
+        puts a + " " + b
+
+   This outputs
+
+        Dave says
+
+</code></pre>
+</div>
+
+<p>The preprocessor can also extract and cross reference the code from
+books. The online <a href="http://www.pragmaticprogrammer.com/titles/ruby/code/index.html">summary</a> of
+the Ruby book’s code (including things like “show hidden code”) is
+cross referenced to page numbers and generated automatically by the
+preprocessor, TeX, and a wee bit of post-processing glue.</p>
+
+<p>The nice thing about all this (particularly with Ruby books) is that
+we know that the results shown in the book are correct as of the time
+of writing: every single one of those results is produced afresh each
+and every time the book is formatted. And when Ruby changes and things
+break, the book just plain stops formatting. It’s also nice to be able
+to pull a sequence of extracts from a single program source file: it’s
+a great way of ensuring they are consistent.</p>
+
+<p>It’s true that XML and other plain-text based documentation systems
+can be a bear to use at times, but that’s a price we’re happy to pay
+in exchange for the flexibility of being able to pre- and post process
+the book as it is formatted.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2005/04/01/putting-code-in-books.html';
+      this.page.identifier = 'https://pragdave.me/blog/2005/04/01/putting-code-in-books.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

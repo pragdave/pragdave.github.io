@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Construction Methods
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  A recent thread in ruby-talk reminded me of a change in the way I’ve been writing classes over the last year or so.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  A recent thread in ruby-talk reminded me of a change in the way I’ve been writing classes over the last year or so.
+">
+  <meta property="og:site_name"
+        content="
+  
+     Construction Methods
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2003/06/11/construction-methods.html
+">
+  <meta property="og:title"
+        content="
+  
+     Construction Methods
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  A recent thread in ruby-talk reminded me of a change in the way I’ve been writing classes over the last year or so.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2003/06/11/construction-methods.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Construction Methods
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2003/06/11/construction-methods.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Construction Methods</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2003-06-11T00:00:00-05:00" itemprop="datePublished">Jun 11, 2003
+        </time>
+         | 
+        
+        <a href="/blog/tags#ruby" class="post-tag">ruby</a>
+        
+        <a href="/blog/tags#design" class="post-tag">design</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>A recent thread in ruby-talk reminded me of a change in the way I’ve
+been writing classes over the last year or so.</p>
+
+<p>In the past, I used to enjoy the ability to overload constructors. To
+create a rectangle given two points, I might write:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="n">Point</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">1</span><span class="o">);</span>
+  <span class="n">Point</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">New</span> <span class="nf">Point</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">);</span>
+
+  <span class="n">rect</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rectangle</span><span class="o">(</span><span class="n">p1</span><span class="o">,</span> <span class="n">p2</span><span class="o">)</span>
+
+</code></pre>
+</div>
+
+<p>Alternatively, I might want to create a rectangle given one point, a
+width, and a height:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="n">rect</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Rectangle</span><span class="o">(</span><span class="n">p1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+
+</code></pre>
+</div>
+
+<p>Inside class Rectangle, I’d have two constructors:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="n">Point</span> <span class="n">p1</span><span class="o">,</span> <span class="n">Point</span> <span class="n">p2</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="n">Point</span> <span class="n">p1</span><span class="o">,</span> <span class="kt">double</span> <span class="n">width</span><span class="o">,</span> <span class="kt">double</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+
+</code></pre>
+</div>
+
+<p>The problem with this approach is that is breaks down when the
+different styles of constructor can’t be distinguished based on
+argument type. It also makes the code harder to read: if you see</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="k">new</span> <span class="n">Rectangle</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">t</span><span class="o">);</span>
+
+</code></pre>
+</div>
+
+<p>where are the hints as to what’s going on?</p>
+
+<p>So now when I write a class with multiple construction requirements, I
+tend make the constructor itself private, so it can’t be called
+outside of the class. Instead I use a number of static (class) methods
+to return new objects. These methods can have descriptive names
+(often with_xxx, for_xxx, orhaving_xxx), and I don’t have to worry
+about parameter types. As a silly example, the following Ruby class
+has three constructor methods, letting me build a square by giving its
+area, its diagonal, or a side. What it won’t let you do is construct
+the object by calling new, as the constructor itself is private.</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code>  <span class="k">class</span> <span class="nc">Square</span>
+     <span class="k">def</span> <span class="nc">Square</span><span class="o">.</span><span class="nf">with_area</span><span class="p">(</span><span class="n">area</span><span class="p">)</span>
+        <span class="kp">new</span><span class="p">(</span><span class="no">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">area</span><span class="p">))</span>
+     <span class="k">end</span>
+
+     <span class="k">def</span> <span class="nc">Square</span><span class="o">.</span><span class="nf">with_diagonal</span><span class="p">(</span><span class="n">diag</span><span class="p">)</span>
+         <span class="kp">new</span><span class="p">(</span><span class="n">diag</span><span class="o">/</span><span class="no">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+     <span class="k">end</span>
+
+     <span class="k">def</span> <span class="nc">Square</span><span class="o">.</span><span class="nf">with_side</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
+         <span class="kp">new</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
+     <span class="k">end</span>
+
+     <span class="nb">private_class_method</span> <span class="ss">:new</span>
+
+     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">side</span><span class="p">)</span>
+       <span class="vi">@side</span> <span class="o">=</span> <span class="n">side</span>
+     <span class="k">end</span>
+
+  <span class="k">end</span>
+
+  <span class="n">s1</span> <span class="o">=</span> <span class="no">Square</span><span class="p">.</span><span class="nf">with_area</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+  <span class="n">s2</span> <span class="o">=</span> <span class="no">Square</span><span class="p">.</span><span class="nf">with_diagonal</span><span class="p">(</span><span class="mi">2</span><span class="o">.</span><span class="mi">828427</span><span class="p">)</span>
+  <span class="n">s3</span> <span class="o">=</span> <span class="no">Square</span><span class="p">.</span><span class="nf">with_side</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+</code></pre>
+</div>
+
+<p>Of course this is nothing new to Smalltalk folks (nor is it
+particularly new or revolutionary elsewhere). However, it does seem to
+be less common than it should be in the Java world. Just because
+you _can_overload constructors doesn’t mean that it’s the best way to
+code your classes.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2003/06/11/construction-methods.html';
+      this.page.identifier = 'https://pragdave.me/blog/2003/06/11/construction-methods.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

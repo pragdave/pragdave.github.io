@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Project Structure Fire
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I think the way we structure our project source can obscure the code and make simple things complex. We do it not because we want to, but because we feel we ...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I think the way we structure our project source can obscure the code and make simple things complex. We do it not because we want to, but because we feel we ...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Project Structure Fire
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2018/06/02/project-structure.html
+">
+  <meta property="og:title"
+        content="
+  
+     Project Structure Fire
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I think the way we structure our project source can obscure the code and make simple things complex. We do it not because we want to, but because we feel we ...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2018/06/02/project-structure.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Project Structure Fire
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2018/06/02/project-structure.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Project Structure Fire</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html">
+        <small>10 Sep 2017</small>
+        Using iex's open() command with Emacs multiterm
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html">
+        <small>13 Jul 2017</small>
+        Splitting APIs, Servers, and Implementations in Elixir
+      </a>
+  </li>
+  
+  
+  
+  
+  
+
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2018-06-02T00:00:00-05:00" itemprop="datePublished">Jun 2, 2018
+        </time>
+         | 
+        
+        <a href="/blog/tags#programming" class="post-tag">programming</a>
+        
+        <a href="/blog/tags#elixir" class="post-tag">elixir</a>
+        
+        <a href="/blog/tags#ruby" class="post-tag">ruby</a>
+        
+        <a href="/blog/tags#javascript" class="post-tag">javascript</a>
+        
+        <a href="/blog/tags#go" class="post-tag">go</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <blockquote>
+  <p>I think the way we structure our project source can obscure the code
+and make simple things complex. We do it not because we want to, but
+because we feel we need to in order to tame complexity. There’s
+another way: stop writing complex code.</p>
+</blockquote>
+
+<h3 id="the-smoking-guns">The Smoking Guns</h3>
+
+<p>Here’s the result of running <code class="highlighter-rouge">mix new my_app --sup</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>my_app
+├── config
+│   └── config.exs
+├── lib
+│   ├── my_app
+│   │   └── application.ex
+│   └── my_app.ex
+├── mix.exs
+├── README.md
+└── test
+    ├── my_app_test.exs
+    └── test_helper.exs
+</code></pre>
+</div>
+
+<p>Here’s a Ruby project created with <code class="highlighter-rouge">bundle gem my_app</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>my_app/
+├── bin
+│   ├── console
+│   └── setup
+├── Gemfile
+├── lib
+│   ├── my_app
+│   │   └── version.rb
+│   └── my_app.rb
+├── my_app.gemspec
+├── Rakefile
+└── README.md
+</code></pre>
+</div>
+
+<p>Here’s a JavaScript project:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>├── dist
+│   ├── app.js
+│   └── index.html
+├── node_modules
+├── src
+│   ├── lib
+│   │   ├── login.js
+│   │   └── user.js
+│   ├── app.js
+│   └── index.html
+├── gulpfile.js
+├── package.json
+└── README
+</code></pre>
+</div>
+
+<p>And here’s the recommended Go project tree:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>project-layout/
+├── api
+│   └── README.md
+├── assets
+│   └── README.md
+├── build
+│   ├── ci
+│   ├── package
+│   └── README.md
+├── cmd
+│   ├── README.md
+│   └── _your_app_
+├── configs
+│   └── README.md
+├── deployments
+│   └── README.md
+├── docs
+│   └── README.md
+├── examples
+│   └── README.md
+├── githooks
+│   └── README.md
+├── init
+│   └── README.md
+├── internal
+│   ├── app
+│   │   └── _your_app_
+│   ├── pkg
+│   │   └── _your_private_lib_
+│   └── README.md
+├── LICENSE.md
+├── Makefile
+├── pkg
+│   ├── README.md
+│   └── _your_public_lib_
+├── README.md
+├── scripts
+│   └── README.md
+├── test
+│   └── README.md
+├── third_party
+│   └── README.md
+├── tools
+│   └── README.md
+├── vendor
+│   └── README.md
+└── web
+    ├── app
+    ├── README.md
+    ├── static
+    └── template
+</code></pre>
+</div>
+
+<p>Let’s look at just the top level directory of each:</p>
+
+<table>
+<tr>
+<th>Elixir</th>
+<th>Ruby</th>
+<th>JavaScript</th>
+<th>Go</th>
+</tr>
+<tr valign="top">
+<td>
+<pre><code>
+my_app
+├── config
+├── lib
+├── mix.exs
+├── README.md
+└── test
+</code></pre>
+</td>
+
+<td>
+<pre><code>
+my_app/
+├── bin
+├── Gemfile
+├── lib
+├── my_app.gemspec
+├── Rakefile
+└── README.md
+</code></pre>
+</td>
+<td>
+<pre><code>
+├── dist
+├── node_modules
+├── src
+├── gulpfile.js
+├── package.json
+└── README
+</code></pre>
+</td>
+<td>
+<pre><code>
+project-layout/
+├── api
+├── assets
+├── build
+├── cmd
+├── configs
+├── deployments
+├── docs
+├── examples
+├── githooks
+├── init
+├── internal
+├── LICENSE.md
+├── Makefile
+├── pkg
+├── README.md
+├── scripts
+├── test
+├── third_party
+├── tools
+├── vendor
+└── web
+</code></pre>
+</td>
+</tr>
+</table>
+
+<p>Now let’s imagine we can find an alien, unsullied by the preconceptions
+and practices of us developer folks. Let’s call this individual Normal
+Human Being.</p>
+
+<p>We show these structures to Normal and ask “what does this do?” Normal
+thinks about this for a while.</p>
+
+<p>“Well,”, they say, “I imagine that you organize your thinking
+hierarchically <em>(how quaint)</em> and that you put the most important things
+at the top level. Doing things this was means that you can then split
+each top-level important thing into subthings at the next level in your
+hierarchy.”</p>
+
+<p>“So, based on what I see across this selection of programming languages,
+you’re showing me four projects where the most important thing about the
+code is the boilerplate housekeeping. Clearly, you must be seriously
+advanced if this trumps the actual code that you write.”</p>
+
+<p>Once they realized that they were wrong, and that, yes, we do worship
+housekeeping, the NHBs invaded the planet, conquering us without a shot
+being fired (largely because we were still waiting for NPM install
+to run on the fire control computers).</p>
+
+<h3 id="first-choose-the-correct-problem">First, Choose The Correct Problem?</h3>
+
+<p>I believe the reason for these baroque structures is simple: in the past
+we learned that when we write complex applications, things got out of
+hand. We ended up with directories with random names, some containing
+hundreds of files, each project different from the others.</p>
+
+<p>So we fixed the wrong problem.</p>
+
+<p>We said, “if we impose a strict structure on our projects, we can tame
+this complex katamari damacy of files.”</p>
+
+<p>But what we <em>should</em> have said was, “let’s not write such big projects.”</p>
+
+<h3 id="break-it-down">Break It Down</h3>
+
+<p>Imagine if instead we could build our code using lots of individual
+components, and that each component could fit into a single source file
+of (at most) a couple of hundred lines.</p>
+
+<p>What would the project directory tree look like then?</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>├── my_app.ex               &lt;- source of component
+├── meta.yml                &lt;- dependencies, build options, etc
+└── tests/
+</code></pre>
+</div>
+
+<p>The README is simply the leading comment block in the source file. The
+build tool uses the metadata to find and resolve dependencies, compile
+the source, and construct an executable.  For a component with no
+dependencies that followed the default conventions of the language, and
+which used doctests, the
+component could be as simple as:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>└─ my_app.ex               &lt;- source of component
+</code></pre>
+</div>
+
+<h3 id="you-may-say-im-bikeshedding">You May Say I’m Bikeshedding</h3>
+
+<p>And I am. Project directory structure is definitely not a big problem.</p>
+
+<p>But the fact that we had to invent these structures, which hide the
+actual code of our project two, three, or more levels deep in a
+directory tree, is a smoking gun. We are writing all our code in a
+single project; a single application. The lessons of the <a href="https://www.somethingsimilar.com/2012/07/23/monorail/">monorail</a>
+seem to have been forgotten. Frameworks such as Phoenix encourage you to
+bundle application logic into the web serving codebase. Deployment tools
+make it simpler to release monolithic applications. And coupling between
+components only increases.</p>
+
+<h3 id="you-may-say-im-a-dreamer">You May Say I’m A Dreamer…</h3>
+
+<p>…but I am experimenting with possible solutions. I’m working on a proof
+of concept library that makes it easier to write distributed, concurrent
+components in Elixir. I’m playing with a tool that makes it easier to
+assemble these components into deliverable solutions, and to deploy
+those assemblies to a dynamic cloud of machines. It’s way too early to
+say I have a solution to any of this. But I do have something I can
+experiment with.</p>
+
+<p>I gave a talk about this at
+<a href="http://empex.co/events/2018/conference.html">Empex</a> last month.</p>
+
+<iframe width="960" height="540" src="https://www.youtube.com/embed/6U7cLUygMeI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+
+<p>Things
+have changed even since then. But I’m still convinced we need to rething
+how we write code.</p>
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2018/06/02/project-structure.html';
+      this.page.identifier = 'https://pragdave.me/blog/2018/06/02/project-structure.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

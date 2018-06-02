@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Testing Private Functions
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  A couple of days ago, I published a trivial little Elixir library that temporarily overrides the private status of functions while running tests.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  A couple of days ago, I published a trivial little Elixir library that temporarily overrides the private status of functions while running tests.
+">
+  <meta property="og:site_name"
+        content="
+  
+     Testing Private Functions
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2017/03/31/tesing-private-functions.html
+">
+  <meta property="og:title"
+        content="
+  
+     Testing Private Functions
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  A couple of days ago, I published a trivial little Elixir library that temporarily overrides the private status of functions while running tests.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2017/03/31/tesing-private-functions.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Testing Private Functions
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2017/03/31/tesing-private-functions.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Testing Private Functions</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html">
+        <small>10 Sep 2017</small>
+        Using iex's open() command with Emacs multiterm
+      </a>
+  </li>
+  
+  
+  
+  
+  
+
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2017-03-31T00:00:00-05:00" itemprop="datePublished">Mar 31, 2017
+        </time>
+         | 
+        
+        <a href="/blog/tags#programming" class="post-tag">programming</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>A couple of days ago, I published
+a <a href="https://hex.pm/packages/private">trivial little Elixir library</a>
+that temporarily overrides the <code class="highlighter-rouge">private</code> status of functions while
+running tests.</p>
+
+<p>I thought it was useful. I tend to decompose my work into lots of
+functions, and try to publicly expose only those that I want to be
+part of a module or class’s API. But I often want to test some
+particular aspect of the nonpublic functions. To do that, I’ve had to
+set up a suitable environment for the public APIs to ensure my private
+function gets called the way I want it to be called, and then work out
+how to tell from the public API whether it worked. This is indirect
+and laborious, so much so that I often just gave in and made the
+internal functions public.</p>
+
+<p>In Ruby, there are cheats that let you invoke private methods. In
+Elixir, there aren’t. Hence my little library. It that changes the
+visibility of functions if they are being compiled for the purpose of
+running tests.</p>
+
+<p>So far so good. I’m personally using this library every day, and my
+code seems clearer because of it.</p>
+
+<p>But then I started getting comments. Not many, but they all seemed to
+share the same misconception. “You can’t test a private function!
+That’s an implementation detail. You can only test the public API.”</p>
+
+<p>I think this is a common belief. Let me explain why I feel it is
+wrong.</p>
+
+<p><img src="/assets/keep_out.jpg" class="img-fluid" alt="keep_out.jpg" /></p>
+<div style="margin-top: -1.8em; margin-bottom: 1.8em; text-align: right; font-size: 60%; color: #aaa">
+  DimitryB via <a href="https://www.flickr.com/photos/dimitryb/2280688545/in/photolist-4tx8fi-6L8CS7-7VTJSs-6EPhxA-6LEHD7-8NZ7RT-ndsW2-bJFW3-48wVFF-a7BJni-64uShN-49S72Z-a8WRPg-47n3as-48HTde-53ryB-dRXinh-o8zwPT-fHtHaP-8jw9Da-6KVZoZ-7MtWt3-owVaNf-5sPCe-T8rQSR-dCktbn-q7Mhfe-d56mS3-7DGs9E-8GQmsA-2D2sP-bkcH1D-dckmub-c6vSLS-ueTK-dUappy-7YquPv-5zjHF3-5gpHg8-5TYnwx-65uMcs-9nMoJo-r6SVPi-nKMfpx-naCBq3-8JS7R7-atwQai-dLoRCZ-aAsmFJ-paRyfq">Flickr</a>.
+<a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">[CC
+BY-NC-ND 2.0]</a>
+</div>
+
+<h3 id="what-is-a-private-function">What is a private function?</h3>
+
+<p>A private function (or method) is one that can only be called from
+inside the module (or class) that defines it. It is invisible as far
+as the rest of the code is concerned.</p>
+
+<h3 id="why-do-we-need-them">Why do we need them?</h3>
+
+<p>A module is a collection of functions that share a common purpose:
+working out sales tax, interfacing to Twitter, creating a chord
+progression, and so on. The rest of the code in an application calls
+functions in a module when it needs that module’s expertise. For
+example, a Twitter module will have functions to send a tweet, read a
+tweet, and maybe subscribe to a timeline. The functions that do this
+are part of the modules external interface—its API.</p>
+
+<p>The API functions are public. They are exposed to the rest of the app.</p>
+
+<p>But an API function could be doing a complex job. So we would want to
+split it up into a number of subfunctions. These will typically
+be written in the same module. You can think of them as the
+<em>implementation</em> of the API.</p>
+
+<p>Logically, they’re just functions. We can define them just as we
+define the API functions. But there’s a problem. Other people may read
+our code and see that, as well as the “official” API, we expose all
+these helper functions. And maybe one or two of these might be useful
+in their code. So they call them.</p>
+
+<h3 id="so-what-if-someone-calls-my-helper-functions">So what if someone calls my helper functions?</h3>
+
+<p>Imagine it’s a month later, and you realize that you could improve the
+implementation of the module you wrote. You get stuck in, rip out
+half the code and replace it with new stuff.</p>
+
+<p>Now, you don’t want to change your API—other people depend on that.
+But you feel totally free to change any of the helpers. After all,
+they’re just there to implement the API. After to finish hacking, you
+make sure your API passes its tests, and publish your masterpiece.</p>
+
+<p>Thirty seconds later the emails start arriving: “You broke my code.”
+People who (wrongly) relied on the internal implementation of your
+module suddenly found that the functions they use had disappeared, or
+had changed.</p>
+
+<p>Their code was coupled to the internal implementation of yours.</p>
+
+<p><img src="/assets/tangled_seaweed.jpg" class="img-fluid" alt="tangled_seaweed.jpg" /></p>
+<div style="margin-top: -1.8em; margin-bottom: 1.8em; text-align: right; font-size: 60%; color: #aaa">
+  Quinn Dombrowski via <a href="https://www.flickr.com/photos/quinnanya/8107666487/in/photolist-dmrUMe-aF9aeJ-beLziP-awTTg8-775i8F-68abaa-89piSh-6RfcLj-4UC2WQ-4W1PAr-4WFtU8-oLGsn6-earqXh-967mST-ag6cPs-raLuUF-jrTkcC-eZ1j2M-pL6Xm6-bxvZHJ-n1djpi-mSyztT-pSbUAw-dYqzJA-5FfvNE-qTcB2S-6mdNs3-7GNxSu-eYUeB7-pprXQD-qCeJgX-FYzxd-mSyzoH-74Su1a-nM8P82-6m9NcF-qqYQ7x-r3BzZr-7dofqo-mV2bkH-8fjdvM-2GT51M-pXunTq-eDz3Ka-9aosCG-pou8MW-qDoitK-4eTT39-gGY36W-oUCrLq">Flickr</a>.
+<a href="https://creativecommons.org/licenses/by-sa/2.0/">[CC
+BY-SA 2.0]</a>
+</div>
+
+<h3 id="why-is-coupling-bad">Why is coupling bad?</h3>
+
+<p>To my mind, there is only one rule when it comes to designing
+software:</p>
+
+<blockquote>
+  <p>Given the choice between two alternatives, choose the one
+that makes future change easier</p>
+</blockquote>
+
+<p>Most of the principles of good design are just
+someone’s idea of how to codify some aspect of this.</p>
+
+<p>Avoiding unnecessary coupling is one of those principles.</p>
+
+<p>If thing Y depends on thing Z, then changes to thing Z affect thing Y.
+Even worse, if X depends on Y, then a change to Z might force a change
+to Y which then breaks X. And, to make it a total disaster,
+dependencies aren’t nice and linear like this. Instead, they form a
+complex mesh. In a bad (typical?) code base, these dependency chains
+can often interconnect the majority of the code.</p>
+
+<p>The problem is that a change to any module in such a system has the
+potential to ripple through to every other part of the system. Change
+the calling sequence of a function, and potentially dozens of other
+modules will need to change, too. This is the software equivalent to
+the butterfly flapping its wings in Tokyo. It’s chaos. And it makes it
+hard (and stressful) to change code.</p>
+
+<h3 id="whats-this-got-to-do-with-private-functions">What’s this got to do with private functions?</h3>
+
+<p>Every time you code a call from module A to a function in module B,
+you set up a dependency between them. A becomes coupled to B.</p>
+
+<p>That’s not a bad thing. The whole reason you write code is to have it
+be called. But you try to arrange things so that when you write a
+module you provide a public API, which you expect people to call, and
+a private implementation, which is none of their business.</p>
+
+<p>In the old days, this was never actually enforced. You wrote comments
+saying <code class="highlighter-rouge">one()</code>, <code class="highlighter-rouge">two()</code>, and <code class="highlighter-rouge">three()</code> are the public API, and you’d
+have some kind of banner comment saying</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="cm">/**************************************************/</span>
+<span class="cm">/*  The low-level implementation follows...       */</span>
+<span class="cm">/**************************************************/</span>
+</code></pre>
+</div>
+
+<p>Then language designers wised up, and added visibility modifiers. You
+could declare that the functions that formed your module’s API were
+publicly available, and the rest were private. Now you were free to
+change the internals, safe in the knowledge that, as long as you
+didn’t change the API, nothing would break as a result of your
+refactoring.</p>
+
+<h3 id="whats-this-got-to-do-with-testing">What’s this got to do with testing?</h3>
+
+<p>Nothing.</p>
+
+<p>And that’s the point.</p>
+
+<p>If I feel the need to test a piece of code, I want to isolate that
+code as much as I can. This lets my tests focus on just the thing
+they’re testing. Sure, I want to test my APIs. But I also want to
+isolate and test pieces of the implementation, too.</p>
+
+<h3 id="doesnt-that-mean-your-tests-may-fail-if-you-change-the-implementation">Doesn’t that mean your tests may fail if you change the implementation?</h3>
+
+<p>Of course.</p>
+
+<h3 id="but-then-you-cant-refactor">But then you can’t refactor</h3>
+
+<p>Says who? Seriously.</p>
+
+<p>Refactoring encourages you to change the implementation without
+changing the API. It suggests using tests to verify this. Those
+tests shouldn’t fail at the end of each step of refactoring. But they
+may well fail <em>during</em> the refactoring.</p>
+
+<p>So if <em>they</em> can fail, then so can the tests that I write on my private
+implementation functions. The only difference is that the API tests
+act as proxies for the rest of the application. You shouldn’t change
+them—the same tests should run identically against the pre- and
+post-refactored code.</p>
+
+<p>The tests of the implementation are volatile. If you break them, it
+could be because they are now testing the wrong thing. It’s perfectly
+OK to change these to reflect the changes to the implementation.</p>
+
+<h3 id="the-point">The point?</h3>
+
+<ul>
+  <li>
+    <p>It’s good to decompose complex functions into smaller ones. Ideally
+each function has just one responsibility.</p>
+  </li>
+  <li>
+    <p>It’s good to differentiate the stuff that shouldn’t change (your
+public interface) from the stuff that may change (your internal
+implementation). Making the implementation private makes this
+easier.</p>
+  </li>
+  <li>
+    <p>You should test code at both the API level and at the granular
+level. Visibility modifiers make the latter nearly impossible. Hence
+the Private library.</p>
+  </li>
+</ul>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2017/03/31/tesing-private-functions.html';
+      this.page.identifier = 'https://pragdave.me/blog/2017/03/31/tesing-private-functions.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

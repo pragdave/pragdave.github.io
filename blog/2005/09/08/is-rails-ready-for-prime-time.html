@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Is Rails Ready for Prime Time?
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I give talks on Rails and Ruby to Java developers on average once every two weeks. I’ve probably spoken to thousands of folks over the last year. And I don’t...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I give talks on Rails and Ruby to Java developers on average once every two weeks. I’ve probably spoken to thousands of folks over the last year. And I don’t...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Is Rails Ready for Prime Time?
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2005/09/08/is-rails-ready-for-prime-time.html
+">
+  <meta property="og:title"
+        content="
+  
+     Is Rails Ready for Prime Time?
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I give talks on Rails and Ruby to Java developers on average once every two weeks. I’ve probably spoken to thousands of folks over the last year. And I don’t...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2005/09/08/is-rails-ready-for-prime-time.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Is Rails Ready for Prime Time?
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2005/09/08/is-rails-ready-for-prime-time.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Is Rails Ready for Prime Time?</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2005-09-08T00:00:00-05:00" itemprop="datePublished">Sep 8, 2005
+        </time>
+         | 
+        
+        <a href="/blog/tags#deploy" class="post-tag">deploy</a>
+        
+        <a href="/blog/tags#rails" class="post-tag">rails</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I give talks on Rails and Ruby to Java developers on average once
+every two weeks. I’ve probably spoken to thousands of folks over the
+last year. And I don’t think I’ve ever had a talk that didn’t end with
+someone asking “that’s all very nice, but is Rails ready to be used
+in <em>my</em> company? Can I stop writing Java and start writing Ruby?”</p>
+
+<p>As with most good questions, there’s no one simple answer. Here’s what
+I tell people.</p>
+
+<h3 id="first-ask-the-right-question">First, Ask the Right Question</h3>
+
+<p>One of the main selling points for Java in the late 90’s was the idea
+of having a language, runtime, and library set that could be used
+everywhere. Use Java to code your cell phone, and use Java to code
+your largest enterprise application. To some extent that thinking has
+insinuated itself into the mind sets of many developers—they are
+looking for one solution, one framework, and one language to solve all
+their problems.</p>
+
+<p>That’s silly. Some situations need one tool, other situations another
+tool. Using the full might of a J2EE stack to write a small
+stand-alone application is using a sledgehammer to crack a nut. But I
+keep hearing the sound of nuts being pulverized as developers seem to
+think that using anything other than J2EE is somehow unprofessional.</p>
+
+<p>At the same time, there are situations that call for the shock and awe
+that is J2EE. Some applications need to make use of facilities rolled
+into the stack, and it would be crazy to reinvent the wheel.</p>
+
+<p>So when people ask “should I be using Rails instead of Java?”, the
+answer has to be “not exclusively: you’re likely to want to use
+Rails <em>as well as</em> Java.” Why? Because I’m a firm believer in having a
+bag of tools at your disposal, tools that you know how and—most
+importantly—when to use. When Rails is appropriate, you’re going to be
+hard pressed to find a more productive environment.</p>
+
+<p>And, even if Rails is the clear winner for a particular application,
+developers face a second challenge. They have to convince their
+companies to let them use it.</p>
+
+<p>So the real questions are “when is Rails appropriate?”, and “how can I
+introduce it where I work?”</p>
+
+<p>Let’s start by looking at some of the hurdles Rails has to clear to
+make it an appropriate choice where you work.</p>
+
+<h3 id="next-make-sure-its-possible">Next, Make Sure It’s Possible</h3>
+
+<p>When shouldn’t you use Rails?</p>
+
+<ul>
+  <li>
+    <p><em>If you need to handle transactions across multiple
+databases.</em> Rails/Ruby doesn’t have two phase commit (yet).</p>
+  </li>
+  <li>
+    <p><em>If you have really strange database schemas.</em> ActiveRecord beats
+Hibernate when the schemas are fairly well structured. Hibernate
+wins when you have to map the schema-from-hell before using it
+inside your application.</p>
+  </li>
+  <li>
+    <p><em>If you’re adding small chunks of functionality to an existing,
+large application.</em> OK, this is contentious. If I was reading this,
+I’d probably fire up my mail client and complain that this is
+exactly when you <em>should</em> use Rails. Integrate to the monster using
+web services, and add new functionality in something more malleable,
+such as Rails.</p>
+
+    <p>Except… most monstrously large applications I’ve come across got
+there over time. They’re messy, hard to work with, and tightly
+coupled. If you wanted to expose parts of them via web services,
+you’d first have to restructure them to make those parts callable
+from the outside, and that probably isn’t worth the effort (if it’s
+possible at all).</p>
+  </li>
+  <li>
+    <p><em>The developers don’t want to.</em> If the rest of the developers don’t
+want to use Rails, then forcing them to help you create a pilot
+project is a simple recipe for embarrassment. Pull, don’t push, when
+it comes to change.</p>
+  </li>
+</ul>
+
+<h3 id="then-make-it-realistic">Then, Make it Realistic</h3>
+
+<p>Companies are all different, and there’s no one road to Rails adoption.</p>
+
+<p>In some environments, there may be no resistance to using Rails. I’ve
+even heard of some places where the managers are working to persuade
+the development staff to give Rails a try. Typically, it’s the small
+and medium size businesses that have this kind of
+flexibility. Companies such as <a href="http://www.odeo.com/">Odeo</a> and <a href="http://www.vitalsource.com/">VitalSource</a>embraced Rails as a
+key component of their business plan.</p>
+
+<p>Other companies, including most large ones, have a more conservative
+approach when adopting new technologies. So how can a developer who’s
+convinced that Rails would benefit their company get it into
+production?</p>
+
+<p>In general, I suggest an incremental approach. Start with small,
+developer-focused applications. For example, a new table may have been
+added to the database. Developers need to be able to maintain test
+data in it, so they can continue to write parts of the larger (Java)
+application. Whip up a quick Rails application in 20 minutes and leave
+it running on a Webrick server somewhere. Folks will notice how easy
+it seemed to be.</p>
+
+<p>Maybe at some point the development group might need a web application
+for their own use (change request trqcking, for example). Suggest
+writing it in Rails. Mention that not only will it take less time (and
+hence cost less in terms of overhead dollars), but it will also allow
+the group to get some experience with the technology. This is where
+you get to show off. First deliver a solid solution, then add stuff
+such as Ajax support to show them how things might be (if only they
+used Rails in all their applications…).</p>
+
+<p>Then the time might come to roll out an inward-facing corporate
+application. If the development team are now comfortable with the
+technology, propose a Rails application. Now you’ll get experience
+running Rails in a production environment.</p>
+
+<p>Finally, once everyone is comfortable, think about rolling out an
+externally-facing Rails application.</p>
+
+<h3 id="easing-the-transition">Easing the Transition</h3>
+
+<p>Here are three suggestions for making the transition to Rails
+applications less extreme:</p>
+
+<ul>
+  <li>
+    <p><strong>Start using Rails Conventions in Your Java Applications</strong>. Maybe
+you aren’t in a position to make the switch now. Even so, think
+about using some of the Rails conventions when you do things such as
+add new tables to your Java applications. Using the Rails naming
+schemes won’t make any difference to Hibernate, and you’ll be in a
+stronger position to write Rails applications against that
+schema. Even though the external application is still J2EE, you can
+write internal, ancillary applications in Rails. And if the schema
+is Rails friendly, the effort will be less.</p>
+  </li>
+  <li>
+    <p><strong>Do parallel developments</strong>. The jury is still out on the
+productivity increases that come from using Rails, but I see some
+very credible people talking about numbers in the 5-15x range. So if
+Rails really does let you write applications in 10-20% of the time
+you’d otherwise take, why not do a Rails development in parallel
+with the real one? If the main project is slated to take 5 months
+using J2EE, and after a month you have a working Rails version, your
+company gets to make a decision.</p>
+
+    <p>They can use the Rails version, having invested 2 months of effort
+(one month for Rails, one month for the parallel Java team). This is
+a net saving of 3 months over the original 5 month estimate.</p>
+
+    <p>They can choose not to use the Rails version. In this case they’ve
+spent an extra month, and learned something valuable. Is that extra
+month significant? Probably not—it seems to me that any project that
+comes in within 20% of its estimate is a raging (and unusual)
+success, so this extra time just gets swallowed by the general
+budget slop that surrounds all software development.</p>
+  </li>
+  <li>
+    <p><strong>Make sure you know what you’re doing</strong> before leaping into an
+ambitious project. As the cliché says, you only get one chance to
+make a first impression. If you want to show that Rails is viable in
+your company, then you need to make sure that all the folks doing
+the work on your first visible Rails project know what they’re
+doing. Think hard about the deployment and maintenance issues before
+committing. Choose something simple, and implement it well.</p>
+  </li>
+</ul>
+
+<p>What do you think? Is all this realistic? Have you already introduced
+Rails to your company? How’d it go?<a href="mailto:dave@pragprog.com">Let me know.</a></p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2005/09/08/is-rails-ready-for-prime-time.html';
+      this.page.identifier = 'https://pragdave.me/blog/2005/09/08/is-rails-ready-for-prime-time.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

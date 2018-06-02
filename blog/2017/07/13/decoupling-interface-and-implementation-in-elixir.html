@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Splitting APIs, Servers, and Implementations in Elixir
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  tldr; I think the conventional way of structuring Elixir code could be improved by paying more attention to decoupling.
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  tldr; I think the conventional way of structuring Elixir code could be improved by paying more attention to decoupling.
+">
+  <meta property="og:site_name"
+        content="
+  
+     Splitting APIs, Servers, and Implementations in Elixir
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html
+">
+  <meta property="og:title"
+        content="
+  
+     Splitting APIs, Servers, and Implementations in Elixir
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  tldr; I think the conventional way of structuring Elixir code could be improved by paying more attention to decoupling.
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Splitting APIs, Servers, and Implementations in Elixir
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Splitting APIs, Servers, and Implementations in Elixir</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html">
+        <small>10 Sep 2017</small>
+        Using iex's open() command with Emacs multiterm
+      </a>
+  </li>
+  
+  
+  
+  
+  
+
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2017-07-13T00:00:00-05:00" itemprop="datePublished">Jul 13, 2017
+        </time>
+         | 
+        
+        <a href="/blog/tags#programming" class="post-tag">programming</a>
+        
+        <a href="/blog/tags#elixir" class="post-tag">elixir</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <blockquote>
+  <p>tldr; I think the conventional way of structuring Elixir code
+could be improved by paying more attention to decoupling.</p>
+</blockquote>
+
+<p>I just finished writing the first of my Coding Gnome courses. This one
+was an <a href="https://codestool.coding-gnome.com">introduction to
+Elixir</a> for experienced programmers.</p>
+
+<p>I tried to concentrate on partitioning code in a reasonable manner. I
+didn’t use the traditional Elixir scheme, which comes from a mating of
+Ruby and Erlang project layouts. Instead, I tried to come at it with a
+fresh eye, asking myself how the various aspects of the code could
+best be decoupled.</p>
+
+<h2 id="separating-execution-strategy-from-logic">Separating Execution Strategy from Logic</h2>
+
+<p>Elixir and Erlang have an interesting execution module. You program
+using processes and message passing, but they abstract this into the
+concept of <em>servers</em>. You call a function (typically
+<code class="highlighter-rouge">GenServer.call(pid, args)</code>) and this in turn send a message to the
+server identified by <code class="highlighter-rouge">pid</code>. Inside that server, you write callback
+functions that are invoked in response to these messages.</p>
+
+<p>In real life, no one wants to use a server whose API involves such
+convolution. So the convention arose that you’d provide an API layer
+to your server, written in the same module. Here’s an example, stolen
+from the Elixir guide, and cut down somewhat:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">KV</span><span class="o">.</span><span class="no">Registry</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="c1">##############</span>
+  <span class="c1"># Client API #</span>
+  <span class="c1">##############</span>
+
+  <span class="k">def</span> <span class="n">start_link</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">lookup</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="p">{</span><span class="ss">:lookup</span><span class="p">,</span> <span class="n">name</span><span class="p">})</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="p">{</span><span class="ss">:store</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">})</span>
+  <span class="k">end</span>
+
+  <span class="c1">####################</span>
+  <span class="c1"># Server Callbacks #</span>
+  <span class="c1">####################</span>
+  
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="ss">:ok</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{}}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:lookup</span><span class="p">,</span> <span class="n">name</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">names</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:store</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Here the top half of the module is the public facing API, and the
+lower half is the code that runs in a separate process and that
+implements the functionality.</p>
+
+<p>I’ve never been comfortable with this. It seems to bury the important
+part—the actual implementation—in amongst all kinds of GenServer
+housekeeping. It also makes the development of the code a lot
+trickier—you have to write the server at the same time that you write
+the implementation.</p>
+
+<p>So in the course I recommended a different approach—one that I’ve been
+using personally for a while. In it, I write the application
+functionality in its own module, under <code class="highlighter-rouge">lib/</code>. This has no GenServer
+support—after all, it’s just the app logic.</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Kv</span><span class="o">.</span><span class="no">Impl</span> <span class="k">do</span>       <span class="c1"># in lib/kv/impl.ex</span>
+  <span class="k">def</span> <span class="n">new</span><span class="p">()</span> <span class="k">do</span>
+    <span class="p">%{}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">lookup</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Map</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">store</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>That makes it easier to see what’s going on. I can also write tests
+directly against this logic.</p>
+
+<p>Now, here’s the weird part. You might look at this and say that here’s
+the module that other applications should call. But I think that’s not
+the case. Let’s instead declare the API in the top-level <code class="highlighter-rouge">kv.ex</code> file:</p>
+
+<div class="tight highlighter-rouge"><pre class="highlight"><code>lib
+├── kv
+│   └── impl.ex
+└── kv.ex               # &lt;- the API belongs in here
+</code></pre>
+</div>
+
+<p>Right now, this API just calls directly down to the implementation.</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Kv</span> <span class="k">do</span>
+  <span class="k">defdelegate</span> <span class="n">new</span><span class="p">(),</span>                     <span class="ss">to:</span> <span class="no">Kv</span><span class="o">.</span><span class="no">Impl</span>
+  <span class="k">defdelegate</span> <span class="n">lookup</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span>       <span class="ss">to:</span> <span class="no">Kv</span><span class="o">.</span><span class="no">Impl</span>
+  <span class="k">defdelegate</span> <span class="n">store</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span> <span class="ss">to:</span> <span class="no">Kv</span><span class="o">.</span><span class="no">Impl</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Also pretty clean, right?</p>
+
+<p>So now we have a working application (aka library), and people can
+start using it.</p>
+
+<h3 id="bring-on-the-server">Bring On the Server</h3>
+
+<p>Circumstances change, and our library needs to become a full server.</p>
+
+<p>We write the server code in <code class="highlighter-rouge">lib/server.ex</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Kv</span><span class="o">.</span><span class="no">Server</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+  <span class="n">alias</span> <span class="no">Kv</span><span class="o">.</span><span class="no">Impl</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">store</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">store</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:lookup</span><span class="p">,</span> <span class="n">name</span><span class="p">},</span> <span class="n">_</span><span class="p">,</span> <span class="n">store</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="no">Impl</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span> <span class="ss">:reply</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">store</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">({</span><span class="ss">:store</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">},</span> <span class="n">store</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:noreply</span><span class="p">,</span> <span class="no">Impl</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>This is just pure server code—no API, and no application logic.</p>
+
+<p>Finally, we change the API in the top-level <code class="highlighter-rouge">kv.ex</code> file:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Kv</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">new</span><span class="p">()</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">names</span> <span class="p">}</span> <span class="o">=</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="no">Kv</span><span class="o">.</span><span class="no">Server</span><span class="p">,</span> <span class="p">%{})</span>
+    <span class="n">names</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="n">lookup</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="p">{</span><span class="ss">:lookup</span><span class="p">,</span> <span class="n">name</span><span class="p">})</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="n">store</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="p">{</span> <span class="ss">:store</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="p">})</span>
+    <span class="n">names</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>The only slightly strange thing is that <code class="highlighter-rouge">store()</code> returns the server
+pid. Doing so maintains the same API that we had previously, where the
+<code class="highlighter-rouge">store()</code> function returned the updated map. In both cases, the return
+value simply represents an (opaque) updated state.</p>
+
+<p>As a result, we now have:</p>
+
+<div class="tight highlighter-rouge"><pre class="highlight"><code>lib
+├── kv
+│   ├── impl.ex . . . . . . .   Application implementation
+│   └── server.ex . . . . . .   GenServer implementation
+└── kv.ex . . . . . . . . . .   API
+</code></pre>
+</div>
+
+<p>This is the scheme I now use, and so far I much prefer it to the
+conventional one.</p>
+
+<h2 id="bonus-section">Bonus Section</h2>
+
+<h3 id="subservers">Subservers</h3>
+
+<p>What if my application needs its own GenServers as part of its
+implementation? Well, just follow the same pattern, but one level down
+the directory tree:</p>
+
+<div class="tight highlighter-rouge"><pre class="highlight"><code>lib
+├── kv
+│   ├── bucket
+│   │   ├── impl.ex
+│   │   └── server.ex
+│   ├── bucket.ex
+│   ├── impl.ex
+│   └── server.ex
+└── kv.ex
+</code></pre>
+</div>
+
+<p>The rule here is that no one outside the application is allowed to
+call functions outside <code class="highlighter-rouge">lib/kv.ex</code>.</p>
+
+<h3 id="applications-are-components">Applications are Components</h3>
+
+<p>Although the good folks who brought us Erlang were really, really
+smart people who produced designs for a future that did not yet exist,
+they really weren’t that good at naming things.</p>
+
+<p>One of the most confusing names is <em>application</em>.</p>
+
+<div style="float: right; margin-left: 2rem;" class="thinkific-product-card" data-btn-txt="Free Preview" data-btn-txt-color="#ffffff" data-btn-bg-color="#4c1130" data-card-type="card" data-link-type="landing_page" data-product="127256" data-embed-version="0.0.2" data-card-txt-color="#ffffff" data-card-bg-color="#a64d79" data-store-url="https://courses.thinkific.com/embeds/products/show"><div class="iframe-container"></div><script type="text/javascript">document.getElementById("thinkific-product-embed") || document.write('<script id="thinkific-product-embed" type="text/javascript" src="https://assets.thinkific.com/js/embeds/product-cards-client.min.js"><\/script>');</script><noscript><a href="https://coding-gnome.thinkific.com/courses/elixir-for-programmers" target="_blank">Free Preview</a></noscript></div>
+
+<p>In “the real world” an application is something you deliver to the end
+user. A payroll system is an application. A word processor is an
+application.</p>
+
+<p>But in Erlang, and hence Elixir, an application is a self-contained
+bundle of modules and resources with its own lifecycle. The Logger,
+for example, is an application. The Elixir compiler contains over a
+dozen.</p>
+
+<p>Erlang applications are really just components.</p>
+
+<p>But because the word application is so ingrained in us developers, it
+is hard to remember this. And so we have a tendency to throw all our
+code into a single project tree because, after all, it’s the
+application.</p>
+
+<p>So I’m trying to retrain my brain by writing my code as series of
+separate applications, each as small as I can make it. And I’m not
+using umbrella projects for this, because I want to be able to share
+these components across different projects. Instead, I just use file
+dependencies.</p>
+
+<p>So, next time you’re writing a killer Phoenix app, think about why you
+have Ecto in your web tier. Shouldn’t the business logic be out in its
+own application? And why do you have contexts in the web layer? Maybe
+the contexts each correspond to an external app.</p>
+
+<p>Decouple. You know it makes sense.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html';
+      this.page.identifier = 'https://pragdave.me/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

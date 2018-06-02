@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Using iex&#39;s open() command with Emacs multiterm
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  (tldr; I can now open Elixir source files from inside iex, and have them pop up in an Emacs buffer alongside my terminal buffer.)
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  (tldr; I can now open Elixir source files from inside iex, and have them pop up in an Emacs buffer alongside my terminal buffer.)
+">
+  <meta property="og:site_name"
+        content="
+  
+     Using iex&#39;s open() command with Emacs multiterm
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html
+">
+  <meta property="og:title"
+        content="
+  
+     Using iex&#39;s open() command with Emacs multiterm
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  (tldr; I can now open Elixir source files from inside iex, and have them pop up in an Emacs buffer alongside my terminal buffer.)
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Using iex&#39;s open() command with Emacs multiterm
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Using iex's open() command with Emacs multiterm</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2017/07/13/decoupling-interface-and-implementation-in-elixir.html">
+        <small>13 Jul 2017</small>
+        Splitting APIs, Servers, and Implementations in Elixir
+      </a>
+  </li>
+  
+  
+  
+  
+  
+
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2017-09-10T00:00:00-05:00" itemprop="datePublished">Sep 10, 2017
+        </time>
+         | 
+        
+        <a href="/blog/tags#programming" class="post-tag">programming</a>
+        
+        <a href="/blog/tags#elixir" class="post-tag">elixir</a>
+        
+        <a href="/blog/tags#emacs" class="post-tag">emacs</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>(tldr; I can now open Elixir source files from inside iex, and have
+them pop up in an Emacs buffer alongside my terminal buffer.)</p>
+
+<iframe src="https://player.vimeo.com/video/233436823?title=0&amp;byline=0&amp;portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+</iframe>
+
+<p><a href="https://vimeo.com/233436823">Multiterm with iex open</a> from <a href="https://vimeo.com/user50998191">Dave Thomas</a> on <a href="https://vimeo.com">Vimeo</a>.
+</p>
+
+<h2 id="background">Background</h2>
+
+<p>My name is Dave Thomas and I use Emacs.</p>
+
+<p>There, I’ve said it.</p>
+
+<p>And when I switched from an 17” to a 13” laptop, I got into trouble,
+because I couldn’t easily manage terminal windows and Emacs windows
+side-by-side.<sup id="fnref:fn1"><a href="#fn:fn1" class="footnote">1</a></sup></p>
+
+<p>So I investigated ways of using terminals inside Emacs. It took a
+surprisingly long time to get a setup that worked the way I wanted,
+but now I use it pretty much exclusively. When I’m coding, I have an
+Emacs frame full screen, with editor buffers and terminal windows
+opened (and managed inside it).</p>
+
+<p>My setup uses <code class="highlighter-rouge">term-mode</code> inside Emacs, and some fish shell config on
+the outside to bind things nicely together. For example, I have an <code class="highlighter-rouge">e</code>
+shell function which takes a file name and an optional line number,
+and it opens an Emacs buffer on that file and line.</p>
+
+<h2 id="integrate-with-iex">Integrate with IEx</h2>
+
+<p>IEx 1.5 comes with a new <code class="highlighter-rouge">open</code> function. You give it a module (with
+an optional function name) and it opens an editor on the file that
+contains it. This can be easily customized: Chris McCord has
+<a href="https://dockyard.com/blog/2017/08/24/elixir-open-command-with-terminal-emacs">written</a>
+about his setup with Emacs. However, he uses a terminal-based Emacs,
+and I wanted to use windowing.</p>
+
+<p>So here’s what I did.</p>
+
+<h2 id="create-a-simple-shell-function">Create A Simple Shell Function</h2>
+
+<p>When you all “open Fred.func” in IEx, it looks for the source file that
+contains the <code class="highlighter-rouge">Fred</code> module, then opens an external editor, setting the
+cursor to the line containing the start of <code class="highlighter-rouge">func1</code>.</p>
+
+<p>It finds the name of the editor program by reading the environment
+variable <code class="highlighter-rouge">ELIXIR_EDITOR</code>. It then invokes the editor, passing the name
+of the file, colon, and the line number.</p>
+
+<p>Normally, you’d set <code class="highlighter-rouge">ELIXIR_EDITOR</code> to <code class="highlighter-rouge">vi</code>, or <code class="highlighter-rouge">atom</code>, or whatever.
+In my case, through, I needed IEx not to run a program. Instead I
+wanted it to tell Emacs to open the file in a new window.</p>
+
+<p>To do this, I defined <code class="highlighter-rouge">ELIXIR_EDITOR</code> to be a simple <code class="highlighter-rouge">echo</code> command
+that simple wrote the name of the file to be edited,
+prepended by a magic escape sequence. The convention
+used by term-mode is to start the sequence <code class="highlighter-rouge">\eAnSiT</code>, so I wrote:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>set -gx ELIXIR_EDITOR 'echo "\033A\nSiTe"'
+</code></pre>
+</div>
+
+<h2 id="intercept-this-sequence-in-emacs">Intercept This Sequence in Emacs</h2>
+
+<p>term-mode provides a hook that lets you intercept ANSI escape
+sequences. This is normally used to track and display the directory
+name in the buffer containing the terminal. However, in my Emacs
+initialization I have:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  (defun term-handle-ansi-terminal-messages (message)
+    (while (string-match "\eAnSiT.+\n" message)
+
+      ;; Extract the command code and the argument.
+      (let* ((start (match-beginning 0))
+             (command-code (aref message (+ start 6)))
+             (argument
+              (save-match-data
+                (substring message
+                           (+ start 8)
+                           (string-match "\r?\n" message
+                                         (+ start 8))))))
+        ;; Delete this command from MESSAGE.
+        (setq message (replace-match "" t t message))
+
+        (cond ((= command-code ?c)
+               (setq term-ansi-at-dir argument))
+              ((= command-code ?h)
+               (setq term-ansi-at-host argument))
+              ((= command-code ?u)
+               (setq term-ansi-at-user argument))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; this is the code that handles the edit function ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+              ((= command-code ?e)
+               (save-excursion
+                 (dt-find-file-with-line argument))))))
+    
+    (when (and term-ansi-at-host term-ansi-at-dir term-ansi-at-user)
+      (setq buffer-file-name
+            (format "%s@%s:%s" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))
+      (set-buffer-modified-p nil)
+      (setq default-directory (if (string= term-ansi-at-host (system-name))
+                                  (concatenate 'string term-ansi-at-dir "/")
+                                (format "/%s@%s:%s/" term-ansi-at-user term-ansi-at-host term-ansi-at-dir)))
+      (setq truncated-dir-name (truncate-dir-name default-directory)))
+    
+    message))
+</code></pre>
+</div>
+
+<p>The three lines of code look for the <code class="highlighter-rouge">e</code> at the end of the ANSI escape
+sequence, then call <code class="highlighter-rouge">dt-find-file-with-line</code> passing the file name and
+line number.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(defun dt-find-file-with-line (file-line-string)
+  (let* ((dt-file-line (split-string file-line-string ":"))
+         (dt-file      (car dt-file-line))
+         (dt-line      (or (cadr dt-file-line) "1"))
+         (dt-buffer    (find-file-other-window dt-file)))
+
+    (switch-to-buffer dt-buffer)
+    (goto-char (point-min))
+    (forward-line (- (string-to-int dt-line) 1))
+    (run-with-idle-timer 0
+                         nil
+                         (lambda (buffer)
+                                 (switch-to-buffer-other-window buffer))
+                         dt-buffer))
+  )
+</code></pre>
+</div>
+
+<p>This function simply splits the argument into a file name and line
+number, loads the file into a buffer, and sets the cursor to the start
+of that line in the buffer.</p>
+
+<p>One problem is that term-mode expects to be in its own buffer when we
+return from processing the escape sequence, so I add an idle timer
+which switches to the new buffer once term-mode has finished doing its
+stuff.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:fn1">
+      <p>I use the GUI version of Emacs because it gives me better OS X
+integration.&nbsp;<a href="#fnref:fn1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html';
+      this.page.identifier = 'https://pragdave.me/blog/2017/09/10/using-iex-open-and-emacs-multiterm.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

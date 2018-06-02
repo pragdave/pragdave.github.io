@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Mechanism and Policy
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  What can we do about the tradeoff between flexibility and convenience in interface design? Do users want us to provide just the means to get the job done (th...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  What can we do about the tradeoff between flexibility and convenience in interface design? Do users want us to provide just the means to get the job done (th...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Mechanism and Policy
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2003/11/25/mechanism-and-policy.html
+">
+  <meta property="og:title"
+        content="
+  
+     Mechanism and Policy
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  What can we do about the tradeoff between flexibility and convenience in interface design? Do users want us to provide just the means to get the job done (th...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2003/11/25/mechanism-and-policy.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Mechanism and Policy
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2003/11/25/mechanism-and-policy.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Mechanism and Policy</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2003-11-25T00:00:00-06:00" itemprop="datePublished">Nov 25, 2003
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>What can we do about the tradeoff between flexibility and convenience
+in interface design? Do users want us to provide just the means to get
+the job done (the mechanism), or do they want to be told _how _to do
+that job (the policy)?</p>
+
+<p>I’ve been reading Eric Raymond’s “The Art of Unix Programming” (a good
+book that could have been great had he managed to find a more balanced
+voice). In the section on user interfaces, he reminds his readers of
+the decision of the designers of the X windowing system not to impose
+look-and-feel constraints on X applications. The designers say that X
+supports “mechanism, not policy.”</p>
+
+<p>The X windowing system provides the underlying graphical user
+interface for most Unix systems (the Mac is a notable exception, as
+we’ll see). Perhaps surprisingly, X itself offers almost no user-level
+features. Instead, it concentrates on providing a set of low-level
+primitives for drawing windows and filling those windows with graphics
+and text.</p>
+
+<p>In order to make X usable, you need to supply an application program
+called a “window manager.” This hooks in to X and handles events: for
+example, X may create a window, but the window manager can decide
+where to place it on the screen. To fill windows with widgets
+(standard interface components) you need another layer of software,
+the various X toolkits.</p>
+
+<p>The designers of X felt that building a lot of behavior and standard
+interaction models into X would limit the user of X. Instead, they
+provided a (fairly low-level) API, and allowed their users to build
+any style of interface they wanted. They provide the <em>mechanism,</em> but
+enforce no policies on how that mechanism is used.</p>
+
+<p>By contrast, the windowing systems from Microsoft and Apple (as well
+as those from Be and NeXT) were rich in policy. The windowing systems
+imposed a number of look-and-feel constraints and behavioral
+similarities between applications. There were even documents for
+application designers dictating just_how_ their applications should
+look and react.</p>
+
+<p>So what are the tradeoffs? Raymond says:</p>
+
+<blockquote>
+  <p><em>The difference in approach </em>[between X and Mac/Windows]<em> ensured that
+X would have a long-run evolutionary advantage by remaining adaptable
+as new discoveries were made about human factors in interface
+design—but it also ensured that the X world would be divided by
+multiple toolkits, a profusion of window managers, and many
+experiments in look and feel.</em></p>
+</blockquote>
+
+<p>Ignoring the interesting spin on “evolutionary advantage” (I don’t
+often see X applications edging out Windows and Mac ones on my
+client’s desktops), the point is a good one. By keeping the underlying
+framework free of particular implementation decisions, you make it
+more flexible. This flexibility is a two-edged sword. One the one
+hand, it allows multiple competing ideas to duke it out: the winners
+will be selected by their users, and not just by developers (perhaps
+this is what he meant by evolution). But on the other hand, it also
+leads to the fragmentation he describes.</p>
+
+<p>But he’s also being disingenuous here: the reality is that it isn’t
+the X windowing system itself that’s adapting at all. Instead, it’s
+the efforts of hundreds of people writing the stuff on top of X that
+has provided the ongoing evolving interfaces he describes. Underneath
+the covers, X is basically the same old X. In some way, you could say
+that all their efforts were expended making up for stuff that X didn’t
+provide itself.</p>
+
+<p>So, by providing policy, the designers of Windows and Mac interfaces
+have provided their end-users with a consistent look and feel, and a
+base set of application behaviors. By instead focusing on mechanism
+and ignoring policy, the designers of X allowed developers to
+experiment, but gave the users of X applications a very inconsistent
+interface experience. Arguing one approach is better than the other is
+pretty pointless: they’re just different.</p>
+
+<p>What can we learn here when it comes to applications and designs?</p>
+
+<p>When I first started thinking about this, I was reminded of the
+audience discussions that sometimes erupt when I talk about <a href="http://www.nakedobjects.org/">Naked Objects</a>. A Naked Objects
+application exposes the core business objects of an application
+directly to the end user. They can manipulate these in any way the
+objects allow: there is no overall application GUI imposing a certain
+way of doing things. A Naked Objects system provides mechanism, but
+little in the way of policy. When I describe this, some folks have a
+strong reaction against the idea. “Without high-level policy imposed
+by the GUI (scripting, or series of modal dialogs that have to be
+filled in in a proscribed order) how can we ensure our users do
+everything that needs to be done?” they ask. And its a good
+question. Experienced users, folks who understand the domain, love
+Naked Object systems because they get the control and flexibility they
+need to get the job done. But inexperienced users can be confounded by
+that same flexibility—”what should I do now?”. (In a way, this also
+relates back to the Dreyfus model of skills acquisition: beginners
+need to be guided, while experts need to be left alone to get on with
+their jobs.)</p>
+
+<p>In the Naked Objects world, it turns out that there’s a
+compromise. Because the Naked Objects are themselves just Java
+business objects, there’s nothing stopping you putting a more
+conventional view and controller on top of them, converting your Naked
+Objects application into a conventional GUI or Struts-style app. And,
+because the objects are the same beneath the covers, you could
+probably arrange to run both the Naked Objects and conventional
+application at the same time. The conventional application would have
+less flexibility and functionality, but would be easier for casual
+users. The Naked Objects system would have full flexibility for more
+experienced users.</p>
+
+<p>In a way, this seems like the OSX way of doing things. Apple have
+taking a Unix operating system and wrapped it with a fantastic user
+interface. Not only does this interface work at the application level,
+but it also gives you the ability to do most of the administration of
+a box without dropping to the command line or editing files. I love
+this: I’ve spent all too many years administering Unix boxes the hard
+way. But what I love just as much is that when I need to, I can still
+get down and dirty. It’s the best of both worlds: regular users get a
+great, easy-to-use interface, but power users get to strip away the
+facade and work down at the lower levels.</p>
+
+<p>Increasingly, I think the “one-size-fits-all” mentality is going to
+break down. We need to think about delivering our application
+functionality using multiple modalities, each targeted at specific
+user communities. Mechanism <em>versus</em> policy is one axis we need to
+consider, and one that’s relatively easily addressed in a
+well-designed application. We don’t need to decide up front whether to
+deliver one or the other; instead we need to work out how to provide
+both.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2003/11/25/mechanism-and-policy.html';
+      this.page.identifier = 'https://pragdave.me/blog/2003/11/25/mechanism-and-policy.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

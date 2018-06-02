@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Rails and the Legacy World
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  I gave what turned out to be a slightly controversial keynote at RailsConf. In it, I pointed out that people (like me) who can use Rails on green-field proje...
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  I gave what turned out to be a slightly controversial keynote at RailsConf. In it, I pointed out that people (like me) who can use Rails on green-field proje...
+">
+  <meta property="og:site_name"
+        content="
+  
+     Rails and the Legacy World
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2006/07/22/rails-and-the-legacy-world.html
+">
+  <meta property="og:title"
+        content="
+  
+     Rails and the Legacy World
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  I gave what turned out to be a slightly controversial keynote at RailsConf. In it, I pointed out that people (like me) who can use Rails on green-field proje...
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2006/07/22/rails-and-the-legacy-world.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Rails and the Legacy World
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2006/07/22/rails-and-the-legacy-world.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Rails and the Legacy World</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2006-07-22T00:00:00-05:00" itemprop="datePublished">Jul 22, 2006
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>I gave what turned out to be a slightly controversial <a href="http://blog.scribestudio.com/articles/2006/06/30/railsconf-2006-keynote-series-dave-thomas">keynote
+at RailsConf</a>. In it, I pointed out that people (like me) who can
+use Rails on green-field projects are incredibly privileged. We get to
+code using cool technologies in an incredibly agile, reactive
+environment, producing applications that just work.</p>
+
+<p>But, at the same time, there are a whole lot of people who don’t get
+to enjoy the world of Rails.</p>
+
+<p>I see these people regularly: I talk at <a href="http://nofluffjuststuff.com/">No Fluff symposia</a> around the
+country, a great set of shows aimed at Java developers. I’m the
+outsider, normally giving a full day’s worth of talks on Ruby and
+Rails. And, in a way, it makes me sad to do it, because I often see
+folks get really excited about the possibilities present in Rails only
+then to realize that they’ll be going back to work on Monday with no
+real hope of using what they’d just seen. These folks come to me
+during the breaks and talk about how bad their world currently is, and
+how much better it would be if only they could use Rails. If only…</p>
+
+<p>Sometimes, the things that block these people are not technical
+issues: companies have policies dictating that all work is done in
+Java (or .NET, or whatever). But many times the road blocks are
+technical. In their particular environment, with legacy code and
+legacy databases, they need to be able to do things that Rails just
+doesn’t support out of the box—more complex schemas, staged
+deployment, and so on.</p>
+
+<p>So, in my keynote, I asked a simple question. Can we, as a community,
+do anything to make the lives of these developers easier. Can we find
+a way of bringing them in out of the cold?</p>
+
+<p>Clearly, I believe the answer is yes. As I said in Chicago, the answer
+is not to change Rails. Instead, the answer is to use the fact that
+Rails is based on Ruby, and Ruby gives developers incredible power to
+extend existing code in directions not anticipated by the original
+developers. I asked the community to consider creating extensions to
+Rails to allow currently disenfranchised developers to join the party.</p>
+
+<p>This seems to have touched people’s nerves. Some have reacted
+violently against the idea, others have welcomed it. It’s an
+interesting, although ultimately sterile, debate. If people need
+changes to Rails, Ruby will let them do it.</p>
+
+<p>An interesting example is Greg Houston’s recent blog post, <a href="http://ghouston.blogspot.com/2006/07/let-activerecord-support-enterprise.html">Let
+ActiveRecord support Enterprise Databases</a>. (Uh oh! He used
+the <em>enterprise</em> word). He describes a problem he faces trying to use
+Active Record migrations to maintain a legacy schema. The
+database-neutral migrations didn’t give him the kind of control he
+needed, so his post describes how he extended Active Record to do what
+he wants (including a very simple but nicely powerful trick to make
+migrations spit out SQL, rather than execute it). And, importantly, he
+did all this as a regular user of Rails: he didn’t need any changes to
+the framework or any endorsement of his work by the core team. (He
+does, however, make a good point at the end of his post. If Active
+Record had an extension API it would make it easier for these kinds of
+plugins to survive changes to the core code base.)</p>
+
+<p>Greg’s post is a basic experience report: he took what he needed from
+Rails, extended it where necessary, and solved a business problem. By
+blogging, he’s shown other developers just how to solve this category
+of problem. A .NET developer needing to manage a legacy SqlServer
+schema could read his post and realize that something that seemed
+impossible in Rails is actually fairly easy. One more person can join
+the party.</p>
+
+<p>You could argue that the stuff in Greg’s post is just a simple matter
+of coding. There’s nothing stopping any .NET developer downloading
+Rails and making the simple changes he’s suggesting.</p>
+
+<p>But the reality is that you have to have a good idea that this kind of
+thing is possible before you invest time in the exercise. If you’re a
+Java or .NET developer looking for salvation, and you spend some time
+looking at Rails, you’ll currently come across a lot of information
+explicitly telling you that Rails is never going to address the issues
+you face—Rails is explicitly <strong>not</strong> ”enterprise.” And so you’d move
+on. And you’d be missing an incredible opportunity.</p>
+
+<p>And this is one of the challenges I’d like us, the Rails and Ruby
+communities, to address. While keeping the Rails core focused on new
+ways of writing web applications, I’d like others of us to find ways
+of educating corporate software developers, showing them that they can
+also bring our technologies into their daily lives—using Ruby as an <a href="http://pragmaticprogrammer.com/titles/fr_eir">enterprise</a> <a href="http://blogs.pragprog.com/cgi-bin/pragdave.cgi/Tech/UnsetGlue.html">glue
+language</a> and Rails as a viable enterprise web development
+platform.</p>
+
+<p>Should Rails be everything to everyone?</p>
+
+<p>No.</p>
+
+<p>Should Rails be “marketed” as a replacement for J2EE or .NET?</p>
+
+<p>God forbid.</p>
+
+<p>But there are a whole group of people out there who <em>could</em> be using
+Rails now but aren’t, simply because they don’t know that it is up to
+their challenges. And I’d like to try to help these folks.</p>
+
+<p>Let’s not be the only people having fun.</p>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2006/07/22/rails-and-the-legacy-world.html';
+      this.page.identifier = 'https://pragdave.me/blog/2006/07/22/rails-and-the-legacy-world.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

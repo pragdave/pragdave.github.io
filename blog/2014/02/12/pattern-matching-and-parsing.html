@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Pattern Matching and Parsing
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  It turns out that pattern matching and data structure decomposition are a wonderful tool for doing parsing of nonregular grammars (such as Markdown).
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  It turns out that pattern matching and data structure decomposition are a wonderful tool for doing parsing of nonregular grammars (such as Markdown).
+">
+  <meta property="og:site_name"
+        content="
+  
+     Pattern Matching and Parsing
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2014/02/12/pattern-matching-and-parsing.html
+">
+  <meta property="og:title"
+        content="
+  
+     Pattern Matching and Parsing
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  It turns out that pattern matching and data structure decomposition are a wonderful tool for doing parsing of nonregular grammars (such as Markdown).
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2014/02/12/pattern-matching-and-parsing.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Pattern Matching and Parsing
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2014/02/12/pattern-matching-and-parsing.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Pattern Matching and Parsing</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2014-02-12T00:00:00-06:00" itemprop="datePublished">Feb 12, 2014
+        </time>
+         | 
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>It turns out that pattern matching and data structure decomposition
+are a wonderful tool for doing parsing of nonregular grammars (such as
+Markdown).</p>
+
+<!-- more -->
+
+<p>I’m working on writing a Markdown parser in the
+<a href="http://pragprog.com/titles/elixir">Elixir</a> language. It’s something I
+do in new languages when I get the time, because parsing Markdown is
+nontrivial—the syntax is decidely nonregular.</p>
+
+<p>Anyway, I’ve hacked up (and thrown away) Ruby and Javascript
+implementations, and decided to give Elixir a go.</p>
+
+<p>Most of the Markdown parsers out there use regular
+expressions to scan and transform their input.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> I started off doing
+the same, but quickly bumped into all the nastiness that this approach
+entails.</p>
+
+<p>Then I realized that the so-called block-level Markdown elements can
+be parsed differently. Rather than try to do it in one pass, I’m
+taking two.</p>
+
+<p>On the first pass, I just look at each line, categorizing it. Typical
+categories might be <em>blank line</em>, <em>rule</em>, <em>heading</em>, and so on. But
+there are some things that can’t be decided by looking at just one
+line. For example, a setext heading looks like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>and here a paragraph ends.
+
+This is the Heading
+===================
+
+And here is the body…
+</code></pre>
+</div>
+
+<p>That is, the heading is a blank line, a line of text, a line
+containing equals signs (or hyphens), and another blank line.</p>
+
+<p>In the design I’m playing with, these kinds of headings (and other
+structures that require more context than a single line to parse) are
+recognized by the second pass through the lines.</p>
+
+<h3 id="top-level-driver">Top-Level Driver</h3>
+
+<p>The top level code looks something like this:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">categorize</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Stream</span><span class="o">.</span><span class="n">concat</span><span class="p">([[</span><span class="sd">"</span><span class="s2">"</span><span class="p">],</span> <span class="n">lines</span><span class="p">,</span> <span class="p">[</span><span class="sd">"</span><span class="s2">"</span><span class="p">]])</span>             <span class="c1"># start and end with a blank line</span>
+  <span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="n">type_of</span><span class="o">/</span><span class="m">1</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="n">merge_compound_lines</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>The first line of the function takes the list of lines and turns them
+into something that is streamable. At the same time, it prepends and
+appends a blank line, because empty lines act as delimiters for
+many block-level structures.</p>
+
+<p>The <code class="highlighter-rouge">map</code> line applies the function <code class="highlighter-rouge">type_of</code> to each line.</p>
+
+<h3 id="first-passassigning-a-type-to-each-line">First Pass—Assigning a Type to Each Line</h3>
+
+<p>The
+<code class="highlighter-rouge">type_of</code> function returns a description of each line. For example, a
+blank line will be returned as <code class="highlighter-rouge">[type: :blankline]</code> and the atx-style
+heading <code class="highlighter-rouge">### Conclusion</code> will be returned as <code class="highlighter-rouge">[type: :heading, level:
+3, text: "conclusion"]</code>. The code that performs this mapping is
+trivial:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">type_of</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">cond</span> <span class="k">do</span>
+    <span class="n">line</span> <span class="o">=~</span> <span class="sr">~r/^\s*$/</span> <span class="o">-&gt;</span>
+      <span class="p">[</span> <span class="ss">type:</span> <span class="ss">:blankline</span> <span class="p">]</span>
+
+    <span class="n">match</span> <span class="o">=</span> <span class="no">Regex</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="err">~</span><span class="no">R</span><span class="o">/^</span><span class="p">(</span><span class="c1">#{1,6})\s+(?|([^#]+)#*$|(.*))/, line) -&gt; </span>
+      <span class="p">[</span> <span class="n">_</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">heading</span> <span class="p">]</span> <span class="o">=</span> <span class="n">match</span>
+      <span class="p">[</span> <span class="ss">type:</span> <span class="ss">:heading</span><span class="p">,</span> <span class="ss">level:</span> <span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="n">level</span><span class="p">),</span> <span class="ss">text:</span> <span class="no">String</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">heading</span><span class="p">)</span> <span class="p">]</span>
+ <span class="c1">#...</span>
+</code></pre>
+</div>
+
+<p>There are probably 15 or so of these line types. Two that
+we’ll be using in a minute are <code class="highlighter-rouge">:setext_underline_heading</code>, a line containing only
+equals signs or hyphens, and <code class="highlighter-rouge">:textline</code>, a line containing text that doesn’t
+match any of the other types.</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="n">match</span> <span class="o">=</span> <span class="no">Regex</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sr">~r/^(=|-)+\s*$/</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="p">[</span> <span class="n">_</span><span class="p">,</span> <span class="n">type</span> <span class="p">]</span> <span class="o">=</span> <span class="n">match</span>
+  <span class="n">level</span> <span class="o">=</span> <span class="k">if</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">starts_with?</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="sd">"</span><span class="s2">="</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="m">1</span><span class="p">,</span> <span class="k">else</span><span class="p">:</span> <span class="m">2</span><span class="p">)</span>
+  <span class="p">[</span> <span class="ss">type:</span> <span class="ss">:setext_underline_heading</span><span class="p">,</span> <span class="ss">level:</span> <span class="n">level</span> <span class="p">]</span>
+
+<span class="no">true</span> <span class="o">-&gt;</span>  
+  <span class="p">[</span> <span class="ss">type:</span> <span class="ss">:textline</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">line</span> <span class="p">]</span>
+</code></pre>
+</div>
+
+<h3 id="second-passcombining-lines-into-blocks">Second Pass—Combining Lines into Blocks</h3>
+
+<p>So now we have a list of line types. We need to look for things such
+as the setext-style heading. And it turns out that structure
+decomposition lets us do this pretty painlessly. Here’s the code for
+the headings:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">merge_compound_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">merge_compound</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="p">[])</span>
+
+<span class="k">def</span> <span class="n">merge_compound</span><span class="p">([],</span> <span class="n">result</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Enum</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="p">[</span><span class="ss">type:</span> <span class="ss">:blankline</span><span class="p">]</span> <span class="o">=</span> <span class="n">blank</span><span class="p">,</span> 
+                     <span class="p">[</span><span class="ss">type:</span> <span class="ss">:textline</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">heading</span><span class="p">],</span>
+                     <span class="p">[</span><span class="ss">type:</span> <span class="ss">:setext_underline_heading</span><span class="p">,</span> <span class="ss">level:</span> <span class="n">level</span><span class="p">],</span>
+                     <span class="p">[</span><span class="ss">type:</span> <span class="ss">:blankline</span><span class="p">]</span>
+                   <span class="o">|</span> <span class="n">rest</span>
+                   <span class="p">],</span>
+                   <span class="n">result</span><span class="p">)</span> 
+<span class="k">do</span>
+  <span class="n">merge_compound</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span>
+                 <span class="p">[</span> <span class="n">blank</span><span class="p">,</span> 
+                   <span class="p">[</span><span class="ss">type:</span> <span class="ss">:heading</span><span class="p">,</span> <span class="ss">level:</span> <span class="n">level</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">heading</span><span class="p">],</span> 
+                   <span class="n">blank</span> 
+                 <span class="o">|</span> <span class="n">result</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>The first function is just a convenience, calling the real worker
+with an additional parameter to hold the result.</p>
+
+<p>Then we have the 
+function <code class="highlighter-rouge">merge_compound</code> that recursively processes the lines.</p>
+
+<p>The interesting thing here is the function head that starts on
+line 5. Remember we said that an setext heading is a blank line, a
+line of text, the line of equals signs, and another blank line. See
+how structure decomposition and pattern matching let us express this
+directly in code:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="p">[</span><span class="ss">type:</span> <span class="ss">:blankline</span><span class="p">]</span> <span class="o">=</span> <span class="n">blank</span><span class="p">,</span> 
+                     <span class="p">[</span><span class="ss">type:</span> <span class="ss">:textline</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">heading</span><span class="p">],</span>
+                     <span class="p">[</span><span class="ss">type:</span> <span class="ss">:setext_underline_heading</span><span class="p">,</span> <span class="ss">level:</span> <span class="n">level</span><span class="p">],</span>
+                     <span class="p">[</span><span class="ss">type:</span> <span class="ss">:blankline</span><span class="p">]</span>
+                   <span class="o">|</span>
+                     <span class="n">rest</span><span class="p">],</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+</code></pre>
+</div>
+
+<p>This particular function will only be called if passed a list
+that starts with those four elements.</p>
+
+<p>Then, having recognized it, the body of the function replaces the
+matched lines with new lines—a blank, a heading, and another blank. We
+add these three to the result list by calling ourselves recursively:</p>
+
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="n">merge_compound</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span>
+              <span class="p">[</span> <span class="n">blank</span><span class="p">,</span> 
+                <span class="p">[</span><span class="ss">type:</span> <span class="ss">:heading</span><span class="p">,</span> <span class="ss">level:</span> <span class="n">level</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">heading</span><span class="p">],</span> 
+                <span class="n">blank</span> 
+              <span class="o">|</span>
+                <span class="n">result</span>
+              <span class="p">])</span>
+</code></pre>
+</div>
+
+<p>And so it goes for the other complex block types.</p>
+
+<h3 id="pattern-matching-is-stream-parsing">Pattern Matching Is Stream Parsing</h3>
+
+<p>In functional programming, your code is basically</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>input → some_function → output
+</code></pre>
+</div>
+
+<p>You then use composition to break <code class="highlighter-rouge">some_function</code> into successively
+lower levels of abstraction until you are dealing with primitive
+values and built-in functions, at which point the decomposition can
+stop.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>input → some_function → output
+         __/     \__
+        /           \
+        → fn1 → fn2 →
+     ___ /   \__
+    /           \
+    → fn3 → fn4 →
+</code></pre>
+</div>
+
+<p>If you look at it this way your program is basically a pipeline. A stream
+of data enters it, gets analyzed, broken apart, piped
+through a sequence of functions, mapped into something different, and
+reassembled into the output.</p>
+
+<p>That’s where pattern matching comes it, destructuring the stream
+of data and selecting what functions to apply.</p>
+
+<p>And that’s the cool part. If you think of your code this way, then
+you’re actually using pattern matching to parse the stream of data as
+it passes through. If you can express your input as some kind of
+grammar, then your program is something that transforms data that
+matches that grammar.</p>
+
+<p>This isn’t just some kind of fancy abstraction, because knowing the
+grammar you are working with can greatly simplify your code. For
+example, if you know that your business rules are <a href="http://en.wikipedia.org/wiki/Context-free_grammar">context
+free</a>, then you
+also know that the code that parses and processes the corresponding
+data can operate in isolation—it is automatically decoupled.</p>
+
+<p>I’d written code this way in Elixir, but hadn’t really thought
+about it in terms of parsing until now. Now I’m starting to see more
+and more of what I do in terms of grammars and production rules.</p>
+
+<h3 id="an-asidelistening-to-the-angel-on-your-shoulder-or-the-dog-on-your-rug">An Aside—Listening to the Angel on your Shoulder (or the Dog on Your Rug)</h3>
+
+<p>This writing of a Markdown parser is a
+<a href="http://codekata.com">CodeKata</a> that I do periodically. Writing the
+Elixir version, I confidently set off down the same road I took with
+the Javascript version.</p>
+
+<p>Now Elixir isn’t as natural at string processing as Javascript. As a
+result, the road started to get a little twisty. I found myself doing
+nonfunctional things. I found myself writing longish functions. I
+found myself worrying about the efficiency of various operations.</p>
+
+<p>And I kept at it. I wasn’t going to give in. It didn’t feel right, but
+I WAS NOT GOING TO BE BEATEN.</p>
+
+<p><span class="caption-wrapper right"><img class="img-fluid caption" src="./Rubber_duck_assisting_with_debugging.jpg" width="" height="" title="By+Tom+Morris+%28Own+work%29%3Cbr%2F%3E+%5BCC-BY-SA-3.0%5D%28http%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby-sa%2F3.0%29+or+%5BGFDL%5D%28http%3A%2F%2Fwww.gnu.org%2Fcopyleft%2Ffdl.html%29%2C+via+Wikimedia+Commons" /><span class="caption-text">By Tom Morris (Own work)<br /> <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA-3.0</a> or <a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a>, via Wikimedia Commons</span></span></p>
+
+<p>In the old days, I’d describe my programming problems to a
+<a href="http://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duck</a>. Nowadays
+I’ve graduated to Moose, a twelve-year-old black lab whose ability to look
+disgusted at the ways of people is unsurpassed. When I grumbled
+about the problems I was having to Moose, he simply raised an eyebrow,
+turned over, and went back to sleep. Which, of course, is shorthand
+for “if the code is telling you that it’s hard to do it this way, stop
+doing it this way.”</p>
+
+<p>So I threw away perhaps a day’s work and reimplemented it using
+pattern matching and streams in an hour or two.</p>
+
+<p>It just feels a lot better.</p>
+
+<p>And that’s one of the reasons to get into the habit of practicing code
+kata. The fact that it took a day to recognize I was heading into a
+swamp is very sad, but the kata let me make that mistake in a
+noncritical environment.</p>
+
+<p>I was doing the Markdown kata for the n<sup>th</sup> time. This
+time I learned not to fall into the rut of doing it the same way each
+time, and I came away promising myself I’d listen to that feeling of
+disquiet sooner in future.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>There are exceptions, of course. There are a number of PEG <a href="https://github.com/jgm/peg-markdown">markdown</a> <a href="http://hasseg.org/peg-markdown-highlight/">parsers</a>, and some cool implementations in <a href="http://hackage.haskell.org/package/markdown-0.1.0.1/docs/Text-Markdown.html">Haskell</a> and (my favorite) <a href="https://github.com/gildor478/ocaml-markdown">OCaml</a>.&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2014/02/12/pattern-matching-and-parsing.html';
+      this.page.identifier = 'https://pragdave.me/blog/2014/02/12/pattern-matching-and-parsing.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+
+
+<head>
+  <title>
+  
+     Test-First Word Wrap in Erlang
+  
+</title>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="
+  
+">
+
+  <meta name="author" content="Dave Thomas (pragdave)">
+
+  <meta property="og:description"
+        content="
+  
+">
+  <meta property="og:site_name"
+        content="
+  
+     Test-First Word Wrap in Erlang
+  
+">
+  <meta property="og:type"
+        content="website">
+  <meta property="og:url"
+        content="
+  https://pragdave.me/blog/2007/04/19/testfirst-word-wrap-in-erlang.html
+">
+  <meta property="og:title"
+        content="
+  
+     Test-First Word Wrap in Erlang
+  
+">
+
+
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:description" content="
+  
+">
+  <meta name="twitter:url"         content="
+  https://pragdave.me/blog/2007/04/19/testfirst-word-wrap-in-erlang.html
+">
+  <meta name="twitter:site"        content="pragdave">
+
+  <link rel="shortcut icon"
+        href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon"
+        href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57"
+        href="/assets/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72"
+        href="/assets/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76"
+        href="/assets/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114"
+        href="/assets/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120"
+        href="/assets/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144"
+        href="/assets/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="/assets/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/apple-touch-icon-180x180.png" />
+  
+  <title>
+  
+     Test-First Word Wrap in Erlang
+  
+</title>
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+  <link rel="canonical"
+        href="
+  https://pragdave.me/blog/2007/04/19/testfirst-word-wrap-in-erlang.html
+">
+
+  <link type="application/atom+xml" rel="alternate" href="https://pragdave.me/feed.xml" title="pragdave—the coding gnome" />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+
+  <link type="text/css" rel="stylesheet" href="/assets/app.css">
+
+</head>
+
+  <script type="text/javascript" src="/assets/vendor.js"></script>
+  <script type="text/javascript" src="/assets/vendor/drumknott-0.2.0.js"></script>
+  <script type="text/javascript" src="/assets/application.js"></script>
+
+  <body>
+
+    <div class="container">
+      <header class="main-header">
+  <div class="row bar">
+    <div class="col-xs-12 heading-box">
+      <a href="/" title="Return to the main site">
+        <span class="logo"></span>
+      </a>
+      <h1>Test-First Word Wrap in Erlang</h1>
+
+      <nav id="search-trigger" role="search">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#search-box"
+                aria-label="popup search box">
+          <i class="fa fa-search" ></i>
+          <span class="word" >search</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+  <div class="row mh-slug">
+    <h3 class="col-xs-12">code better • have fun</h3>
+  </div>
+
+  <div class="modal fade"
+     id="search-box"
+     tabindex="-1"
+     role="dialog"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="search-form">
+          <input type="text" class="form-control"
+                 placeholder="search for…"
+                 id="search-text"
+                 aria-describedby="search-button">
+            </button>
+        </form>
+        <div id="search-failed" style="display: none" >
+          No matches found
+        </div>
+        <div id="search-results" style="display: none" >
+          <ul>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</header>
+
+
+
+
+
+      <main role="main" aria-label="Content">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="related" >
+        <h4>You might like:</h4>
+        
+
+<ul class="related">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/06/02/project-structure.html">
+        <small>02 Jun 2018</small>
+        Project Structure Fire
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/04/04/moving-back-to-linux.html">
+        <small>04 Apr 2018</small>
+        Moving Back to Linux
+      </a>
+  </li>
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <li>
+      <a href="/blog/2018/01/28/dynamic-supervisors.html">
+        <small>28 Jan 2018</small>
+        Dynamix Supervisors replace :simple_one_for_one
+      </a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+      </div>
+    </div>
+    <div class="col-md-8">
+      <p class="post-meta">
+        <time datetime="2007-04-19T00:00:00-05:00" itemprop="datePublished">Apr 19, 2007
+        </time>
+         | 
+        
+        <a href="/blog/tags#erlang" class="post-tag">erlang</a>
+        
+        
+
+      </p>
+
+      <div class="post-content" itemprop="articleBody">
+        <p><img class="right" src="/img/wrap.jpg" /></p>
+
+<p>I’m continuing to play with Erlang. This week, I needed to write some
+code that extracts information from a bunch of source files. Part of
+the output was supposed to be a list of strings, nicely word wrapped
+to fit on a terminal screen.</p>
+
+<p>I decided to experiment with using a test-first approach to developing
+the word wrap function. I wrote unit tests that describe the
+functionality I want, and then wrote some code to make the tests run
+successfully.</p>
+
+<p>To do that, I used the new EUnit-2.0 unit testing framework. It’s
+still under development, but it seems to work nicely (although I’d
+love for it to have an <code class="highlighter-rouge">assert_equal</code> method).</p>
+
+<h3 id="installing-eunit">Installing EUnit</h3>
+
+<p>First, we’ll install EUnit from their Subversion repository:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[dave/Erlang/common] svn co &lt;a href="http://svn.process-one.net/contribs/trunk/eunit"&gt;http://svn.process-one.net/contribs/trunk/eunit&lt;/a&gt;
+A    eunit/Emakefile
+A    eunit/sys.config
+A    eunit/include
+  :     :     :
+[dave/Erlang/common] cd eunit
+[Erlang/common/eunit] make
+  :     :     :
+</code></pre>
+</div>
+
+<p>Now we need to add the EUnit library into your default Erlang
+path. Edit the file <code class="highlighter-rouge">.erlang</code> in your home directory (create it if
+it’s not there already) and add the line</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nn">code</span><span class="p">:</span><span class="nf">add_pathz</span><span class="p">(</span><span class="s">"/Users/dave/Erlang/common/eunit/ebin"</span><span class="p">).</span>
+</code></pre>
+</div>
+
+<p>(You’ll need to change the path to reflect the location where you
+downloaded EUnit. Remember to add the <code class="highlighter-rouge">/ebin</code> part at the end. And,
+yes, the “z” is really path of that line.)</p>
+
+<h3 id="eunit-in-60-seconds">EUnit In 60 Seconds</h3>
+
+<p>EUnit basically lets you run assertions against Erlang code. You can
+use it in a number of different modes. In our case we’ll include the
+tests in the same file that contains the code we’re testing. This is
+very convenient, but longer term it has a downside—anyone using your
+code will also need to have EUnit installed, even if they don’t want
+to run the tests. So, later we can split the tests into their own
+file.</p>
+
+<p>The key to using EUnit is including the library in the source file
+containing the tests. That’s as simple as adding the line:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">"eunit/include/eunit.hrl"</span><span class="p">).</span>
+</code></pre>
+</div>
+
+<p>Any module that includes this line will automatically have a new
+function called <code class="highlighter-rouge">test/0</code> defined. This<code class="highlighter-rouge">test</code> function will
+automatically run all the tests in the module.</p>
+
+<p>So, how do you define tests? As with any xUnit framework, you can
+write tests by defining regular methods that follow a naming
+convention. With EUnit, the convention is that the function name
+should end <code class="highlighter-rouge">_test</code>. The EUnit convention is that any test function
+that returns is considered to have completed successfully; any
+function that throws an exception is a failure. It’s common to use
+pattern matching as a kind of assertion:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">length_test</span><span class="p">()</span>  <span class="o">-&gt;</span>  <span class="mi">3</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="s">"cat"</span><span class="p">).</span>
+<span class="nf">reverse_test</span><span class="p">()</span> <span class="o">-&gt;</span>  <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]).</span>
+</code></pre>
+</div>
+
+<p>However, for simple tests, it’s easier to write a test generator. This
+is a function whose name ends<code class="highlighter-rouge">_test_</code> (with a final underscore). Test
+generators return a representation of the tests to be run. In our
+case, we’ll return a list of tests created using the
+EUnit <code class="highlighter-rouge">_assert</code> macro. We can rewrite our previous two test functions
+using a test generator called <code class="highlighter-rouge">demo_test_</code>:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">demo_test_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="mi">3</span> <span class="o">==</span> <span class="nb">length</span><span class="p">(</span><span class="s">"cat"</span><span class="p">)),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]))</span>
+<span class="p">].</span>
+</code></pre>
+</div>
+
+<p>Here the generator returns an array containing two tests. The tests
+are written using the <code class="highlighter-rouge">_assert</code>macro. This takes a boolean expression
+(rather than a pattern) which is why we’re now using two equals signs.</p>
+
+<h3 id="word-wrap">Word Wrap</h3>
+
+<p>My application needs a library function which takes an array of
+strings and joins them together to form an array of lines where no
+line is longer than a given length. We’ll write a function <code class="highlighter-rouge">wrap/1</code> in
+a module called <code class="highlighter-rouge">text</code>. Let’s start with a basic test. If you wrap no
+words, you get a single empty line.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">text</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">wrap</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">"eunit/include/eunit.hrl"</span><span class="p">).</span>
+
+<span class="nf">wrap_test_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([])</span> <span class="o">==</span> <span class="p">[</span><span class="s">""</span><span class="p">])</span>
+<span class="p">].</span>
+</code></pre>
+</div>
+
+<p>This won’t compile: the <code class="highlighter-rouge">wrap/1</code> function hasn’t been defined. Getting
+it to pass this single test isn’t hard:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap</span><span class="p">([])</span> <span class="o">-&gt;</span>
+    <span class="p">[</span> <span class="s">""</span> <span class="p">].</span>
+</code></pre>
+</div>
+
+<p>We can run this in the Erlang shell:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(text).
+{ok,text}
+2&gt; text:test().
+  Test successful.
+ok
+</code></pre>
+</div>
+
+<p>Let’s add the next test. Wrapping a single short word should result in a single line containing that word.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap_test_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([])</span> <span class="o">==</span> <span class="p">[</span><span class="s">""</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat"</span><span class="p">])</span>
+<span class="p">].</span>
+</code></pre>
+</div>
+
+<p>The tests now fail when we run them: our <code class="highlighter-rouge">wrap</code> function doesn’t yet
+know how to wrap strings:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(text).
+{ok,text}
+2&gt; text:test().
+text:9:wrap_test_...*failed*
+::{error,function_clause,
+         [{text,wrap,[["cat"]]},{text,'-wrap_test_/0-fun-2-',0}]}
+=======================================================
+  Failed: 1.  Aborted: 0.  Skipped: 0.  Succeeded: 1.  error
+</code></pre>
+</div>
+
+<p>Let’s see if we can fix this. We’ll add a second version of
+the <code class="highlighter-rouge">wrap/1</code> function that knows how to wrap a single string. Do do
+this, we’ll use a key feature of Erlang.</p>
+
+<h3 id="pattern-matching-and-function-definitions">Pattern Matching and Function Definitions</h3>
+
+<p>In the same way that Erlang uses pattern matching when evaluating
+the <code class="highlighter-rouge">=</code> operator, it also uses pattern matching when invoking
+functions. This is often illustrated with an inefficient
+implementation of a function to calculate the nth term in the
+Fibonacci sequence (the sequence that goes 0, 1, 1, 2, 3, 5, …, where
+each term is the sum of the preceding two terms).</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">fib</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">fib</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">fib</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nf">fib</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nf">fib</span><span class="p">(</span><span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">fib</span><span class="p">(</span><span class="nv">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="nv">N</span><span class="o">-</span><span class="mi">2</span><span class="p">).</span>
+</code></pre>
+</div>
+
+<p>Here we have three definitions of the same function (note how they’re
+separated by semicolons, and terminated with a period). The first two
+match when the function is called with a parameter or zero or one. The
+third is called with any other parameter.</p>
+
+<p>We can use this to define two versions of our <code class="highlighter-rouge">wrap/1</code> function, one
+for the case where it is called with no words in the list, the other
+when we have a single string.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap</span><span class="p">([])</span> <span class="o">-&gt;</span>
+  <span class="p">[</span> <span class="s">""</span> <span class="p">];</span>
+
+<span class="nf">wrap</span><span class="p">([</span><span class="nv">String</span><span class="p">])</span> <span class="o">-&gt;</span>
+  <span class="p">[</span> <span class="nv">String</span> <span class="p">].</span>
+</code></pre>
+</div>
+
+<p>The tests now pass.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>9&gt; text:test().
+  All 2 tests successful.
+</code></pre>
+</div>
+
+<p>Add a test which wraps two strings, though, and our tests again fail:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap_test_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([])</span> <span class="o">==</span> <span class="p">[</span><span class="s">""</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">])</span>
+<span class="p">].</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>text:10:wrap_test_...*failed*
+::{error,function_clause,
+         [{text,wrap,[["cat","dog"]]},{text,'-wrap_test_/0-fun-4-',0}]}
+</code></pre>
+</div>
+
+<p>We’re going to have to do some work. For a start, we’re going to have
+to rewrite our wrap methods to give them somewhere to store the
+result. Then they’re going to have to recurse over the input parameter
+list, adding each word to the output until the input is exhausted.</p>
+
+<h3 id="building-an-output-list">Building an Output List</h3>
+
+<p>We’re going to do two things here. The externally visible
+function, <code class="highlighter-rouge">wrap/1</code>, is simply going to invoke an internal
+function, <code class="highlighter-rouge">wrap/2</code>, passing it the word list and an addition
+parameter. This second parameter is the list that holds the
+results. Remember that in Erlang the number of arguments is part of a
+function’s signature, so <code class="highlighter-rouge">wrap/1</code> and <code class="highlighter-rouge">wrap/2</code> are separate functions.</p>
+
+<p>Then we’re going to use our parameter matching trick to define two
+variants of <code class="highlighter-rouge">wrap/2</code>:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="c">% This is the exported function: it passes the initial
+% result set to the internal versions
+</span><span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">,</span> <span class="p">[</span><span class="s">""</span><span class="p">]).</span>
+
+<span class="c">% When we run out of words, we're done    
+</span><span class="nf">wrap</span><span class="p">([],</span> <span class="nv">Result</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">Result</span><span class="p">;</span>
+
+<span class="c">% Otherwise append the next word to the result
+</span><span class="nf">wrap</span><span class="p">([</span><span class="nv">NextWord</span><span class="p">|</span><span class="nv">Rest</span><span class="p">],</span> <span class="nv">Result</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">Result</span> <span class="o">++</span> <span class="nv">NextWord</span><span class="p">]).</span>
+</code></pre>
+</div>
+
+<p>The second version of <code class="highlighter-rouge">wrap/2</code> uses a neat feature of Erlang list
+notation. The pattern <code class="highlighter-rouge">[NextWord|Rest]</code>matches a list whose head is
+matched with <code class="highlighter-rouge">NextWord</code> and whose tail is matched with <code class="highlighter-rouge">Rest</code>. If we
+invoked this function with:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap</span><span class="p">([</span> <span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">,</span> <span class="s">"elk"</span> <span class="p">],</span> <span class="nv">Result</span><span class="p">).</span>
+</code></pre>
+</div>
+
+<p>then <code class="highlighter-rouge">NextWord</code> would be set to <code class="highlighter-rouge">"cat"</code> and <code class="highlighter-rouge">Rest</code> would be set
+to <code class="highlighter-rouge">["dog", "elk"]</code>.</p>
+
+<p>Unfortunately, this fails our test:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(text).
+{ok,text}
+2&gt; text:test().
+text:10:wrap_test_...*failed*
+::{error,{assertion_failed,[{module,text},
+                            {line,10},
+                            {expression,
+                                "wrap ( [ \"cat\" , \"dog\" ] ) == [ \"cat dog\" ]"},
+                            {expected,true},
+                            {value,false}]},
+         [{text,'-wrap_test_/0-fun-4-',0}]}
+
+=======================================================
+  Failed: 1.  Aborted: 0.  Skipped: 0.  Succeeded: 2.
+</code></pre>
+</div>
+
+<p>This is where I wish EUnit had an <code class="highlighter-rouge">assert_equals</code> function that could
+report the actual and expected values. However, I can still invoke my
+wrap method from the shell to see what it’s returning. (Stop press:
+EUnit does have the equivalent, and I didn’t notice it. It’s
+called <code class="highlighter-rouge">assertMatch(Expected, Actual)</code>. Sorry.)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>3&gt; text:wrap(["cat", "dog"]).
+["catdog"]
+</code></pre>
+</div>
+
+<p>Oops. We forgot the space between words. We need to add this when we
+add a word to an existing line, but only if that line is not
+empty. See how we use pattern matching to distinguish a list
+containing an empty line from one containing a non-empty one.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="c">% This is the exported function: it passes the initial
+% result set to the internal versions
+</span><span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">,</span> <span class="p">[</span><span class="s">""</span><span class="p">]).</span>
+
+<span class="c">% When we run out of words, we're done    
+</span><span class="nf">wrap</span><span class="p">([],</span> <span class="nv">Result</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">Result</span><span class="p">;</span>
+
+<span class="c">% Adding a word to an empty line
+</span><span class="nf">wrap</span><span class="p">([</span><span class="nv">NextWord</span><span class="p">|</span><span class="nv">Rest</span><span class="p">],</span> <span class="p">[</span> <span class="s">""</span> <span class="p">])</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">NextWord</span><span class="p">]);</span>
+
+<span class="c">% or to a line that's already partially full  
+</span><span class="nf">wrap</span><span class="p">([</span><span class="nv">NextWord</span><span class="p">|</span><span class="nv">Rest</span><span class="p">],</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="p">])</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="o">++</span> <span class="s">" "</span> <span class="o">++</span> <span class="nv">NextWord</span><span class="p">]).</span>
+</code></pre>
+</div>
+
+<p>Now our tests pass again:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(text).
+{ok,text}
+2&gt; text:test().
+  All 3 tests successful.
+ok
+</code></pre>
+</div>
+
+<h3 id="when-clauses">When Clauses</h3>
+
+<p>For testing purposes, let’s assume that we wrap lines longer than 10
+characters. That means that if we give our method the strings “cat”,
+“dog”, and “elk”, we’ll expect to see two lines in the output (because
+“cat<space>dog<space>elk” is 11 characters long). Time for another
+test.</space></space></p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap_test_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([])</span> <span class="o">==</span> <span class="p">[</span><span class="s">""</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">,</span> <span class="s">"elk"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">,</span> <span class="s">"elk"</span><span class="p">])</span>
+<span class="p">].</span>
+</code></pre>
+</div>
+
+<p>We don’t even have to run this to know it will fail:
+our <code class="highlighter-rouge">wrap</code> function knows nothing about line lengths. Time for some
+code. We’re now going to have to treat out result as a list or
+strings, rather than a single string. We’re also going to have to deal
+with the case where there’s not enough room in the current output line
+for the next word. In that case we have to add a new empty line to the
+function’s result and put the word into it.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">,</span> <span class="p">[</span><span class="s">""</span><span class="p">]).</span>
+
+<span class="c">% When we run out of words, we're done    
+</span><span class="nf">wrap</span><span class="p">([],</span> <span class="nv">Result</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">Result</span><span class="p">;</span>
+
+<span class="c">% Adding a word to an empty line
+</span><span class="nf">wrap</span><span class="p">([</span><span class="nv">NextWord</span><span class="p">|</span><span class="nv">Rest</span><span class="p">],</span> <span class="p">[</span> <span class="s">""</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">])</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">NextWord</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">]);</span>
+
+<span class="c">% or to a line that's already partially full  
+% there are two cases:
+% 1. The word fits
+</span><span class="nf">wrap</span><span class="p">([</span><span class="nv">NextWord</span><span class="p">|</span><span class="nv">Rest</span><span class="p">],</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">])</span> 
+  <span class="k">when</span> <span class="nb">length</span><span class="p">(</span><span class="nv">NextWord</span><span class="p">)</span> <span class="o">+</span> <span class="nb">length</span><span class="p">(</span><span class="nv">CurrentLine</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="o">++</span> <span class="s">" "</span> <span class="o">++</span> <span class="nv">NextWord</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">]);</span>
+
+<span class="c">% 2. The word doesn't fit, so we create a new line    
+</span><span class="nf">wrap</span><span class="p">([</span><span class="nv">NextWord</span><span class="p">|</span><span class="nv">Rest</span><span class="p">],</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">])</span> <span class="o">-&gt;</span>
+  <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">NextWord</span><span class="p">,</span> <span class="nv">CurrentLine</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">]).</span>
+</code></pre>
+</div>
+
+<p>This introduces a new Erlang feature—you can further qualify the
+pattern matching used to determine which function is selected using a
+<code class="highlighter-rouge">when</code> clause. In our case, the parameter patterns for the last two
+definitions of the <code class="highlighter-rouge">wrap/2</code> method are the same. However, the first of
+them has a <code class="highlighter-rouge">when</code> clause. This means that this function will only be
+selected if the length of the current output line plus the length of
+the next word is less that our maximum line length (hard coded to 10
+in this case).</p>
+
+<p>Unfortunately, our tests fail:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; text:test().
+text:11:wrap_test_...*failed*
+::{error,{assertion_failed,[{module,text},
+                            {line,11},
+                            {expression,
+                                "wrap ( [ \"cat\" , \"dog\" , \"elk\" ] ) == [ \"cat dog\" , \"elk\" ]"},
+                            {expected,true},
+                            {value,false}]},
+         [{text,'-wrap_test_/0-fun-6-',0}]}
+
+=======================================================
+  Failed: 1.  Aborted: 0.  Skipped: 0.  Succeeded: 3.
+error
+</code></pre>
+</div>
+
+<p>Running <code class="highlighter-rouge">text:wrap</code> manually shows why:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2&gt; text:wrap(["cat", "dog", "elk"]).
+["elk","cat dog"]
+</code></pre>
+</div>
+
+<p>We’re building the result list backwards, adding each successive line
+to the front of it, rather than the back. We could fix that by
+changing the way we add lines to the list, but, like Lisp, Erlang
+favors list manipulations that work on the head of the list, not the
+last element. It turns out to be both idiomatic and more efficient to
+build the result the way we’re doing it, and then to result the
+resulting list before returning it to our caller. That’s a simple
+change to our exported <code class="highlighter-rouge">wrap/1</code> function.</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">(</span><span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">,</span> <span class="p">[</span><span class="s">""</span><span class="p">])).</span>
+</code></pre>
+</div>
+
+<p>Now all out tests pass.</p>
+
+<p>So, let’s review our tests. We have covered an empty input set, a set
+that fits on one line, and a set that (just) forces the result to take
+more than one line. Are there any other cases to consider? It turns
+out that there’s (at least) one. What happens if a word is too long to
+fit on a line on its own? Let’s see:</p>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="nf">wrap_test_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([])</span> <span class="o">==</span> <span class="p">[</span><span class="s">""</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">,</span> <span class="s">"elk"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">,</span> <span class="s">"elk"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">,</span> <span class="s">"hummingbird"</span><span class="p">,</span> <span class="s">"ibix"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">,</span> <span class="s">"hummingbird"</span><span class="p">,</span> <span class="s">"ibix"</span><span class="p">])</span>
+<span class="p">].</span>
+</code></pre>
+</div>
+
+<p>Run the tests:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1&gt; c(text).
+{ok,text}
+2&gt; text:test().
+  All 5 tests successful.
+ok
+</code></pre>
+</div>
+
+<h3 id="wrapping-up">Wrapping Up</h3>
+
+<p>Using simple tests like this are a great way of designing some
+code. They’re also a goo way to teach yourself the language. As I was
+writing this code, I used the tests to test my understanding of Erlang
+semantics.</p>
+
+<p><strong>Update:</strong> Kevin Smith has produced a wonderful screencast on EUnit
+  as episode 5 of his <a href="http://pragprog.com/screencasts/v-kserl/erlang-by-example">Erlang
+  by Example</a> series.</p>
+
+<h3 id="the-final-program">The Final Program</h3>
+
+<div class="language-erlang highlighter-rouge"><pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">text</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">wrap</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">"eunit/include/eunit.hrl"</span><span class="p">).</span>
+
+<span class="nf">wrap_test_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([])</span> <span class="o">==</span> <span class="p">[</span><span class="s">""</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">,</span> <span class="s">"elk"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">,</span> <span class="s">"elk"</span><span class="p">]),</span>
+  <span class="o">?</span><span class="p">_</span><span class="nf">assert</span><span class="p">(</span><span class="nf">wrap</span><span class="p">([</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">,</span> <span class="s">"hummingbird"</span><span class="p">,</span> <span class="s">"ibix"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="s">"cat dog"</span><span class="p">,</span> <span class="s">"hummingbird"</span><span class="p">,</span> <span class="s">"ibix"</span><span class="p">])</span>
+<span class="p">].</span>
+
+<span class="c">% This is the exported function: it passes the initial
+% result set to the internal versions
+</span><span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">(</span><span class="nf">wrap</span><span class="p">(</span><span class="nv">Words</span><span class="p">,</span> <span class="p">[</span><span class="s">""</span><span class="p">])).</span>
+
+<span class="c">% When we run out of words, we're done  
+</span><span class="nf">wrap</span><span class="p">([],</span> <span class="nv">Result</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="nv">Result</span><span class="p">;</span>
+
+<span class="c">% Adding a word to an empty line
+</span><span class="nf">wrap</span><span class="p">([</span> <span class="nv">NextWord</span> <span class="p">|</span> <span class="nv">Rest</span> <span class="p">],</span> <span class="p">[</span> <span class="s">""</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">])</span> <span class="o">-&gt;</span>
+    <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">NextWord</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">]);</span>
+
+<span class="c">% Or to a line that's already partially full. There are two cases:
+% 1. The word fits
+</span><span class="nf">wrap</span><span class="p">([</span> <span class="nv">NextWord</span> <span class="p">|</span> <span class="nv">Rest</span> <span class="p">],</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">])</span> 
+  <span class="k">when</span> <span class="nb">length</span><span class="p">(</span><span class="nv">NextWord</span><span class="p">)</span> <span class="o">+</span> <span class="nb">length</span><span class="p">(</span><span class="nv">CurrentLine</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="o">-&gt;</span>
+    <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="o">++</span> <span class="s">" "</span> <span class="o">++</span> <span class="nv">NextWord</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">]);</span>
+
+<span class="c">% 2. The word doesn't fit, so we create a new line  
+</span><span class="nf">wrap</span><span class="p">([</span> <span class="nv">NextWord</span> <span class="p">|</span> <span class="nv">Rest</span><span class="p">],</span> <span class="p">[</span> <span class="nv">CurrentLine</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">])</span> <span class="o">-&gt;</span>
+    <span class="nf">wrap</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="p">[</span> <span class="nv">NextWord</span><span class="p">,</span> <span class="nv">CurrentLine</span> <span class="p">|</span> <span class="nv">PreviousLines</span> <span class="p">]).</span>
+</code></pre>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+
+  
+    
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://pragdave.me/blog/2007/04/19/testfirst-word-wrap-in-erlang.html';
+      this.page.identifier = 'https://pragdave.me/blog/2007/04/19/testfirst-word-wrap-in-erlang.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pragdave.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+
+
+  
+</article>
+
+      </main>
+
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <nav class="nav nav-inline">
+      <a class="nav-link active" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/thanks">Thanks</a>
+    </nav>
+  </div>
+
+
+</footer>
+
+
+  </body>
+
+</html>
