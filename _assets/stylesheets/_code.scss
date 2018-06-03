@@ -17,7 +17,7 @@ div.highlighter-rouge {
                   darken($code-block-color, 2%) 50%, darken($code-block-color, 10%));
 
   border: 2px solid darken($code-block-color, 15%);
-  
+
   // @include code-background;
   border-radius: 0.25em;
   box-shadow: 0 0 6px rgba(0,0,0,0.3);
@@ -42,6 +42,18 @@ div.highlighter-rouge {
           margin-bottom: -1.1em;
       }
   }
+  &.dirtree {
+    line-height: 1.05em;
+    pre {
+        margin-bottom: -1.1em;
+        padding:  1em 0;
+    }
+}
+}
+
+pre.dirtree {
+    line-height: 1.05em;
+    padding:     1em 0;
 }
 
 table div.highlighter-rouge {

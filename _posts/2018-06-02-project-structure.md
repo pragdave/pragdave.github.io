@@ -1,11 +1,11 @@
 ---
-title:    Project Structure Fire
+title:    Elixir Project Structure
 layout:   post
 comments: true
 tags:     programming elixir ruby javascript go
 ---
 
-> I think the way we structure our project source can obscure the code
+> I think the way we organize our projects' files obscures the code
 > and make simple things complex. We do it not because we want to, but
 > because we feel we need to in order to tame complexity. There's
 > another way: stop writing complex code.
@@ -28,6 +28,7 @@ my_app
     ├── my_app_test.exs
     └── test_helper.exs
 ~~~
+{: .dirtree }
 
 Here's a Ruby project created with `bundle gem my_app`:
 
@@ -45,6 +46,7 @@ my_app/
 ├── Rakefile
 └── README.md
 ~~~
+{: .dirtree }
 
 Here's a JavaScript project:
 
@@ -63,6 +65,7 @@ Here's a JavaScript project:
 ├── package.json
 └── README
 ~~~
+{: .dirtree }
 
 And here's the recommended Go project tree:
 
@@ -119,6 +122,7 @@ project-layout/
     ├── static
     └── template
 ~~~
+{: .dirtree }
 
 Let's look at just the top level directory of each:
 
@@ -132,7 +136,7 @@ Let's look at just the top level directory of each:
 </tr>
 <tr valign="top">
 <td>
-<pre><code>
+<pre class="dirtree"><code>
 my_app
 ├── config
 ├── lib
@@ -143,7 +147,7 @@ my_app
 </td>
 
 <td>
-<pre><code>
+<pre class="dirtree"><code>
 my_app/
 ├── bin
 ├── Gemfile
@@ -154,7 +158,7 @@ my_app/
 </code></pre>
 </td>
 <td>
-<pre><code>
+<pre class="dirtree"><code>
 ├── dist
 ├── node_modules
 ├── src
@@ -164,7 +168,7 @@ my_app/
 </code></pre>
 </td>
 <td>
-<pre><code>
+<pre class="dirtree"><code>
 project-layout/
 ├── api
 ├── assets
@@ -193,13 +197,13 @@ project-layout/
 </table>
 
 Now let's imagine we can find an alien, unsullied by the preconceptions
-and practices of us developer folks. Let's call this individual Normal
+and practices of us developer folk. Let's call this individual Normal
 Human Being.
 
-We show these structures to Normal and ask "what does this do?" Normal
-thinks about this for a while.
+We show these structures to Normal and ask "what's going on here?"
+Normal thinks about this for a while.
 
-"Well,", they say, "I imagine that you organize your thinking
+"Well," they say, "I imagine that you organize your thinking
 hierarchically _(how quaint)_ and that you put the most important things
 at the top level. Doing things this was means that you can then split
 each top-level important thing into subthings at the next level in your
@@ -215,7 +219,7 @@ housekeeping, the NHBs invaded the planet, conquering us without a shot
 being fired (largely because we were still waiting for NPM install
 to run on the fire control computers).
 
-### First, Choose The Correct Problem?
+### First, Choose The Correct Problem
 
 I believe the reason for these baroque structures is simple: in the past
 we learned that when we write complex applications, things got out of
@@ -238,10 +242,12 @@ of (at most) a couple of hundred lines.
 What would the project directory tree look like then?
 
 ~~~
-├── my_app.ex               <- source of component
-├── meta.yml                <- dependencies, build options, etc
+├── my_app.ex               ← source of component
+├── meta.yml                ← dependencies, build options, etc
 └── tests/
 ~~~
+{: .dirtree }
+
 
 The README is simply the leading comment block in the source file. The
 build tool uses the metadata to find and resolve dependencies, compile
@@ -251,8 +257,9 @@ which used doctests, the
 component could be as simple as:
 
 ~~~
-└─ my_app.ex               <- source of component
+└─ my_app.ex               ← source of component
 ~~~
+{: .dirtree }
 
 ### You May Say I'm Bikeshedding
 

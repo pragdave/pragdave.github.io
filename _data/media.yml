@@ -1,6 +1,17 @@
 ---
 - type: vlog
   html: >
+    <iframe width="560" height="315"
+    src="https://www.youtube.com/embed/6U7cLUygMeI" frameborder="0"
+    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  desc: >-
+    I feel that we're not writing Elixir correctly. We spend too much
+    time copying the old ways of doing things, and ot enough time
+    bending the tools to make our lives better.
+  title: I Write Bad Elixir. So Do You!
+
+- type: vlog
+  html: >
     <iframe data-src="https://player.vimeo.com/video/199860926?portrait=0"
     width="1024" height="576" frameborder="0"
     class="embed-responsive-item"
@@ -42,7 +53,7 @@
     The Rogues are great to chat with, so this one ranges far and wide.
     </p>
 
-    
+
 - type: video
   html: >
     <iframe data-src="https://player.vimeo.com/video/61255738"
