@@ -13,7 +13,7 @@ layout: default
   <div class="card-block">
     <div class="row" >
       <div class="col-md-3 course-aside">
-        
+
         <p>
           Dive deep into a topic, learning both <i>how</i>
           and <i>why</i> things work.
@@ -29,7 +29,7 @@ layout: default
              href="http://codestool.coding-gnome.com/courses/elixir-for-programmers">
             Learn More!
           </a>.
-          
+
       </div>
       <div class="col-md-8 offset-md-1 new-course">
         <h3 style="color: #a602d3">Elixir for Programmers</h3>
@@ -104,7 +104,7 @@ layout: default
         <ul>
           {% for talk in site.data.media limit: 5 %}
           <li>
-            <a href="/speak#{{ talk.title | slugify }}">
+            <a href="/speak.html#{{ talk.title | slugify }}">
               {{ talk.title }}
               {% if talk.sub %}
                 <small>({{ talk.sub }})</small>
