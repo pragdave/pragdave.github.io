@@ -14,13 +14,13 @@ replacement in minutes and get productive again. I also need to be able
 to do this across different operating systems.[^fn-os]
 
 [^fn-os]: Right now I mostly use Linux, but many of my presentations are
-in Keynote, so I still bring out the Macbook Air for those.
+  in Keynote, so I still bring out the Macbook Air for those.
 
 There are three components to making this work:
 
 1. Making sure I don't rely on any data on a particular machine. If an
-   SSD dies, I need to be able to continue working with minimal data
-   loss on another computer.
+   SSD dies, I need to be able to continue working on another computer with minimal data
+   loss.
 
 2. Having the tools I need (editors, languages, etc) installed.
 
@@ -29,20 +29,20 @@ There are three components to making this work:
 
 ## Location Independent Data
 
-I make a habit of keeping _all_ work products in versin control, and
+I make a habit of keeping _all_ work products in version control, and
 pushing them offsite when I reach the point where I'd feel annoyed if I
 accidentally lost the local copy.
 
 Right now, it's all in git, and it's stored on GitHub. I have a cheap
-monthly plan tht gives me plenty of storage for my hundreds of private
+monthly plan that gives me plenty of storage for my hundreds of private
 repos. Thank you GitHub.
 
 There's one exception to this rule. I tried storing the video assets for
-my screencasts and courses in git. It works, and the large file support
+my screencasts and courses on Github. It works, and the large file support
 at GitHub handles them. But they are big: my Elixir course has about
 80Gb of assets, and life's too short to be cloning that much data.
 Instead, I have a separate headless Git repos on two external SSDs, and
-I check the assets into them. One gets stored offsite, and the other is
+I check the assets into them. One SSD gets stored offsite, and the other is
 in our fireproof box.
 
 I'd welcome suggestions on better ways of managing these.
@@ -61,6 +61,8 @@ There are roughly a billion dotfile management systems out
 there.[^fn-billion] I spent a while evaluating the different
 approaches, and couldn't find one that worked for me. So (and you knew
 this was coming) I wrote my own. But it's trivial.
+
+[^fn-billion]: I saw that on the internet, so it must be true.
 
 I have a single Git repo (called `dotfiles`) which manages all the stuff
 I need to install and configure. Inside this theres a separate directory
