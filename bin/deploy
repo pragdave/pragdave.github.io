@@ -1,4 +1,6 @@
 #! /bin/bash
 
-ssh-add ~dave/Me/WebServer/keys/pragdaveme.pem
-bundle exec jekyll build && cd _site && rsync -avz  ./ dave@coding-gnome.com:www
+ssh-add ~dave/Me/pragdave-me-server/keys/pragdaveme.pem \
+&& bundle exec jekyll build \
+&& cd _site \
+&& rsync -avz  ./ dave@coding-gnome.com:www
