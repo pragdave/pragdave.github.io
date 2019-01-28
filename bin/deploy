@@ -2,5 +2,6 @@
 
 ssh-add ~dave/Me/pragdave-me-server/keys/pragdaveme.pem \
 && bundle exec jekyll build \
+&& ln -s ~/Me/pragdave.github.io/_posts/music/ _site/blog/ \
 && cd _site \
-&& rsync -avz  ./ dave@coding-gnome.com:www
+&& rsync --copy-unsafe-links -avz  ./ dave@coding-gnome.com:www

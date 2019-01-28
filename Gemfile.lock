@@ -58,6 +58,7 @@ GEM
       sprockets (~> 3.3, < 3.7)
     jekyll-feed (0.8.0)
       jekyll (~> 3.3)
+    jekyll-postfiles (2.1.1)
     jekyll-sass-converter (1.5.0)
       sass (~> 3.4)
     jekyll-sitemap (1.0.0)
@@ -110,10 +111,11 @@ DEPENDENCIES
   jekyll
   jekyll-assets
   jekyll-feed
+  jekyll-postfiles
   jekyll-sitemap
   mini_magick
   sass
   uglifier
 
 BUNDLED WITH
-   1.13.7
+   2.0.1

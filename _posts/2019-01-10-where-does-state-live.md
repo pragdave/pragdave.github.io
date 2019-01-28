@@ -1,5 +1,5 @@
 ---
-title:    Dynamic Processes and State
+title:    Where Does State Live
 layout:   post
 comments: true
 tags:     programming elixir
@@ -16,20 +16,20 @@ dynamic components:
 > so, use a dynamic component, where each component maintains state for
 > the session/game/....
 
-Their objection is that I need to add the word _shared_, so that yopu
+Their objection is that I need to add the word _shared_, so that you
 only need dynamic components to share data.
 
 It's an interesting point of view, and it took me a while to work out
 their reasoning. Now that I understand it, I'm still sticking my my
 statement, but I'd like to explain both points of view.
 
-## Recap: Dynamic Components
+### Recap: Dynamic Components
 
 A dynamic component represents a server factory. You ask the factory for
 a new server, and then use that server until you're done with it. Being
 a server, it can maintain its own state.
 
-## Let's Use Hangman as an Example
+#### Let's Use Hangman as an Example
 
 Say you're implementing a game of hangman.
 
@@ -53,7 +53,7 @@ Each game being played needs its own state.
 
 The debate is about where that state should be held.
 
-## Their Perspective on This
+#### Their Perspective on This
 
 Some folks argue that each client has exactly one game. Although the
 client will be a process, there's no need for the game to be one: the

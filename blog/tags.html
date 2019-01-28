@@ -1,0 +1,73 @@
+---
+layout: default
+title: Tag
+---
+
+{% comment %}
+=======================
+The following part extracts all the tags from your posts and sort tags, so that you do not need to manually collect your tags to a place.
+=======================
+{% endcomment %}
+{% assign rawtags = "" %}
+{% for post in site.posts %}
+	{% assign ttags = post.tags | join:'|' | append:'|' %}
+	{% assign rawtags = rawtags | append:ttags %}
+{% endfor %}
+{% assign rawtags = rawtags | split:'|' | sort %}
+
+{% comment %}
+=======================
+The following part removes dulpicated tags and invalid tags like blank tag.
+=======================
+{% endcomment %}
+{% assign tags = "" %}
+{% for tag in rawtags %}
+	{% if tag != "" %}
+		{% if tags == "" %}
+			{% assign tags = tag | split:'|' %}
+		{% endif %}
+		{% unless tags contains tag %}
+			{% assign tags = tags | join:'|' | append:'|' | append:tag | split:'|' %}
+		{% endunless %}
+	{% endif %}
+{% endfor %}
+
+<article class="tag-listing">
+{% comment %}
+=======================
+The purpose of this snippet is to list all the tags you have in your site.
+=======================
+{% endcomment %}
+
+<section class="just-tags">
+<h1>Tags I Use:</h1>
+{% for tag in tags %}
+	<a class="post-tag" href="#{{ tag | slugify }}"> {{ tag }} </a>
+{% endfor %}
+</section>
+
+{% comment %}
+=======================
+The purpose of this snippet is to list all your posts posted with a certain tag.
+=======================
+{% endcomment %}
+<section class="tags-and-titles">
+{% for tag in tags %}
+	<h2 class="tag-name" id="{{ tag | slugify }}">{{ tag }}</h2>
+	<ul>
+	 {% for post in site.posts %}
+		 {% if post.tags contains tag %}
+		 <li>
+		 <h3 class="tag-post-title">
+		 <a href="{{ post.url }}">
+		 {{ post.title }}
+		 <small>({{ post.date | date_to_string }})</small>
+		 </a>
+		 </h3>
+		 </li>
+		 {% endif %}
+	 {% endfor %}
+	</ul>
+{% endfor %}
+</section>
+</article>
