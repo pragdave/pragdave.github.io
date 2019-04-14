@@ -7,7 +7,7 @@ tags: [ "erlang"]
 ---
 
 
-{%img1 right /img/crosswalk.jpg%}
+{% asset crosswalk.jpg  class=right %}
 
 In our last thrilling installment, we used Erlang to fetch a book’s
 title and sales rank from Amazon. Now let’s extend this to fetch the
@@ -76,7 +76,7 @@ Let’s fire up the Erlang shell and try it.
  {"Pragmatic Version Control Using CVS","288118"},
  {"Pragmatic Unit Testing in Java with JUnit","116011"},
  . . .
- 
+
 ```
 
 “But wait!” I hear you cry. “Isn’t Erlang supposed to be good at
@@ -106,7 +106,7 @@ Fred  ! {status, ok}
 To receive a message from another process, use a `receive` stanza:
 
 ``` erlang
-receive 
+receive
   { status, StatusCode } -> StatusCode
 end
 
@@ -213,7 +213,7 @@ set_queries_running(ISBNS) ->
   lists:foreach(fun background_fetch/1, ISBNS).
 
 background_fetch(ISBN) ->
-  ParentPID = self(), 
+  ParentPID = self(),
   spawn(fun() ->
               ParentPID ! { ok, fetch_title_and_rank(ISBN) }
         end).
@@ -242,11 +242,11 @@ ISBN list. For my purposes, this is fine.
 
 
 ``` erlang
-gather_results(ISBNS) ->      
+gather_results(ISBNS) ->
   lists:map(fun gather_a_result/1, ISBNS).
 
 gather_a_result(_) ->
-  receive 
+  receive
     { ok, Anything } -> Anything
   end.
 
@@ -271,7 +271,7 @@ built-in `timer:tc` function to call our two methods.
 ``` erlang
 timer:tc(ranks, fetch_in_parallel, []).
    {1163694, . . .
-timer:tc(ranks, fetch_in_series, []).  
+timer:tc(ranks, fetch_in_series, []).
    {3070261, . . .
 
 ```
@@ -313,10 +313,10 @@ containing both the serial and parallel fetch functions.
 -include_lib("xmerl/include/xmerl.hrl").
 
 -define(BASE_URL,
-        "http://webservices.amazon.com/onca/xml?Service=AWSECommerceService" 
-        "&SubscriptionId=<your ID goes here>" 
-        "&Operation=ItemLookup" 
-        "&ResponseGroup=SalesRank,Small" 
+        "http://webservices.amazon.com/onca/xml?Service=AWSECommerceService"
+        "&SubscriptionId=<your ID goes here>"
+        "&Operation=ItemLookup"
+        "&ResponseGroup=SalesRank,Small"
         "&ItemId=").
 
 isbns() ->
@@ -352,16 +352,15 @@ set_queries_running(ISBNS) ->
   lists:foreach(fun background_fetch/1, ISBNS).
 
 background_fetch(ISBN) ->
-  ParentPID = self(), 
+  ParentPID = self(),
   spawn(fun() ->
             ParentPID ! { ok, fetch_title_and_rank(ISBN) }
         end).
 
-gather_results(ISBNS) ->      
+gather_results(ISBNS) ->
   lists:map(fun(_) ->
-          receive 
+          receive
               { ok, Anything } -> Anything
           end
         end, ISBNS).
 ```
-

@@ -11,7 +11,7 @@ my knees when standing up—folks used to talk about languages such as
 Perl as _glue languages_. What did they mean?
 
 
-{%img1 right /img/glue.jpg %}
+{% asset glue.jpg class=right  %}
 
 Well, Perl is a great general purpose programming language. But it is
 exceptional at doing something that no previous language could do
@@ -77,4 +77,3 @@ like orchestra conductors.
 Our applications are increasingly becoming glue code. And, if that’s
 the case, I’d rather write them using a glue that doesn’t set over
 time.
-

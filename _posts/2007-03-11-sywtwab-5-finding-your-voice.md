@@ -8,7 +8,7 @@ tags: [writing-a-book]
 
 
 
-{%img1 right /img/keys_1.jpg %}
+{% asset keys_1.jpg  class=right  %}
 
 This is the fifth of a series of personal notes to people who may be
 thinking of writing (or who have embarked upon writing) a book. You’ll
@@ -130,6 +130,3 @@ and it applies just as much to the writing process as it does to
 software development.
 
 Give yourself time. Give your book a voice.
-
-
-

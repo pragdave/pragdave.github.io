@@ -2,9 +2,9 @@
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
   {% include head.html %}
-  {% javascript vendor %}
-  {% javascript vendor/drumknott-0.2.0.js %}
-  {% javascript application %}
+  {% asset vendor.js %}
+  {% asset vendor/drumknott-0.2.0.js %}
+  {% asset application.js %}
 
   <body>
 
@@ -18,7 +18,7 @@
 
 
     </div>
-    
+
     {% include footer.html %}
 
   </body>

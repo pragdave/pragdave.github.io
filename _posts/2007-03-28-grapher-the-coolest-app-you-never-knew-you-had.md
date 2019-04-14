@@ -7,13 +7,13 @@ tags: []
 ---
 
 
-{%img1 right /img/snap001.png %}
-{%img1 right /img/snap002.png %}
-{%img1 right /img/snap003.png %}
-{%img1 right /img/fsq_2.jpg %}
+{% asset snap001.png %}
+{% asset snap002.png %}
+{% asset snap003.png %}
+{% asset fsq_2.jpg %}
 
 
-    
+
 If you use OS X, then you own an application that’ll waste hours of
 your time. And it's just sitting on your hard drive.
 
@@ -29,4 +29,3 @@ But the time wasting comes from playing with its example graphs.
 
 
 Did I mention that they animate, and it can export Quicktime?
-

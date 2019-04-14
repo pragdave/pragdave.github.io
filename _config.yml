@@ -7,6 +7,8 @@ description: >
   new stuff, so your skills can develop to meet future needs. And we
   have some fun along the way. Dave Thomas. @pragdave
 
+collections:
+  - now
 
 baseurl:   ""
 permalink: /blog/:year/:month/:day/:title.html
@@ -43,6 +45,6 @@ ga_analytics: 'UA-46932612-1'
 disqus:
   shortname: pragdave
 
-gems:
+plugins:
   - jekyll-assets
   - jekyll-sitemap

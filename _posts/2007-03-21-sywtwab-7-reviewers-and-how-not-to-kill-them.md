@@ -21,7 +21,7 @@ It’s really quite a shame that you have to show it to other people.
 
 But you do.
 
-{%img1 center ./jigsaw.jpg %}
+{% asset jigsaw.jpg class=center %}
 
 And those other people don’t realize how much work you’re put in, and
 how subtly you’ve plotted it, and how many ideas you researched. They
@@ -95,6 +95,3 @@ your book’s front matter.
 Handling reviews can be tough. Try to remember as you grind your teeth
 that it is better to find these issues now, rather than after the ink
 has dried on the paper.
-
-
-

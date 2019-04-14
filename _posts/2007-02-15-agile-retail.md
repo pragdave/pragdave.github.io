@@ -9,7 +9,7 @@ tags: []
 I’m wondering: could the same organizing principles that work for
 community web sites work for retail stores?
 
-{%img1 right /img/flyingbooks.jpg%}
+{% asset flyingbooks.jpg  class=right %}
 
 If you go into a bookstore, you’ll notice that not all books are
 displayed the same. Some are displayed on tables at the store
@@ -84,4 +84,3 @@ mortar store—they allow serendipitous discoveries. You come across
 things that delight you that you wouldn’t have thought to look for.
 
 Wouldn’t that make it worth going to a real store again?
-

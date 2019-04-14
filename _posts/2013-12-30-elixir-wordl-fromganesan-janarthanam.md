@@ -6,10 +6,5 @@ comments: true
 tags: [elixir]
 ---
 
-  
-{%img1 center elixir-wordl.png%}
 
-
-
-
-    
+{% asset elixir-wordl.png class=center %}

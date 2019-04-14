@@ -6,7 +6,7 @@ comments: true
 tags: [writing-a-book]
 ---
 
-{%img1 right /img/quill.jpg %}
+{% asset quill.jpg  class=right %}
 
 This is the second a series of personal notes to people who may be
 thinking of writing (or who have embarked upon writing) a book. You’ll
@@ -73,4 +73,3 @@ the writer, who’s the hero of the book**.
 
 Next we’ll look at the second half of plotting the Hero’s
 Journey—knowing what challenges to give your readers, and when.
-

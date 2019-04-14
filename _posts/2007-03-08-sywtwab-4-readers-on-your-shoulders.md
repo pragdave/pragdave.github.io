@@ -6,7 +6,7 @@ comments: true
 tags: [writing-a-book]
 ---
 
-{%img1 right /img/angeldevil.jpg %}
+{% asset angeldevil.jpg  class=right %}
 
 This is the fourth of a series of personal notes to people who may be thinking of writing (or who have embarked upon writing) a book. You’ll be able to find them all (eventually) by selecting the tag <a href="http://pragdave.pragprog.com/pragdave/writing_a_book/index.html">Writing A Book</a>.
 
@@ -118,6 +118,3 @@ And, here’s an interesting twist. Many agile methodologies recommend
 pair programming as a way of getting two pairs of eyes on each chunk
 of code as it is written. If you can’t rustle up a person to pair with
 you, bring your new imaginary friends to your next coding session.
-
-
-

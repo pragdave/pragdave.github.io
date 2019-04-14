@@ -8,7 +8,7 @@ tags: []
 
 
 
-{% img1 right /img/jolt2006.png %}
+{% asset jolt2006.png  class=right %}
 No, I’m not stuttering. This evening, at the Software Development Jolt
 Awards at SD West in Santa Clara, <a
 href="http://pragmaticprogrammer.com/titles/rails/index.html">Agile
@@ -32,4 +32,3 @@ Jolt Award</a> in three years.
 
 And, mostly, thanks to the Ruby community for providing the
 environment in which all this can happen. I’m really proud of us all.
-

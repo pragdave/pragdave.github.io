@@ -6,7 +6,7 @@ comments: true
 tags: [writing-a-book]
 ---
 
-{%img1 right /img/penknife.jpg %}
+{% asset penknife.jpg  class=right  %}
 
 This is the sixth of a series of personal notes to people who may be thinking of writing (or who have embarked upon writing) a book. You’ll be able to find them all (eventually) by selecting the tag <a href="http://pragdave.pragprog.com/pragdave/writing_a_book/index.html">Writing A Book</a>. In no particular order:
 
@@ -186,4 +186,3 @@ tricks. As yo’re starting out, ask your editor for their ideas. Search
 out more experienced authors and see what they do.
 
 Writing a book is difficult. Don’t make it harder than it has to be.
-

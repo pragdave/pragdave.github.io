@@ -7,7 +7,7 @@ tags: [writing-a-book]
 ---
 
 
-{%img1 right /img/ajax.jpg %}
+{% asset ajax.jpg  class=right %}
 
 This is the third of a series of personal notes to people who may be
 thinking of writing (or who have embarked upon writing) a book. You’ll
@@ -95,6 +95,3 @@ graduation from the book is an invitation to join your world.
 The Dreyfus model contains nothing revolutionary. Instead, it
 describes an evolution—**the evolution from novice to expert**. This
 is another aspect of the hero’s journey your reader will take.
-
-
-

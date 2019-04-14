@@ -58,4 +58,4 @@ Then in `keybindings.json`:
 
 Now, I can just hit `Alt+T` and the tests run:
 
-{% image tests-in-vscode.png class:img-fluid %}
+{% asset tests-in-vscode.png class=img-fluid %}

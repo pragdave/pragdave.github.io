@@ -6,7 +6,7 @@ comments: true
 tags: [ "erlang" ]
 ---
 
-{%img1 right /img/erlang.jpg%}
+{% asset erlang.jpg  class=right %}
 
 One of the joys of playing at being a publisher is that I get to mess
 around with the technology in books as those books are getting
@@ -130,10 +130,10 @@ related, I tried the following:
 
 ```
 dave[Downloads/lib 12:04:07] ls **/*http*
-inets-4.7.11/doc/html/http.html        
-inets-4.7.11/doc/html/http_base_64.html 
-inets-4.7.11/doc/html/http_client.html  
-inets-4.7.11/doc/html/http_server.html 
+inets-4.7.11/doc/html/http.html
+inets-4.7.11/doc/html/http_base_64.html
+inets-4.7.11/doc/html/http_client.html
+inets-4.7.11/doc/html/http_server.html
 inets-4.7.11/doc/html/httpd.html
 inets-4.7.11/doc/html/httpd_conf.html
 inets-4.7.11/doc/html/httpd_socket.html
@@ -402,7 +402,7 @@ our `ranks.erl` file.
 -export([fetch_title_and_rank/1]).
 -include_lib("xmerl/include/xmerl.hrl").
 
--define(BASE_URL, 
+-define(BASE_URL,
       "http://webservices.amazon.com/onca/xml?" ++
       "Service=AWSECommerceService" ++
       "&SubscriptionId=<your id>" ++
@@ -422,5 +422,3 @@ fetch_title_and_rank(ISBN) ->
 amazon_url_for(ISBN) ->
   ?BASE_URL ++ ISBN.
 ```
-
-

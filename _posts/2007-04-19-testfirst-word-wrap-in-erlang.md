@@ -6,7 +6,7 @@ comments: true
 tags: [ "erlang" ]
 ---
 
-{%img1 right /img/wrap.jpg%}
+{% asset wrap.jpg  class=right %}
 
 I’m continuing to play with Erlang. This week, I needed to write some
 code that extracts information from a bunch of source files. Part of
@@ -255,7 +255,7 @@ variants of `wrap/2`:
 wrap(Words) ->
   wrap(Words, [""]).
 
-% When we run out of words, we're done    
+% When we run out of words, we're done
 wrap([], Result) ->
   Result;
 
@@ -303,7 +303,7 @@ EUnit does have the equivalent, and I didn’t notice it. It’s
 called `assertMatch(Expected, Actual)`. Sorry.)
 
 
-``` 
+```
 3> text:wrap(["cat", "dog"]).
 ["catdog"]
 ```
@@ -319,7 +319,7 @@ containing an empty line from one containing a non-empty one.
 wrap(Words) ->
   wrap(Words, [""]).
 
-% When we run out of words, we're done    
+% When we run out of words, we're done
 wrap([], Result) ->
   Result;
 
@@ -327,7 +327,7 @@ wrap([], Result) ->
 wrap([NextWord|Rest], [ "" ]) ->
   wrap(Rest, [ NextWord]);
 
-% or to a line that's already partially full  
+% or to a line that's already partially full
 wrap([NextWord|Rest], [ CurrentLine ]) ->
   wrap(Rest, [ CurrentLine ++ " " ++ NextWord]).
 ```
@@ -373,7 +373,7 @@ function’s result and put the word into it.
 wrap(Words) ->
   wrap(Words, [""]).
 
-% When we run out of words, we're done    
+% When we run out of words, we're done
 wrap([], Result) ->
   Result;
 
@@ -381,14 +381,14 @@ wrap([], Result) ->
 wrap([NextWord|Rest], [ "" | PreviousLines ]) ->
   wrap(Rest, [ NextWord | PreviousLines ]);
 
-% or to a line that's already partially full  
+% or to a line that's already partially full
 % there are two cases:
 % 1. The word fits
-wrap([NextWord|Rest], [ CurrentLine | PreviousLines ]) 
+wrap([NextWord|Rest], [ CurrentLine | PreviousLines ])
   when length(NextWord) + length(CurrentLine) < 10 ->
   wrap(Rest, [ CurrentLine ++ " " ++ NextWord | PreviousLines ]);
 
-% 2. The word doesn't fit, so we create a new line    
+% 2. The word doesn't fit, so we create a new line
 wrap([NextWord|Rest], [ CurrentLine | PreviousLines ]) ->
   wrap(Rest, [ NextWord, CurrentLine | PreviousLines ]).
 ```
@@ -507,7 +507,7 @@ wrap_test_() -> [
 wrap(Words) ->
     lists:reverse(wrap(Words, [""])).
 
-% When we run out of words, we're done  
+% When we run out of words, we're done
 wrap([], Result) ->
     Result;
 
@@ -517,13 +517,11 @@ wrap([ NextWord | Rest ], [ "" | PreviousLines ]) ->
 
 % Or to a line that's already partially full. There are two cases:
 % 1. The word fits
-wrap([ NextWord | Rest ], [ CurrentLine | PreviousLines ]) 
+wrap([ NextWord | Rest ], [ CurrentLine | PreviousLines ])
   when length(NextWord) + length(CurrentLine) < 10 ->
     wrap(Rest, [ CurrentLine ++ " " ++ NextWord | PreviousLines ]);
 
-% 2. The word doesn't fit, so we create a new line  
+% 2. The word doesn't fit, so we create a new line
 wrap([ NextWord | Rest], [ CurrentLine | PreviousLines ]) ->
     wrap(Rest, [ NextWord, CurrentLine | PreviousLines ]).
 ```
-
-

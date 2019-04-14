@@ -34,7 +34,7 @@ That's an implementation detail. You can only test the public API."
 I think this is a common belief. Let me explain why I feel it is
 wrong.
 
-{% image keep_out.jpg class:img-fluid %}
+{% asset keep_out.jpg class=img-fluid %}
 <div style="margin-top: -1.8em; margin-bottom: 1.8em; text-align: right; font-size: 60%; color: #aaa">
   DimitryB via <a
   href="https://www.flickr.com/photos/dimitryb/2280688545/in/photolist-4tx8fi-6L8CS7-7VTJSs-6EPhxA-6LEHD7-8NZ7RT-ndsW2-bJFW3-48wVFF-a7BJni-64uShN-49S72Z-a8WRPg-47n3as-48HTde-53ryB-dRXinh-o8zwPT-fHtHaP-8jw9Da-6KVZoZ-7MtWt3-owVaNf-5sPCe-T8rQSR-dCktbn-q7Mhfe-d56mS3-7DGs9E-8GQmsA-2D2sP-bkcH1D-dckmub-c6vSLS-ueTK-dUappy-7YquPv-5zjHF3-5gpHg8-5TYnwx-65uMcs-9nMoJo-r6SVPi-nKMfpx-naCBq3-8JS7R7-atwQai-dLoRCZ-aAsmFJ-paRyfq">Flickr</a>.
@@ -89,7 +89,7 @@ had changed.
 
 Their code was coupled to the internal implementation of yours.
 
-{% image tangled_seaweed.jpg class:img-fluid %}
+{% asset tangled_seaweed.jpg class=img-fluid %}
 <div style="margin-top: -1.8em; margin-bottom: 1.8em; text-align: right; font-size: 60%; color: #aaa">
   Quinn Dombrowski via <a
   href="https://www.flickr.com/photos/quinnanya/8107666487/in/photolist-dmrUMe-aF9aeJ-beLziP-awTTg8-775i8F-68abaa-89piSh-6RfcLj-4UC2WQ-4W1PAr-4WFtU8-oLGsn6-earqXh-967mST-ag6cPs-raLuUF-jrTkcC-eZ1j2M-pL6Xm6-bxvZHJ-n1djpi-mSyztT-pSbUAw-dYqzJA-5FfvNE-qTcB2S-6mdNs3-7GNxSu-eYUeB7-pprXQD-qCeJgX-FYzxd-mSyzoH-74Su1a-nM8P82-6m9NcF-qqYQ7x-r3BzZr-7dofqo-mV2bkH-8fjdvM-2GT51M-pXunTq-eDz3Ka-9aosCG-pou8MW-qDoitK-4eTT39-gGY36W-oUCrLq">Flickr</a>.
@@ -108,7 +108,7 @@ software:
 Most of the principles of good design are just
 someone's idea of how to codify some aspect of this.
 
-Avoiding unnecessary coupling is one of those principles. 
+Avoiding unnecessary coupling is one of those principles.
 
 If thing Y depends on thing Z, then changes to thing Z affect thing Y.
 Even worse, if X depends on Y, then a change to Z might force a change
@@ -136,7 +136,7 @@ a private implementation, which is none of their business.
 
 In the old days, this was never actually enforced. You wrote comments
 saying `one()`, `two()`, and `three()` are the public API, and you'd
-have some kind of banner comment saying 
+have some kind of banner comment saying
 
 ~~~ c
 /**************************************************/
@@ -194,10 +194,7 @@ OK to change these to reflect the changes to the implementation.
   public interface) from the stuff that may change (your internal
   implementation). Making the implementation private makes this
   easier.
-  
+
 * You should test code at both the API level and at the granular
   level. Visibility modifiers make the latter nearly impossible. Hence
   the Private library.
-  
-
-

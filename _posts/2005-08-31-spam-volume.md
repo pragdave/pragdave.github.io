@@ -6,7 +6,7 @@ comments: true
 tags: []
 ---
 
-{% image trash.gif class:right %}
+{% asset trash.gif class:right %}
 
 I’m sure I’m just in the minor leagues here, but for the last month or
 so I’ve been averaging 50Mb of incoming spam a day. All but a handful
@@ -20,4 +20,3 @@ way down the pipe.
 
 Maybe we’re seeing a kind of Parkinson’s Law in action here: trash
 expands to fit the bandwidth available to it.
-

@@ -13,8 +13,9 @@ did when I filled it with iced tea) I need to be able to set up a
 replacement in minutes and get productive again. I also need to be able
 to do this across different operating systems.[^fn-os]
 
-[^fn-os]: Right now I mostly use Linux, but many of my presentations are
-  in Keynote, so I still bring out the Macbook Air for those.
+[^fn-os]:
+    Right now I mostly use Linux, but many of my presentations are
+    in Keynote, so I still bring out the Macbook Air for those.
 
 There are three components to making this work:
 

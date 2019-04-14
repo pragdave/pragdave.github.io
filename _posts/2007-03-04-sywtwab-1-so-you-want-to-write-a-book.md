@@ -6,7 +6,7 @@ comments: true
 tags: [writing-a-book]
 ---
 
-{%img1 right /img/keys.jpg %}
+{% asset keys.jpg  class=right %}
 
 This is the first of a series of personal notes to people who may be
 thinking of writing (or who have embarked upon writing) a book. You’ll
@@ -98,4 +98,3 @@ your ideas on the shelves of your favorite bookstore.
 
 In the next two posts, we’ll look at the Hero’s Journey, the basis of
 most good technical books.
-

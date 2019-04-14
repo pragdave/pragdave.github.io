@@ -6,7 +6,7 @@ comments: true
 tags: [ "training", "ruby" ]
 ---
 
-{%img1 right /img/tv.jpg%}
+{% asset tv.jpg  class=right %}
 
 I’ve been teaching Ruby (and in particularly, metaprogramming Ruby)
 for almost 7 years now. And, in that time, I’ve gradually found ways
@@ -65,4 +65,3 @@ also keeps me honest.
 So, if you’re interested in how the Ruby object model really works,
 and want to improve your metaprogramming chops, why not <a
 href="http://pragprog.com/screencasts/v-dtrubyom/the-ruby-object-model-and-metaprogramming">check them out</a>?
-
