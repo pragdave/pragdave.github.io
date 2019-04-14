@@ -8,7 +8,8 @@ description: >
   have some fun along the way. Dave Thomas. @pragdave
 
 collections:
-  - now
+  now:
+    output: true
 
 baseurl:   ""
 permalink: /blog/:year/:month/:day/:title.html

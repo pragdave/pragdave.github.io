@@ -25,6 +25,9 @@ body {
   background-color: #f5f5f5;
 }
 
+dd {
+    margin-left: 40px;
+}
 
 
 .main-header {
@@ -205,3 +208,4 @@ p.alert {
 @import "posts";
 @import "speak";
 @import "tags";
+@import "now";

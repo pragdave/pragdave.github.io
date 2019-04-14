@@ -1,0 +1,32 @@
+#now {
+  margin-top: 4rem;
+
+  .now-project {
+    color: #699;
+    font-size: 80%;
+    line-height: 120%;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+  }
+
+  .tools {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+    font-size: 80%;
+    line-height: 120%;
+    color: #669;
+
+    dt {
+      margin-bottom: 0.25rem;
+    }
+    dd {
+      margin-left: 2rem;
+
+      ul {
+        padding: 0px;
+      }
+    }
+  }
+}

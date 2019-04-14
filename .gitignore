@@ -5,3 +5,5 @@
 /_assets/bower/*
 /_site/*
 /_vendor/*
+/.vscode/
+/.jekyll-cache/
