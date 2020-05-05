@@ -1,0 +1,64 @@
+---
+title:    Running RT-11 and Macro-11
+layout:   post
+comments: true
+tags:     programming history
+---
+
+The first five years of my professional career were spent programming
+PDP-11s, mostly in assembler. This turned out to be a good thing: not
+only because I learned a lot about how machines work, but also because I
+was lucky enough to do it on a PDP.
+
+The PDP architecture is a marvel of orthogonal design. The instruction
+set separates what you want to do (the opcode) from what you want to do
+it to (the source and destination operands). The source and destination
+can use eight different addressing modes to reference registers, things
+pointed to by registers, things pointed to by those things, all with
+auto increment and decrement. It even sets status flags (is the result
+zero, or negative, and so on) totally consistently.
+
+So when I signed up to teach Programming Languages at SMU this fall, I
+decided that there's no better place to start. If you want to get a more
+intuitive feel for what your high level languages are doing under the
+covers, code some assembler.
+
+### The Amazing PCJS Project
+
+Jeff Parsons has spent many years working on the [PCJS
+Project](https://www.pcjs.org), which brings emulations of classic
+machines into the browser. He started with basic Intel processors, then
+added others. For me, the coolest is the integration of Paul Nankervis's
+PDP-11 emulator. I can now run code from these machines from the 1970s
+in my browser (and they seem to be faster that I remember the originals
+to be). Nostalgia, baby!
+
+Back then, we used operating systems such as RT-11, RSX-11, and TSX-11
+(the latter a multi-user RT-11).
+
+Anyway, for my class I hacked Jeff Parson's demo page to have an
+emulated VT100 side-by-side with a PDP-11. I added a textarea to the
+page where you could paste text, which then gets sent as if it were
+console input to the emulator. This brought back all kinds of memories,
+because the characters go via a simulated serial connection, and it runs
+_slow_. I had to add delays between each character to prevent buffer
+overrun.
+
+Anyway, here's what it looks like:
+
+<div class="embed-responsive embed-responsive-16by9">
+
+  <iframe
+      src="https://player.vimeo.com/video/345133771?title=0&byline=0&portrait=0"
+      class="embed-responsive-item"
+      width="600" height="338" frameborder="0"
+      webkitallowfullscreen
+      mozallowfullscreen allowfullscreen></iframe>
+
+</div>
+
+<p>&nbsp;</p>
+
+(Oh, I said it emulated a VT-100. It does it by running an emulation of
+the microprocessor that was in the original terminal, and then using
+that to run the original firmware. That's hard core.)
