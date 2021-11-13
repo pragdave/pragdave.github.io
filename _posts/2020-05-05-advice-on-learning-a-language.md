@@ -6,12 +6,12 @@ tags:     programming
 ---
 
 One of my students emailed me privately. She wanted to learn a new
-language over the summer, but she has "always had trouble finding
+language over the summer, but she has _"always had trouble finding
 structure and knowing what to learn when pursuing independent studies
-such as these." I've had this same question a number of times in the
+such as these."_ I've had this same question a number of times in the
 past, so I thought it might be useful to post my response.
 
-This is just my way of thinking about it. I'd be interested to here your
+This is just my way of thinking about it. I'd be interested to hear your
 techniques for picking up new things.
 
 
